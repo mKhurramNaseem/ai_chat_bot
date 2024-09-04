@@ -1,0 +1,18 @@
+export 'package:ai_chat_bot/core/theme/app_color_scheme.dart';
+export 'package:ai_chat_bot/core/theme/app_text_theme.dart';
+export 'package:ai_chat_bot/core/theme/app_theme.dart';
+export 'package:ai_chat_bot/core/util/app_font_sizes.dart';
+export 'package:ai_chat_bot/core/util/app_icons.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/view/create_account_page.dart';export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_title_text.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_base_widget.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_email_field.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_password_field.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_remember_box.dart';
+export 'package:flutter/material.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_already_account_sign_in.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_auth_providers.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_continue_text.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_sign_up_button.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_space_widgets.dart';
+export 'package:font_awesome_flutter/font_awesome_flutter.dart';
+export 'package:flutter_svg/flutter_svg.dart';

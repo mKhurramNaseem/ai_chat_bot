@@ -16,7 +16,7 @@ class LapPasswordField extends SliverToBoxAdapter {
                   ),
                   validator: InputValidations.passwordValidator,
                   obscureText: obscureText,
-                  obscuringCharacter: '●',
+                  obscuringCharacter: AppConstants.obscureCharacter,
                   buildCounter: (context,
                       {required currentLength,
                       required isFocused,

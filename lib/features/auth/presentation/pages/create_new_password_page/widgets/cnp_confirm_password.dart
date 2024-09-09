@@ -1,15 +1,16 @@
 import 'package:ai_chat_bot/core/core.dart';
 
-class CapPasswordField extends SliverToBoxAdapter {
-  static const _hint = 'Password', _padding = 8.0;
-  CapPasswordField({super.key})
-      : super(
-          child: Builder(builder: (context) {
-            var obscureText = true;
+class CnpConfirmPassword extends StatelessWidget {
+  static const _hint = 'Confirm Password', _padding = 8.0;
+  const CnpConfirmPassword({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var obscureText = true;
             return StatefulBuilder(builder: (context, setState) {
-              return CapBaseWidget(
+              return CnpBaseWidget(
                 child: TextFormField(
-                  controller: context.read<PasswordTextEditingController>(),
+                  controller: context.read<ConfirmPasswordTextEditingController>(),
                   style: const TextStyle(
                     color: AppColors.black,
                     fontFamily: AppTextStyleAttributes.titleFontFamily,
@@ -47,6 +48,5 @@ class CapPasswordField extends SliverToBoxAdapter {
                 ),
               );
             });
-          }),
-        );
+  }
 }

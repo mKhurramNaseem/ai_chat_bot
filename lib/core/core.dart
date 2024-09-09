@@ -8,6 +8,7 @@ export 'package:ai_chat_bot/core/util/app_extensions.dart';
 export 'package:ai_chat_bot/core/util/app_icons.dart';
 export 'package:ai_chat_bot/core/util/app_images.dart';
 export 'package:ai_chat_bot/core/validations/input_validations.dart';
+export 'package:ai_chat_bot/features/auth/presentation/bloc/fp_transition_bloc/fp_transition_bloc.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/view/create_account_page.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_already_account_sign_in.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_auth_providers.dart';
@@ -19,7 +20,10 @@ export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page
 export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_sign_up_button.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_space_widgets.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/create_account_page/widgets/cap_title_text.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/create_new_password_page/view/create_new_password_page.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/create_new_password_page/widgets/cnp_base_widget.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/forget_password_page/view/forget_password_page.dart';
+export 'package:ai_chat_bot/features/auth/presentation/pages/forget_password_page/widgets/fp_app_bar.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/forget_password_page/widgets/fp_base_widget.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/forget_password_page/widgets/fp_code_sent_body/fp_code_sent_body.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/forget_password_page/widgets/fp_code_sent_body/fp_code_sent_text.dart';
@@ -40,10 +44,9 @@ export 'package:ai_chat_bot/features/auth/presentation/pages/login_account_page/
 export 'package:ai_chat_bot/features/auth/presentation/pages/login_account_page/widgets/lap_sign_in_button.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/login_account_page/widgets/lap_space_widgets.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/login_account_page/widgets/lap_title_text.dart';
-export 'package:ai_chat_bot/features/auth/presentation/pages/forget_password_page/widgets/fp_app_bar.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 export 'package:provider/provider.dart';
-
+export 'package:flutter/services.dart';

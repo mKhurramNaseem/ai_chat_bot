@@ -15,3 +15,8 @@ extension StrModification on String{
     return displayEmail;
   }
 }
+
+extension DoubleModification on double{
+  bool get isZero => this == 0.0;
+  bool get isGreaterThanZero => this > 0.0;
+}

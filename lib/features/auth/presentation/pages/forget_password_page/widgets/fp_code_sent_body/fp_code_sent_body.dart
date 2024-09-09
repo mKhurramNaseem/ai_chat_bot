@@ -3,9 +3,9 @@ import 'package:ai_chat_bot/features/auth/presentation/pages/forget_password_pag
 import 'package:ai_chat_bot/features/auth/presentation/pages/forget_password_page/widgets/fp_code_sent_body/fp_resend_text.dart';
 
 class FpCodeSentBody extends StatelessWidget {
-  static const _topSpace = 15;
-  static const _textFlex = 10, _textBelowSpace = 29;
-  static const _btnFlex = 33, _belowSpace = 3;
+  static const _topSpace = 22;
+  static const _textFlex = 7, _inputFieldsFlex = 20;
+  static const _btnFlex = 41, _belowSpace = 3;
   const FpCodeSentBody({super.key});
 
   @override
@@ -22,7 +22,7 @@ class FpCodeSentBody extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: _textBelowSpace,
+          flex: _inputFieldsFlex,
           child: FpCodeInputFields(),
         ),
         Expanded(

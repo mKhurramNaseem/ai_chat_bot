@@ -1,3 +1,4 @@
+import 'package:ai_chat_bot/core/comman_widgets/loading_dialog.dart';
 import 'package:ai_chat_bot/core/controllers/otp_controllers.dart';
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/auth/presentation/bloc/fp_transition_bloc/fp_transition_bloc.dart';
@@ -120,18 +121,24 @@ class _ForgetPasswordPageBodyState extends State<ForgetPasswordPageBody> {
           create: (context) => fourthControllerFocus,
         ),
       ],
-      child: Scaffold(
-        appBar: FpAppBar(),
-        body: Center(
-          child: BlocBuilder<FpTransitionBloc, FpTransitionState>(
-              builder: (context, state) {                
-            if (state.current == PageType.sendCodePage) {
-              return const FpSendCodeBody();
-            } else {
-              return const FpCodeSentBody();
-            }            
-          }),
-        ),
+      child: Stack(
+        children: [
+          Scaffold(
+            appBar: FpAppBar(),
+            body: Center(
+              child: BlocBuilder<FpTransitionBloc, FpTransitionState>(
+                builder: (context, state) {
+                  if (state.current == PageType.sendCodePage) {
+                    return const FpSendCodeBody();
+                  } else {
+                    return const FpCodeSentBody();
+                  }
+                },
+              ),
+            ),
+          ),
+          const LoadingDialogWidget(),
+        ],
       ),
     );
   }

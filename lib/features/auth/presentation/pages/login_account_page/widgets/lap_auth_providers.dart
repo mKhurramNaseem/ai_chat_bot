@@ -1,15 +1,15 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/core/util/app_images.dart';
 
-class CapAuthProviders extends SliverToBoxAdapter {
+
+class LapAuthProviders extends SliverToBoxAdapter {
   static const _heightPercent = 0.05, _googleIconPadding = 4.0;
-  CapAuthProviders({super.key})
+  LapAuthProviders({super.key})
       : super(
           child: Builder(builder: (context) {
             final height = MediaQuery.sizeOf(context).height;
             return SizedBox(
               height: height * _heightPercent,
-              child: CapBaseWidget(
+              child: LapBaseWidget(
                 child: Row(
                   children: [
                     const Expanded(

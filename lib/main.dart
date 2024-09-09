@@ -1,4 +1,5 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/core/navigation/route_generator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,12 +11,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: AppConstants.appTitle,
       debugShowCheckedModeBanner: false,
+      // Themes
       themeMode: ThemeMode.light,
       darkTheme: AppTheme.darkTheme,
       theme: AppTheme.lightTheme,
-      home: const CreateAccountPage(),
+      // Routes
+      onGenerateRoute: RouteGenerator.onGenerateRoute,  
+      initialRoute: CreateAccountPage.pageName,    
     );
   }
 }

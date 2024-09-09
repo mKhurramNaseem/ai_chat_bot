@@ -1,13 +1,15 @@
+
+
 import '../../../../../../core/core.dart';
 
-class CapTitleText extends SliverToBoxAdapter {
-  static const _capTitle = 'Create your\nAccount';
-  CapTitleText({super.key})
+class LapTitleText extends SliverToBoxAdapter {
+  static const _capTitle = 'Login to your\nAccount';
+  LapTitleText({super.key})
       : super(
           child: Builder(
             builder: (context) {
               final height = MediaQuery.sizeOf(context).height;
-              return CapBaseWidget(
+              return LapBaseWidget(
                 child: Text(
                   _capTitle,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(

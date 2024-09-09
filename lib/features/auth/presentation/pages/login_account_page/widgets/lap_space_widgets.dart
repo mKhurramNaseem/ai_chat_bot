@@ -1,8 +1,8 @@
 import 'package:ai_chat_bot/core/core.dart';
 
-class CapMaxSpace extends SliverToBoxAdapter {
+class LapMaxSpace extends SliverToBoxAdapter {
   static const _spacePercent = 0.06;
-  CapMaxSpace({super.key})
+  LapMaxSpace({super.key})
       : super(
           child: Builder(
             builder: (context) {
@@ -15,9 +15,9 @@ class CapMaxSpace extends SliverToBoxAdapter {
         );
 }
 
-class CapMedSpace extends SliverToBoxAdapter {
-  static const _spacePercent = 0.04;
-  CapMedSpace({super.key})
+class LapMedSpace extends SliverToBoxAdapter {
+  static const _spacePercent = 0.025;
+  LapMedSpace({super.key})
       : super(
           child: Builder(
             builder: (context) {
@@ -30,9 +30,9 @@ class CapMedSpace extends SliverToBoxAdapter {
         );
 }
 
-class CapMinSpace extends SliverToBoxAdapter {
+class LapMinSpace extends SliverToBoxAdapter {
   static const _spacePercent = 0.01;
-  CapMinSpace({super.key})
+  LapMinSpace({super.key})
       : super(
           child: Builder(
             builder: (context) {

@@ -6,15 +6,20 @@ class CapSignUpButton extends SliverToBoxAdapter {
   CapSignUpButton({super.key})
       : super(
           child: Builder(builder: (context) {
-            final width = MediaQuery.sizeOf(context).width;
+            final height = MediaQuery.sizeOf(context).height;
             return CapBaseWidget(
               child: ElevatedButton(
-                onPressed: () {
-                  log('Clicked');
+                onPressed: () {                  
+                  if(context.read<GlobalKey<FormState>>().currentState?.validate() ?? false){
+                    var emailText = context.read<EmailTextEditingController>().text;
+                  var passwordText = context.read<PasswordTextEditingController>().text;
+                  log('Email $emailText');
+                  log('Password $passwordText');
+                  }                  
                 },
                 style: ButtonStyle(
                   fixedSize: WidgetStatePropertyAll(
-                    Size(0, width * AppSizes.btnSizePercent),
+                    Size(0, height * AppConstants.btnSizePercent),
                   ),
                 ),
                 child: const Text('Sign up'),

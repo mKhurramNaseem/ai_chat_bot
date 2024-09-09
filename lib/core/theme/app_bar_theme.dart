@@ -7,10 +7,11 @@ class MyAppBarTheme {
     scrolledUnderElevation: 0.0,
 
     /// Title text style taken from text theme defined in [app_text_theme]
-    titleTextStyle: AppTextTheme.textTheme.bodyMedium,
+    titleTextStyle: AppTextTheme.textTheme.bodyLarge,
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark,
-      // statusBarColor: AppColors.white,
+      statusBarBrightness: Brightness.light,            
+      statusBarColor: AppColors.white,
     ),
   );
 }

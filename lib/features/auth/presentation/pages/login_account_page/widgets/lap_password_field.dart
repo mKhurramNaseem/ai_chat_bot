@@ -1,13 +1,13 @@
 import 'package:ai_chat_bot/core/core.dart';
 
-class CapPasswordField extends SliverToBoxAdapter {
+class LapPasswordField extends SliverToBoxAdapter {
   static const _hint = 'Password', _padding = 8.0;
-  CapPasswordField({super.key})
+  LapPasswordField({super.key})
       : super(
           child: Builder(builder: (context) {
             var obscureText = true;
             return StatefulBuilder(builder: (context, setState) {
-              return CapBaseWidget(
+              return LapBaseWidget(
                 child: TextFormField(
                   controller: context.read<PasswordTextEditingController>(),
                   style: const TextStyle(

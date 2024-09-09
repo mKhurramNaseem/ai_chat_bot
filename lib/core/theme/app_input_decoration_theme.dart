@@ -1,7 +1,7 @@
 import 'package:ai_chat_bot/core/core.dart';
 
 class AppInputDecorationTheme {
-  static const _borderRadius = 10.0 , _opacity = 0.1;
+  static const _borderRadius = 10.0, _opacity = 0.1;
   static final textFieldInputDecoration = InputDecorationTheme(
     // Borders Decoration
     focusedBorder: OutlineInputBorder(
@@ -11,7 +11,7 @@ class AppInputDecorationTheme {
       borderSide: const BorderSide(
         color: AppColors.cyan,
       ),
-    ),
+    ),    
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(
         _borderRadius,
@@ -28,6 +28,12 @@ class AppInputDecorationTheme {
         color: AppColors.transparent,
       ),
     ),
+    focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+              _borderRadius,
+            ),
+            borderSide: const BorderSide(color: AppColors.red),
+          ),
     outlineBorder: const BorderSide(
       color: AppColors.cyan,
     ),
@@ -58,7 +64,23 @@ class AppInputDecorationTheme {
           fontFamily: AppTextStyleAttributes.titleFontFamily,
         );
       },
-    ),    
+    ),
+    errorStyle: WidgetStateTextStyle.resolveWith(
+      (states) {
+        return const TextStyle(
+          color: AppColors.red,
+          fontFamily: AppTextStyleAttributes.titleFontFamily,
+        );
+      },
+    ),
+    helperStyle: WidgetStateTextStyle.resolveWith(
+      (states) {
+        return const TextStyle(
+          color: AppColors.grey,
+          fontFamily: AppTextStyleAttributes.titleFontFamily,
+        );
+      },
+    ),
     // Fill Color Decoration
     fillColor: WidgetStateColor.resolveWith(
       (states) {
@@ -70,6 +92,5 @@ class AppInputDecorationTheme {
       },
     ),
     filled: true,
-    
   );
 }

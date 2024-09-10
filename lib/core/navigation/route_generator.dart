@@ -1,6 +1,7 @@
 
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_password_page/view/create_new_password_page.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/ended_chats_page/view/ended_chats_page.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/view/home_page.dart';
 import 'package:flutter/cupertino.dart';
 
 
@@ -11,6 +12,9 @@ class RouteGenerator {
       LoginAccountPage.pageName => CupertinoPageRoute(builder: (context) => const LoginAccountPage(),),
       ForgetPasswordPage.pageName => CupertinoPageRoute(builder: (context) => const ForgetPasswordPage(),),
       CreateNewPasswordPage.pageName => CupertinoPageRoute(builder: (context) => const CreateNewPasswordPage(),),
+      WelcomePage.pageName => CupertinoPageRoute(builder: (context) => const WelcomePage(),),
+      HomePage.pageName => CupertinoPageRoute(builder: (context) => const HomePage(),),
+      EndedChatsPage.pageName => CupertinoPageRoute(builder: (context) => const EndedChatsPage(),),
       _ => CupertinoPageRoute(builder: (context) => const AppErrorPage(),),
     };
   }

@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
       darkTheme: AppTheme.darkTheme,
       theme: AppTheme.lightTheme,
       // Routes
-      onGenerateRoute: RouteGenerator.onGenerateRoute,  
-      initialRoute: CreateAccountPage.pageName,    
+      onGenerateRoute: RouteGenerator.onGenerateRoute,
+      initialRoute: WelcomePage.pageName,
     );
   }
 }

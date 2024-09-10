@@ -4,13 +4,15 @@ class CnpAppBar extends AppBar {
   static const _title = 'Create New Password';
   CnpAppBar({super.key})
       : super(
-          title: Builder(builder: (context) {
-            return Text(
-              _title,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: AppColors.black,
-                  ),
-            );
-          }),
+          title: Builder(
+            builder: (context) {
+              return Text(
+                _title,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: AppColors.black,
+                    ),
+              );
+            },
+          ),
         );
 }

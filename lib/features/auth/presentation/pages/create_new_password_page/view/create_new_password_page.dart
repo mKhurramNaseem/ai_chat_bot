@@ -60,22 +60,34 @@ class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
     }
     return MultiProvider(
       providers: [
-        ListenableProvider<PasswordTextEditingController>(create: (context) => passwordTextEditingController,),
-        ListenableProvider<ConfirmPasswordTextEditingController>(create: (context) => confirmPasswordTextEditingController,),
-        Provider<GlobalKey<FormState>>(create: (context) => formKey,),
-      ],
-      child: Scaffold(
-        appBar: CnpAppBar(),
-        body: Center(
-          child: SingleChildScrollView(
-            controller: scrollController,
-            child: SizedBox(
-                height: MediaQuery.sizeOf(context).height -
-                    kToolbarHeight -
-                    MediaQuery.paddingOf(context).top,
-                child: const CreateNewPasswordPageBody()),
-          ),
+        ListenableProvider<PasswordTextEditingController>(
+          create: (context) => passwordTextEditingController,
         ),
+        ListenableProvider<ConfirmPasswordTextEditingController>(
+          create: (context) => confirmPasswordTextEditingController,
+        ),
+        Provider<GlobalKey<FormState>>(
+          create: (context) => formKey,
+        ),
+      ],
+      child: Stack(
+        children: [
+          Scaffold(
+            appBar: CnpAppBar(),
+            body: Center(
+              child: SingleChildScrollView(
+                controller: scrollController,
+                child: SizedBox(
+                  height: MediaQuery.sizeOf(context).height -
+                      kToolbarHeight -
+                      MediaQuery.paddingOf(context).top,
+                  child: const CreateNewPasswordPageBody(),
+                ),
+              ),
+            ),
+          ),
+          const LoadingDialogWidget(),
+        ],
       ),
     );
   }

@@ -9,10 +9,7 @@ class CapEmailField extends SliverToBoxAdapter {
               return CapBaseWidget(
                 child: TextFormField(
                   controller: context.read<EmailTextEditingController>(),
-                  style: const TextStyle(
-                    color: AppColors.black,
-                    fontFamily: AppTextStyleAttributes.titleFontFamily,
-                  ),                  
+                  style: Theme.of(context).textTheme.bodyLarge,               
                   validator: InputValidations.emailValidatior,
                   decoration: const InputDecoration(
                     hintText: _hint,                    

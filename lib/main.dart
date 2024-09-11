@@ -1,5 +1,4 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/core/navigation/route_generator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,12 +13,12 @@ class MyApp extends StatelessWidget {
       title: AppConstants.appTitle,
       debugShowCheckedModeBanner: false,
       // Themes
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
       darkTheme: AppTheme.darkTheme,
       theme: AppTheme.lightTheme,
       // Routes
       onGenerateRoute: RouteGenerator.onGenerateRoute,
-      initialRoute: WelcomePage.pageName,
+      initialRoute: CreateAccountPage.pageName,
     );
   }
 }

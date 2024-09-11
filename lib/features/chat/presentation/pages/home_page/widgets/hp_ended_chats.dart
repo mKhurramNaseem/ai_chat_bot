@@ -19,7 +19,6 @@ class HpEndedChats extends StatelessWidget {
               Text(
                 _activeText,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppColors.black,
                       fontSize: constraints.maxHeight * _fontSizePercent,
                     ),
               ),

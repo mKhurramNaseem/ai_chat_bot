@@ -12,9 +12,7 @@ class LapNoAccountSignUp extends SliverToBoxAdapter {
                 children: [
                   Text(
                     _alreadyAccountText,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: AppColors.grey,
-                        ),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   GestureDetector(
                     onTap: () {

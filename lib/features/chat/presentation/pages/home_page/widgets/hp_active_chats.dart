@@ -1,5 +1,4 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_base_widget.dart';
 
 class HpActiveChats extends StatelessWidget {
   static const _activeText = 'Active Chats';
@@ -14,7 +13,6 @@ class HpActiveChats extends StatelessWidget {
           return Text(
             _activeText,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppColors.black,
                   fontSize: constraints.maxHeight * _fontSizePercent,
                 ),
           );

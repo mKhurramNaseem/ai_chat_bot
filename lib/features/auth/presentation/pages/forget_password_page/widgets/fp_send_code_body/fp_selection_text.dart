@@ -12,7 +12,7 @@ class FpSelectionText extends StatelessWidget {
         _text,
         textAlign: TextAlign.justify,
         maxLines: null,
-        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w600,
             ),
       ),

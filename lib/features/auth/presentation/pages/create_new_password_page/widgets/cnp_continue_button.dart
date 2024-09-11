@@ -14,9 +14,7 @@ class CnpContinueButton extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               onPressed: () {
-                if(context.read<GlobalKey<FormState>>().currentState?.validate() ?? false){
-                  
-                }
+                Navigator.of(context).pushNamed(WelcomePage.pageName);
               },
               style: ButtonStyle(
                 fixedSize: WidgetStatePropertyAll(

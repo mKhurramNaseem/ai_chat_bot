@@ -15,7 +15,7 @@ class EcpDeleteDialog extends StatelessWidget {
         height: MediaQuery.sizeOf(context).height * 0.6,
         width: MediaQuery.sizeOf(context).width * 0.8,
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
@@ -41,22 +41,27 @@ class EcpDeleteDialog extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 8,
-                    child: Text(
-                      'Delete Chat?',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: AppColors.black,
-                          ),
-                    ),
+                    child: LayoutBuilder(builder: (context, constraints) {
+                      return Text(
+                        'Delete Chat?',
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  fontSize: constraints.maxHeight * 0.5,
+                                ),
+                      );
+                    }),
                   ),
                   Expanded(
                     flex: 13,
-                    child: Text(
-                      'Are you sure you want to delete this ended chat?',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: AppColors.grey,
-                          ),
-                    ),
+                    child: LayoutBuilder(builder: (context, constraints) {
+                      return Text(
+                        'Are you sure you want to delete this ended chat?',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              fontSize: constraints.maxHeight * 0.25,
+                            ),
+                      );
+                    }),
                   ),
                   Expanded(
                     flex: 11,
@@ -75,23 +80,26 @@ class EcpDeleteDialog extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 11,
-                    child: LayoutBuilder(builder: (context, constraints) {
-                      return SizedBox(
-                        width: constraints.maxWidth,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: const ButtonStyle(
-                            backgroundColor: WidgetStatePropertyAll(
-                              AppColors.white,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return SizedBox(
+                          width: constraints.maxWidth,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStatePropertyAll(
+                                Theme.of(context).colorScheme.inverseSurface,
+                              ),
+                              foregroundColor: WidgetStatePropertyAll(
+                                Theme.of(context).colorScheme.onInverseSurface,
+                              ),
+                              elevation: const WidgetStatePropertyAll(0.0),
                             ),
-                            foregroundColor: WidgetStatePropertyAll(
-                              AppColors.cyan,
-                            ),
+                            child: const Text('Cancel'),
                           ),
-                          child: const Text('Cancel'),
-                        ),
-                      );
-                    }),
+                        );
+                      },
+                    ),
                   ),
                   const Spacer(
                     flex: 6,

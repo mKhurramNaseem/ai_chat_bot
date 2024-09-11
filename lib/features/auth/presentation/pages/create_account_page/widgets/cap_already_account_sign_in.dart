@@ -1,6 +1,4 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/auth/presentation/pages/login_account_page/view/login_account_page.dart';
-import 'package:flutter/cupertino.dart';
 
 class CapAlreadyAccountSignIn extends SliverToBoxAdapter {
   static const _alreadyAccountText = 'Already have an account ',
@@ -14,15 +12,12 @@ class CapAlreadyAccountSignIn extends SliverToBoxAdapter {
                 children: [
                   Text(
                     _alreadyAccountText,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: AppColors.grey,
-                        ),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed(
-                        LoginAccountPage.pageName
-                      );
+                      Navigator.of(context)
+                          .pushNamed(LoginAccountPage.pageName);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(AppConstants.iconPadding),

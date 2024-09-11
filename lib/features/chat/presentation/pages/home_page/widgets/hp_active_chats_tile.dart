@@ -1,5 +1,4 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_base_widget.dart';
 
 class HpActiveChatsTile extends StatelessWidget {
   static const _startSpace = 5,
@@ -12,38 +11,47 @@ class HpActiveChatsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HpBaseWidget(
-      child: Row(
-        children: [
-          const Spacer(
-            flex: _startSpace,
-          ),
-          Expanded(
-            flex: _imageFlex,
-            child: Image.asset(
-              AppImages.simpleImage,
+      child: Container(
+        decoration: ShapeDecoration(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(30.0),
+              ),
             ),
-          ),
-          const Spacer(
-            flex: _middleSpace,
-          ),
-          const Expanded(
-            flex: _tileTextsFlex,
-            child: HpActiveChatsTileTexts(),
-          ),
-          const Spacer(
-            flex: _middleSpace,
-          ),
-          const Expanded(
-            flex: _iconFlex,
-            child: Icon(
-              Icons.chat_rounded,
-              color: AppColors.cyan,
+            color: Theme.of(context).colorScheme.onPrimaryContainer),
+        child: Row(
+          children: [
+            const Spacer(
+              flex: _startSpace,
             ),
-          ),
-          const Spacer(
-            flex: _startSpace,
-          ),
-        ],
+            Expanded(
+              flex: _imageFlex,
+              child: Image.asset(
+                AppImages.simpleImage,
+              ),
+            ),
+            const Spacer(
+              flex: _middleSpace,
+            ),
+            const Expanded(
+              flex: _tileTextsFlex,
+              child: HpActiveChatsTileTexts(),
+            ),
+            const Spacer(
+              flex: _middleSpace,
+            ),
+            const Expanded(
+              flex: _iconFlex,
+              child: Icon(
+                Icons.chat_rounded,
+                color: AppColors.cyan,
+              ),
+            ),
+            const Spacer(
+              flex: _startSpace,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -72,7 +80,6 @@ class HpActiveChatsTileTexts extends StatelessWidget {
                 child: Text(
                   _title,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: AppColors.black,
                         fontSize: constraints.maxHeight * _titleFontSize,
                       ),
                 ),
@@ -93,8 +100,7 @@ class HpActiveChatsTileTexts extends StatelessWidget {
                   _message,
                   maxLines: _maxLines,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColors.grey,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontSize: constraints.maxHeight * _messageFontSize,
                       ),
                 ),

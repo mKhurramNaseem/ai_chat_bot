@@ -8,8 +8,7 @@ class EcpAppBar extends AppBar {
               'Ended Chats',
               style: Theme.of(context)
                   .textTheme
-                  .bodyLarge
-                  ?.copyWith(color: AppColors.black),
+                  .bodyLarge                  
             );
           }),
         );

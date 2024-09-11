@@ -56,3 +56,5 @@ export 'package:ai_chat_bot/features/chat/presentation/pages/welcome_page/view/w
 export 'package:ai_chat_bot/features/auth/presentation/pages/forget_password_page/widgets/fp_send_code_body/fp_send_code_body.dart';
 export 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_base_widget.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
+export 'package:ai_chat_bot/core/navigation/route_generator.dart';
+export 'package:ai_chat_bot/features/chat/presentation/pages/home_page/view/home_page.dart';

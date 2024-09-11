@@ -11,10 +11,7 @@ class CnpPassword extends StatelessWidget {
       return CnpBaseWidget(
         child: TextFormField(
           controller: context.read<PasswordTextEditingController>(),
-          style: const TextStyle(
-            color: AppColors.black,
-            fontFamily: AppTextStyleAttributes.titleFontFamily,
-          ),
+          style: Theme.of(context).textTheme.bodyLarge,
           validator: InputValidations.passwordValidator,
           obscureText: obscureText,
           obscuringCharacter: AppConstants.obscureCharacter,

@@ -21,14 +21,18 @@ class EcpListTile extends StatelessWidget {
         onTap: () {
           showDialog(
             context: context,
-            barrierColor: Colors.blueGrey.shade900.withOpacity(0.8),
-            barrierDismissible: true,            
             builder: (context) => const EcpDeleteDialog(),
           );
         },
-        child: SizedBox(
-          height: height * _heightPercent,
-          child: EcpBaseWidget(
+        child: EcpBaseWidget(
+          child: Container(
+            height: height * _heightPercent,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(30.0),
+              ),
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
+            ),
             child: Row(
               children: [
                 const Spacer(
@@ -82,7 +86,6 @@ class EcpEndedChatsTileTexts extends StatelessWidget {
                 child: Text(
                   _title,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: AppColors.black,
                         fontSize: constraints.maxHeight * _titleFontSize,
                       ),
                 ),

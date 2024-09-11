@@ -86,7 +86,7 @@ class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
               ),
             ),
           ),
-          const LoadingDialogWidget(),
+          // const LoadingDialogWidget(),
         ],
       ),
     );
@@ -116,6 +116,9 @@ class CreateNewPasswordPageBody extends StatelessWidget {
             flex: 10,
             child: CnpPassword(),
           ),
+          Spacer(
+            flex: 1,
+          ),
           Expanded(
             flex: 10,
             child: CnpConfirmPassword(),
@@ -125,7 +128,7 @@ class CreateNewPasswordPageBody extends StatelessWidget {
             child: CnpRememberBox(),
           ),
           Expanded(
-            flex: 17,
+            flex: 16,
             child: CnpContinueButton(),
           ),
           Spacer(

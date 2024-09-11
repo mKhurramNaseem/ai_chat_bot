@@ -10,9 +10,7 @@ class WpBelowText extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: Text(
         _text,
-        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppColors.grey,
-            ),
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
       ),
     );
   }

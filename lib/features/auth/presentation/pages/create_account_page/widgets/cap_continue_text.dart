@@ -7,12 +7,24 @@ class CapContinueText extends SliverToBoxAdapter {
           child: Builder(
             builder: (context) {
               return CapBaseWidget(
-                child: Text(
-                  _text,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: AppColors.grey,
+                child: Row(
+                  children: [
+                    const Expanded(
+                      child: Divider(
+                        endIndent: 15,
                       ),
+                    ),
+                    Text(
+                      _text,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    const Expanded(
+                      child: Divider(
+                        indent: 15,
+                      ),
+                    ),
+                  ],
                 ),
               );
             },

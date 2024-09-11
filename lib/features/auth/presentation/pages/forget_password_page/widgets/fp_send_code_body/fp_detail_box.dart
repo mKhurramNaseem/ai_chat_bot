@@ -1,5 +1,4 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/core/util/app_extensions.dart';
 
 class FpDetailBox extends StatelessWidget {
   static const _heightPercent = 0.9, _borderRadius = 35.0, _borderWidth = 3.0;
@@ -24,6 +23,7 @@ class FpDetailBox extends StatelessWidget {
                 color: AppColors.cyan,
                 width: _borderWidth,
               ),
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
             child: FpDetailBoxBody(
               maxHeight: constraints.maxHeight,
@@ -79,16 +79,12 @@ class FpDetailBoxBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  _viaEmailText,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: AppColors.grey),
-                ),
+                Text(_viaEmailText,
+                    style: Theme.of(context).textTheme.bodyMedium),
                 Text(
                   email.obscureEmail,
                   overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ],
             ),

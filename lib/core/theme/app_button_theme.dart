@@ -26,4 +26,28 @@ class AppButtonTheme {
       ),
     ),
   );
+  static final darkButtonTheme = ElevatedButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: const WidgetStatePropertyAll(AppColors.cyan),
+      foregroundColor: const WidgetStatePropertyAll(AppColors.white),
+      elevation: WidgetStateProperty.resolveWith(
+        (states) {
+          if (states.contains(WidgetState.pressed)) {
+            return _zeroElevation;
+          }
+          return _elevation;
+        },
+      ),
+      shadowColor: WidgetStatePropertyAll(
+        AppColors.cyan.withOpacity(_opacity),
+      ),
+      textStyle: const WidgetStatePropertyAll(
+        TextStyle(
+          fontFamily: AppTextStyleAttributes.titleFontFamily,
+          fontWeight: AppTextStyleAttributes.titleFontWeight,
+          letterSpacing: AppTextStyleAttributes.titleLetterSpacing,
+        ),
+      ),
+    ),
+  );
 }

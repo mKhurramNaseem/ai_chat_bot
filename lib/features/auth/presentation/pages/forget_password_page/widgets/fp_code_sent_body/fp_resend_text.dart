@@ -13,20 +13,20 @@ class FpResendText extends StatelessWidget {
         text: TextSpan(children: [
           TextSpan(
             text: _text,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
           ),
           TextSpan(
             text: _time.toString(),
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: AppColors.cyan,
                 ),
           ),
           TextSpan(
             text: _seconds,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
           ),

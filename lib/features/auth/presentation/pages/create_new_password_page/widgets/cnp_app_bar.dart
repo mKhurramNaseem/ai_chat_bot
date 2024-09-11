@@ -8,9 +8,7 @@ class CnpAppBar extends AppBar {
             builder: (context) {
               return Text(
                 _title,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppColors.black,
-                    ),
+                style: Theme.of(context).textTheme.bodyLarge,
               );
             },
           ),

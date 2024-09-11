@@ -11,7 +11,6 @@ class WpMainText extends StatelessWidget {
         return Text(
           _text,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: AppColors.black,
                 fontSize: constraints.maxHeight * _fontSizePercent,
               ),
         );

@@ -10,10 +10,7 @@ class CapPasswordField extends SliverToBoxAdapter {
               return CapBaseWidget(
                 child: TextFormField(
                   controller: context.read<PasswordTextEditingController>(),
-                  style: const TextStyle(
-                    color: AppColors.black,
-                    fontFamily: AppTextStyleAttributes.titleFontFamily,
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge,
                   validator: InputValidations.passwordValidator,
                   obscureText: obscureText,
                   obscuringCharacter: AppConstants.obscureCharacter,

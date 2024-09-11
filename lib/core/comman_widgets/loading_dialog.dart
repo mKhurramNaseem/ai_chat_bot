@@ -1,6 +1,5 @@
 import 'package:ai_chat_bot/core/core.dart';
 
-
 class LoadingDialogWidget extends StatelessWidget {
   const LoadingDialogWidget({super.key});
 
@@ -12,16 +11,16 @@ class LoadingDialogWidget extends StatelessWidget {
         SizedBox(
           width: MediaQuery.sizeOf(context).width,
           height: MediaQuery.sizeOf(context).height,
-          child: ColoredBox(
-            color: Colors.blueGrey.shade900.withOpacity(0.8),
+          child: Container(
+            color: Theme.of(context).dialogTheme.barrierColor,
           ),
         ),
         Container(
           height: MediaQuery.sizeOf(context).height * 0.55,
           width: MediaQuery.sizeOf(context).width * 0.8,
           decoration: BoxDecoration(
-            color: AppColors.white,
             borderRadius: BorderRadius.circular(30),
+            color: Theme.of(context).dialogTheme.backgroundColor,
           ),
           child: Row(
             children: [
@@ -48,9 +47,7 @@ class LoadingDialogWidget extends StatelessWidget {
                       flex: 10,
                       child: Text(
                         'Congratulations!',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: AppColors.black,
-                            ),
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
                     Expanded(
@@ -58,7 +55,7 @@ class LoadingDialogWidget extends StatelessWidget {
                       child: Text(
                         'Your account is ready to use. You will be redirected to the Home page in a few seconds.',
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.labelLarge,
                       ),
                     ),
                     const Expanded(

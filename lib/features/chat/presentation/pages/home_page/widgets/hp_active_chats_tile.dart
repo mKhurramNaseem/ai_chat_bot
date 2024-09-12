@@ -60,7 +60,7 @@ class HpActiveChatsTile extends StatelessWidget {
 class HpActiveChatsTileTexts extends StatelessWidget {
   static const _titleTextFlex = 47, _spacer = 3, _messageFlex = 50;
   static const _titleFontSize = 0.32, _messageFontSize = 0.22;
-  static const _title = 'Bobo',
+  static const
       _message = 'Hello Khurram! I\'m Bobo How are you today??';
   static const _maxLines = 2;
   const HpActiveChatsTileTexts({super.key});
@@ -78,7 +78,7 @@ class HpActiveChatsTileTexts extends StatelessWidget {
               return Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  _title,
+                  AppConstants.botName,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontSize: constraints.maxHeight * _titleFontSize,
                       ),

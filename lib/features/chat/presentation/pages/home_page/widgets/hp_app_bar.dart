@@ -6,7 +6,7 @@ class HpAppBar extends AppBar{
     title: Builder(
       builder: (context) {
         return Text(
-              'Bobo',
+              AppConstants.botName,
               style: Theme.of(context).textTheme.bodyLarge,
             );
       }

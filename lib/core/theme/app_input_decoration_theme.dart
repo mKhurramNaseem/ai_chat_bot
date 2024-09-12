@@ -1,7 +1,7 @@
 import 'package:ai_chat_bot/core/core.dart';
 
 class AppInputDecorationTheme {
-  static const _borderRadius = 10.0, _opacity = 0.1 , _darkOpacity = 0.15;
+  static const _borderRadius = 10.0;
   static final textFieldInputDecoration = InputDecorationTheme(
     // Borders Decoration
     focusedBorder: OutlineInputBorder(
@@ -85,7 +85,7 @@ class AppInputDecorationTheme {
     fillColor: WidgetStateColor.resolveWith(
       (states) {
         if (states.contains(WidgetState.focused)) {
-          return AppColors.cyan.withOpacity(_opacity);
+          return AppColors.lightInputFieldFocusBackgroundColor;
         } else {
           return AppColors.transparent;
         }
@@ -94,7 +94,7 @@ class AppInputDecorationTheme {
     filled: true,
   );
 
-  static final darkTextFieldInputDecoration = InputDecorationTheme(    
+  static final darkTextFieldInputDecoration = InputDecorationTheme(
     // Borders Decoration
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(
@@ -108,15 +108,15 @@ class AppInputDecorationTheme {
       borderRadius: BorderRadius.circular(
         _borderRadius,
       ),
-      borderSide: BorderSide(
+      borderSide: const BorderSide(
         color: AppColors.tileBackgroundColor,
-      ),      
+      ),
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(
         _borderRadius,
       ),
-      borderSide: BorderSide(
+      borderSide: const BorderSide(
         color: AppColors.tileBackgroundColor,
       ),
     ),
@@ -177,12 +177,12 @@ class AppInputDecorationTheme {
     fillColor: WidgetStateColor.resolveWith(
       (states) {
         if (states.contains(WidgetState.focused)) {
-          return AppColors.cyan.withOpacity(_darkOpacity);
+          return AppColors.darkInputFieldFocusBackgroundColor;
         } else {
           return AppColors.tileBackgroundColor;
         }
       },
-    ),    
-    filled: true,    
+    ),
+    filled: true,
   );
 }

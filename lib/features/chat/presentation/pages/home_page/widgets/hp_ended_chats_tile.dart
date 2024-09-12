@@ -49,7 +49,7 @@ class HpEndedChatsTile extends StatelessWidget {
 class HpEndedChatsTileTexts extends StatelessWidget {
   static const _titleTextFlex = 47, _spacer = 3, _messageFlex = 50;
   static const _titleFontSize = 0.32, _messageFontSize = 0.22;
-  static const _title = 'Bobo-Dec 19, 2024',
+  static const _title = '${AppConstants.botName}-Dec 19, 2024',
       _message = 'Hello Khurram! I\'m Bobo How are you today??';
   static const _maxLines = 2;
   const HpEndedChatsTileTexts({super.key});

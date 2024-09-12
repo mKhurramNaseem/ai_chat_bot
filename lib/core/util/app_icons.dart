@@ -8,4 +8,6 @@ class AppIcons {
   static const Icon hideIcon = Icon(Icons.visibility_off_rounded);
   static const Icon activityIcon = Icon(FontAwesomeIcons.chartLine);
   static const Icon settingsIcon = Icon(Icons.settings);
+  static const Icon searchIcon = Icon(Icons.search);
+  static const Icon moreIcon = Icon(Icons.more_horiz_sharp);
 }

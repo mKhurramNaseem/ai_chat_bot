@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 // Colors
 class AppColors {
   static const cyan = Color(0xFF00cdbd);
@@ -17,6 +16,9 @@ class AppColors {
   static const darkButtonColor = Color(0xff35383f);
   static const lightButtonForegroundColor = Colors.cyan;
   static const darkButtonForegroundColor = Colors.white;
+  static const chatBoxColor = Color(0xff35383f);
+  static const darkInputFieldFocusBackgroundColor = Color(0xff16282c);
+  static const lightInputFieldFocusBackgroundColor = Color(0xffebfbfa);
 }
 
 // Color Schemes
@@ -26,11 +28,17 @@ class AppColorScheme {
     onPrimaryContainer: AppColors.white,
     inverseSurface: AppColors.lightButtonColor,
     onInverseSurface: AppColors.lightButtonForegroundColor,
+    // surface: AppColors.white,
+    // onSurface: AppColors.white,
+    onSecondaryContainer: AppColors.white,
   );
   static const darkColorScheme = ColorScheme.dark(
     primary: AppColors.cyan,
     onPrimaryContainer: AppColors.tileBackgroundColor,
     inverseSurface: AppColors.darkButtonColor,
-    onInverseSurface: AppColors.darkButtonForegroundColor,
+    onInverseSurface: AppColors.darkButtonForegroundColor,    
+    // surface: AppColors.darkButtonColor,
+    // onSurface: AppColors.darkButtonColor,
+    onSecondaryContainer: AppColors.darkButtonColor,
   );
 }

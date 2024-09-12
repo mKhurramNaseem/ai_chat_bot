@@ -1,8 +1,7 @@
 
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/ended_chats_page/view/ended_chats_page.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/view/home_page.dart';
 import 'package:flutter/cupertino.dart';
+
 
 
 class RouteGenerator {
@@ -15,6 +14,7 @@ class RouteGenerator {
       WelcomePage.pageName => CupertinoPageRoute(builder: (context) => const WelcomePage(),),
       HomePage.pageName => CupertinoPageRoute(builder: (context) => const HomePage(),),
       EndedChatsPage.pageName => CupertinoPageRoute(builder: (context) => const EndedChatsPage(),),
+      ChatPage.pageName => CupertinoPageRoute(builder: (context) => const ChatPage(),),
       _ => CupertinoPageRoute(builder: (context) => const AppErrorPage(),),
     };
   }

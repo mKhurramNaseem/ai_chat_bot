@@ -51,14 +51,16 @@ class AppTheme {
     checkboxTheme: AppCheckBoxTheme.darkCheckBoxTheme,
     // Dialog Theme
     dialogTheme: DialogTheme(
-      barrierColor: AppColors.darkBarrierColor,   
-      backgroundColor: AppColors.darkDialogColor   
-    ),
+        barrierColor: AppColors.darkBarrierColor,
+        backgroundColor: AppColors.darkDialogColor),
     // App Bar Theme
     appBarTheme: MyAppBarTheme.darkTopBarTheme,
     // Divider Theme
     dividerTheme: const DividerThemeData(
       color: AppColors.grey,
     ),
+    popupMenuTheme: const PopupMenuThemeData(
+      color: AppColors.tileBackgroundColor,
+    ),    
   );
 }

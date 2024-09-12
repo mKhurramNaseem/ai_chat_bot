@@ -1,7 +1,7 @@
 import 'package:ai_chat_bot/core/core.dart';
 
 class WpSubText extends StatelessWidget {
-  static const _text = 'Lets Have Fun with Bobo!';
+  static const _text = 'Lets Have Fun with ${AppConstants.botName}!';
   const WpSubText({super.key});
 
   @override

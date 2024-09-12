@@ -1,8 +1,11 @@
+// import 'dart:developer';
+import 'dart:math' as math;
+
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/ended_chats_page/widgets/ecp_base_widgets.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/ended_chats_page/widgets/ecp_delete_dialog.dart';
 
-class EcpListTile extends StatelessWidget {
+class EcpListTile extends StatefulWidget {
   static const _startSpace = 5,
       _middleSpace = 3,
       _tileTextsFlex = 57,
@@ -11,12 +14,26 @@ class EcpListTile extends StatelessWidget {
   const EcpListTile({super.key});
 
   @override
+  State<EcpListTile> createState() => _EcpListTileState();
+}
+
+class _EcpListTileState extends State<EcpListTile> {
+  var distance = 0.0;
+  var direction = 0.0;
+  var isDecreasing = true;
+  var degree = 0.0;
+
+
+  double radianToDegree(double radian){
+    return radian * 180 / math.pi;
+  }
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height -
         kToolbarHeight -
         MediaQuery.paddingOf(context).top;
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: height * _padding),
+      padding: EdgeInsets.symmetric(vertical: height * EcpListTile._padding),
       child: GestureDetector(
         onTap: () {
           showDialog(
@@ -24,39 +41,65 @@ class EcpListTile extends StatelessWidget {
             builder: (context) => const EcpDeleteDialog(),
           );
         },
+        onHorizontalDragStart: (details) {
+          
+        },
+        onHorizontalDragUpdate: (details) {
+          // setState(() {            
+          //   distance = details.localPosition.distance;
+          //   var previousDegree = degree;
+          //   degree = radianToDegree(details.localPosition.direction);
+          //   log(degree.toString());
+          //   isDecreasing = degree < previousDegree;
+          // });
+        },
         child: EcpBaseWidget(
-          child: Container(
-            height: height * _heightPercent,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(30.0),
+          child: LayoutBuilder(builder: (context, constraints) {
+            return SizedBox(
+              height: height * EcpListTile._heightPercent,
+              width: constraints.maxWidth,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                // child: UnconstrainedBox(
+                  child: Builder(builder: (context) {
+                    return Container(
+                      // height: height * EcpListTile._heightPercent,
+                      // width: isDecreasing ? constraints.maxWidth - distance : constraints.maxWidth + distance,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      child: Row(
+                        children: [
+                          const Spacer(
+                            flex: EcpListTile._startSpace,
+                          ),
+                          Expanded(
+                            flex: EcpListTile._imageFlex,
+                            child: Image.asset(
+                              AppImages.simpleImage,
+                            ),
+                          ),
+                          const Spacer(
+                            flex: EcpListTile._middleSpace,
+                          ),
+                          const Expanded(
+                            flex: EcpListTile._tileTextsFlex,
+                            child: EcpEndedChatsTileTexts(),
+                          ),
+                          const Spacer(
+                            flex: EcpListTile._startSpace,
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                // ),
               ),
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
-            ),
-            child: Row(
-              children: [
-                const Spacer(
-                  flex: _startSpace,
-                ),
-                Expanded(
-                  flex: _imageFlex,
-                  child: Image.asset(
-                    AppImages.simpleImage,
-                  ),
-                ),
-                const Spacer(
-                  flex: _middleSpace,
-                ),
-                const Expanded(
-                  flex: _tileTextsFlex,
-                  child: EcpEndedChatsTileTexts(),
-                ),
-                const Spacer(
-                  flex: _startSpace,
-                ),
-              ],
-            ),
-          ),
+            );
+          }),
         ),
       ),
     );
@@ -66,7 +109,7 @@ class EcpListTile extends StatelessWidget {
 class EcpEndedChatsTileTexts extends StatelessWidget {
   static const _titleTextFlex = 47, _spacer = 3, _messageFlex = 50;
   static const _titleFontSize = 0.32, _messageFontSize = 0.22;
-  static const _title = 'Bobo-Dec 19, 2024',
+  static const _title = '${AppConstants.botName}-Dec 19, 2024',
       _message = 'Hello Khurram! I\'m Bobo How are you today??';
   static const _maxLines = 2;
   const EcpEndedChatsTileTexts({super.key});

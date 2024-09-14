@@ -1,4 +1,5 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/activity_page/view/activity_page.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,5 +1,4 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/ended_chats_page/view/ended_chats_page.dart';
 
 class HpEndedChats extends StatelessWidget {
   static const _activeText = 'Ended Chats';

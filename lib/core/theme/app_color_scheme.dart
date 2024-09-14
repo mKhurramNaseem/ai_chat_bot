@@ -30,7 +30,10 @@ class AppColorScheme {
     onInverseSurface: AppColors.lightButtonForegroundColor,
     // surface: AppColors.white,
     // onSurface: AppColors.white,
-    onSecondaryContainer: AppColors.white,
+    onSecondaryContainer: AppColors.white,    
+    onTertiaryFixed: Color(0xffcff6f3),
+                   
+    onTertiaryFixedVariant:  Color(0xfff6fcfc),
   );
   static const darkColorScheme = ColorScheme.dark(
     primary: AppColors.cyan,
@@ -40,5 +43,7 @@ class AppColorScheme {
     // surface: AppColors.darkButtonColor,
     // onSurface: AppColors.darkButtonColor,
     onSecondaryContainer: AppColors.darkButtonColor,
+    onTertiaryFixed: Color(0xff143c3e),
+    onTertiaryFixedVariant: Color(0xff191e24),                    
   );
 }

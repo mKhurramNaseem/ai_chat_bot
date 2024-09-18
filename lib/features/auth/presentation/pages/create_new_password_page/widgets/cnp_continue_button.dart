@@ -14,7 +14,7 @@ class CnpContinueButton extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(WelcomePage.pageName);
+                Navigator.of(context).popUntil((route) => route.settings.name == LoginAccountPage.pageName,);
               },
               style: ButtonStyle(
                 fixedSize: WidgetStatePropertyAll(

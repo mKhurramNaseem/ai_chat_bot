@@ -1,5 +1,4 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/auth/presentation/bloc/fp_transition_bloc/fp_transition_bloc.dart';
 
 class FpContinueButton extends StatelessWidget {
   static const _text = 'Continue';

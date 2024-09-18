@@ -1,5 +1,4 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/welcome_page/widgets/wp_base_widget.dart';
 
 class WpImage extends StatelessWidget {
   static const _space = 12, _flex = 76;

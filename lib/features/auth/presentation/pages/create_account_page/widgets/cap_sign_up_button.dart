@@ -1,6 +1,6 @@
-import 'dart:developer';
 
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_pin_page/view/create_new_pin_page.dart';
 
 class CapSignUpButton extends SliverToBoxAdapter {
   CapSignUpButton({super.key})
@@ -10,12 +10,9 @@ class CapSignUpButton extends SliverToBoxAdapter {
             return CapBaseWidget(
               child: ElevatedButton(
                 onPressed: () {                  
-                  if(context.read<GlobalKey<FormState>>().currentState?.validate() ?? false){
-                    var emailText = context.read<EmailTextEditingController>().text;
-                  var passwordText = context.read<PasswordTextEditingController>().text;
-                  log('Email $emailText');
-                  log('Password $passwordText');
-                  }                  
+                  // if(context.read<GlobalKey<FormState>>().currentState?.validate() ?? false){                  
+                  // }                  
+                  Navigator.of(context).pushNamed(CreateNewPinPage.pageName);
                 },
                 style: ButtonStyle(
                   fixedSize: WidgetStatePropertyAll(

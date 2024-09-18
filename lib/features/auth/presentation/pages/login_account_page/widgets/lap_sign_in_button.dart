@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ai_chat_bot/core/core.dart';
 
 class LapSignInButton extends SliverToBoxAdapter {
@@ -10,18 +8,14 @@ class LapSignInButton extends SliverToBoxAdapter {
             return LapBaseWidget(
               child: ElevatedButton(
                 onPressed: () {
-                  if (context
-                          .read<GlobalKey<FormState>>()
-                          .currentState
-                          ?.validate() ??
-                      false) {
-                    var emailText =
-                        context.read<EmailTextEditingController>().text;
-                    var passwordText =
-                        context.read<PasswordTextEditingController>().text;
-                    log('Email $emailText');
-                    log('Password $passwordText');
-                  }
+                  // if (context
+                  //         .read<GlobalKey<FormState>>()
+                  //         .currentState
+                  //         ?.validate() ??
+                  //     false) {
+
+                  // }
+                  Navigator.of(context).pushNamedAndRemoveUntil(WelcomePage.pageName , (route) => false,);
                 },
                 style: ButtonStyle(
                   fixedSize: WidgetStatePropertyAll(

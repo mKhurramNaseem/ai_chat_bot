@@ -16,8 +16,13 @@ class CapAlreadyAccountSignIn extends SliverToBoxAdapter {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context)
+                      if(Navigator.of(context).canPop()){
+                        Navigator.of(context)
+                          .pop();
+                      }else{
+                        Navigator.of(context)
                           .pushNamed(LoginAccountPage.pageName);
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(AppConstants.iconPadding),

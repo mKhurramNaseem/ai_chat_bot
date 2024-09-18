@@ -2,6 +2,8 @@ import 'package:ai_chat_bot/core/theme/app_bar_theme.dart';
 import 'package:ai_chat_bot/core/theme/app_button_theme.dart';
 import 'package:ai_chat_bot/core/theme/app_check_box_theme.dart';
 import 'package:ai_chat_bot/core/theme/app_input_decoration_theme.dart';
+import 'package:ai_chat_bot/core/theme/app_switch_theme.dart';
+import 'package:ai_chat_bot/core/theme/app_tab_bar_theme.dart';
 import 'package:ai_chat_bot/core/theme/app_text_theme.dart';
 import 'package:ai_chat_bot/core/theme/app_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +35,13 @@ class AppTheme {
     dividerTheme: const DividerThemeData(
       color: AppColors.transparent,
     ),
+    switchTheme: AppSwitchTheme.lightSwitchTheme,
+    // Tab bar Theme
+    tabBarTheme: AppTabBarTheme.lightTabBarTheme,
+    radioTheme: const RadioThemeData(
+      overlayColor: WidgetStatePropertyAll(AppColors.cyan),
+      fillColor: WidgetStatePropertyAll(AppColors.cyan),
+    ),
   );
   // Dark Theme
   static final darkTheme = ThemeData(
@@ -61,6 +70,13 @@ class AppTheme {
     ),
     popupMenuTheme: const PopupMenuThemeData(
       color: AppColors.tileBackgroundColor,
-    ),    
+    ),
+    switchTheme: AppSwitchTheme.darkSwitchTheme,
+    // Tab bar Theme
+    tabBarTheme: AppTabBarTheme.darkTabBarTheme,
+    radioTheme: const RadioThemeData(
+      overlayColor: WidgetStatePropertyAll(AppColors.cyan),
+      fillColor: WidgetStatePropertyAll(AppColors.cyan),
+    ),
   );
 }

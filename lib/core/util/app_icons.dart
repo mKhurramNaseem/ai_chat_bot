@@ -10,4 +10,5 @@ class AppIcons {
   static const Icon settingsIcon = Icon(Icons.settings);
   static const Icon searchIcon = Icon(Icons.search);
   static const Icon moreIcon = Icon(Icons.more_horiz_sharp);
+  static const Icon forwardIcon = Icon(Icons.arrow_forward_ios_rounded);
 }

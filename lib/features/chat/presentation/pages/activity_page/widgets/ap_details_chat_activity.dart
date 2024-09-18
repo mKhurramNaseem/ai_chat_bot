@@ -1,5 +1,6 @@
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/activity_page/widgets/ap_base_widget.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/all_activity_page/view/all_activity_page.dart';
 
 class ApDetailsChatActivity extends StatelessWidget {
   static const _text = 'Details Chat Activity', _seeAll = 'See All';
@@ -22,7 +23,9 @@ class ApDetailsChatActivity extends StatelessWidget {
                     ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed(AllActivityPage.pageName);
+                },
                 child: Text(
                   _seeAll,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(

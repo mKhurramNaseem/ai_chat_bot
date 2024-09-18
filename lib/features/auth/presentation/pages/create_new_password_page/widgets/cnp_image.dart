@@ -1,5 +1,4 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_password_page/widgets/cnp_base_widget.dart';
 
 class CnpImage extends StatelessWidget {
   static const _space = 17, _childFlex = 66;

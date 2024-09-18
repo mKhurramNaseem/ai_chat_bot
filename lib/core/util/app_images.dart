@@ -3,4 +3,5 @@ class AppImages {
   static const simpleImage = 'assets/images/simple.png';
   static const starImage = 'assets/images/star_face.png';
   static const crossEyedImage = 'assets/images/cross_eyes.png';
+  static const sadImage = 'assets/images/sad.png';
 }

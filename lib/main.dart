@@ -1,5 +1,5 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/activity_page/view/activity_page.dart';
+import 'package:ai_chat_bot/features/auth/presentation/pages/let_in_page/view/let_in_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       // Routes
       onGenerateRoute: RouteGenerator.onGenerateRoute,
-      initialRoute: CreateAccountPage.pageName,
+      onGenerateInitialRoutes: RouteGenerator.onGenerateInitialRoutes,
+      initialRoute: LetInPage.pageName,
     );
   }
 }

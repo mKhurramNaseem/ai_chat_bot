@@ -16,7 +16,7 @@ class LapNoAccountSignUp extends SliverToBoxAdapter {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pushNamed(CreateAccountPage.pageName);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(AppConstants.iconPadding),

@@ -29,9 +29,18 @@ class WpAppBar extends AppBar {
                 ),
               );
             }),
-            const Padding(
-              padding: EdgeInsets.all(_padding),
-              child: AppIcons.settingsIcon,
+            Builder(
+              builder: (context) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(SettingsPage.pageName);
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.all(_padding),
+                    child: AppIcons.settingsIcon,
+                  ),
+                );
+              }
             ),
           ],
         );

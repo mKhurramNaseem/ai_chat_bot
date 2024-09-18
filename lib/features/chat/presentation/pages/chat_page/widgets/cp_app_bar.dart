@@ -20,6 +20,7 @@ class CpAppBar extends AppBar {
             Builder(builder: (context) {
               return GestureDetector(
                 onTapDown: (details) {
+                  FocusManager.instance.primaryFocus?.unfocus();
                   final screenSize = MediaQuery.of(context).size;
                   var offset = details.globalPosition;
                   double left = offset.dx;

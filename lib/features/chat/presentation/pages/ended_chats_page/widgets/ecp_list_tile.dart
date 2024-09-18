@@ -1,6 +1,4 @@
-// import 'dart:developer';
 import 'dart:math' as math;
-
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/ended_chats_page/widgets/ecp_base_widgets.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/ended_chats_page/widgets/ecp_delete_dialog.dart';
@@ -20,13 +18,14 @@ class EcpListTile extends StatefulWidget {
 class _EcpListTileState extends State<EcpListTile> {
   var distance = 0.0;
   var direction = 0.0;
-  var isDecreasing = true;
+  var isDecreasing = false;
   var degree = 0.0;
+  var padding = 1.0;
 
-
-  double radianToDegree(double radian){
+  double radianToDegree(double radian) {
     return radian * 180 / math.pi;
   }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height -
@@ -35,23 +34,25 @@ class _EcpListTileState extends State<EcpListTile> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: height * EcpListTile._padding),
       child: GestureDetector(
-        onTap: () {
-          showDialog(
-            context: context,
-            builder: (context) => const EcpDeleteDialog(),
-          );
-        },
-        onHorizontalDragStart: (details) {
-          
-        },
+        onTap: () {},
+        onHorizontalDragStart: (details) {},
         onHorizontalDragUpdate: (details) {
-          // setState(() {            
-          //   distance = details.localPosition.distance;
-          //   var previousDegree = degree;
-          //   degree = radianToDegree(details.localPosition.direction);
-          //   log(degree.toString());
-          //   isDecreasing = degree < previousDegree;
-          // });
+          setState(() {
+            distance = details.localPosition.distance;
+            var previousDegree = degree;
+            degree = radianToDegree(details.localPosition.direction);
+            isDecreasing = degree > previousDegree;
+            padding = (distance == 0
+                ? 1
+                : (10000 / distance) < 70
+                    ? (10000 / distance)
+                    : 70);
+          });
+        },
+        onHorizontalDragEnd: (details) {
+          setState(() {
+            padding = isDecreasing ? 70 : 1;
+          });
         },
         child: EcpBaseWidget(
           child: LayoutBuilder(builder: (context, constraints) {
@@ -60,43 +61,91 @@ class _EcpListTileState extends State<EcpListTile> {
               width: constraints.maxWidth,
               child: Align(
                 alignment: Alignment.centerLeft,
-                // child: UnconstrainedBox(
-                  child: Builder(builder: (context) {
-                    return Container(
-                      // height: height * EcpListTile._heightPercent,
-                      // width: isDecreasing ? constraints.maxWidth - distance : constraints.maxWidth + distance,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(30.0),
+                child: Builder(builder: (context) {
+                  return Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(
+                          2,
                         ),
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                      ),
-                      child: Row(
-                        children: [
-                          const Spacer(
-                            flex: EcpListTile._startSpace,
-                          ),
-                          Expanded(
-                            flex: EcpListTile._imageFlex,
-                            child: Image.asset(
-                              AppImages.simpleImage,
+                        child: Container(
+                          height: height * EcpListTile._heightPercent,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30.0),
                             ),
+                            color: AppColors.red,
                           ),
-                          const Spacer(
-                            flex: EcpListTile._middleSpace,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Spacer(
+                                flex: 80,
+                              ),
+                              Expanded(
+                                flex: 20,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          const EcpDeleteDialog(),
+                                    );
+                                    setState(() {
+                                      padding = 1;
+                                    });
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(Icons.delete_outline , color: AppColors.white,),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          const Expanded(
-                            flex: EcpListTile._tileTextsFlex,
-                            child: EcpEndedChatsTileTexts(),
-                          ),
-                          const Spacer(
-                            flex: EcpListTile._startSpace,
-                          ),
-                        ],
+                        ),
                       ),
-                    );
-                  }),
-                // ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          right: padding,
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(30.0),
+                            ),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
+                          child: Row(
+                            children: [
+                              const Spacer(
+                                flex: EcpListTile._startSpace,
+                              ),
+                              Expanded(
+                                flex: EcpListTile._imageFlex,
+                                child: Image.asset(
+                                  AppImages.simpleImage,
+                                ),
+                              ),
+                              const Spacer(
+                                flex: EcpListTile._middleSpace,
+                              ),
+                              const Expanded(
+                                flex: EcpListTile._tileTextsFlex,
+                                child: EcpEndedChatsTileTexts(),
+                              ),
+                              const Spacer(
+                                flex: EcpListTile._startSpace,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }),
               ),
             );
           }),
@@ -128,6 +177,7 @@ class EcpEndedChatsTileTexts extends StatelessWidget {
                 alignment: Alignment.bottomLeft,
                 child: Text(
                   _title,
+                  overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontSize: constraints.maxHeight * _titleFontSize,
                       ),

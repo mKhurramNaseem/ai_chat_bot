@@ -50,7 +50,7 @@ class _ChatPageState extends State<ChatPage> {
         if (scrollController.hasClients) {
           scrollController
               .jumpTo(scrollController.position.maxScrollExtent * times);
-          times = 1;          
+          times = 1;
         }
       },
     );
@@ -97,63 +97,80 @@ class _ChatPageState extends State<ChatPage> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: LayoutBuilder(builder: (context, constraints) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            flex: 85,
-                            child: TextFormField(
-                              controller: chatTextController,
-                              style: Theme.of(context).textTheme.bodyLarge,
-                              validator: InputValidations.emailValidatior,
-                              maxLines: 10,
-                              minLines: 1,
-                              decoration: const InputDecoration(
-                                hintText:
-                                    'Type a message to ${AppConstants.botName}',
-                              ),
-                            ),
-                          ),
-                          const Spacer(
-                            flex: 2,
-                          ),
-                          Flexible(
-                            flex: 13,
-                            child:
-                                LayoutBuilder(builder: (context, constraints) {
-                              return GestureDetector(
-                                onTap: (){
-                                  setState(() {
-                                    HapticFeedback.selectionClick();
-                                    messages.add(ChatMessage(
-                                        isSender: true,
-                                        message:
-                                            chatTextController.text.trim()));
-                                  });
-                                  player.seek(Duration.zero);
-                                  player.play();
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                  padding: const EdgeInsets.all(13.0),
-                                  child: Transform.rotate(
-                                    angle: math.pi / 180 * 310,
-                                    child: const Icon(
-                                      Icons.send_rounded,
-                                      color: AppColors.white,
+                    return Container(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              flex: 85,
+                              child: TextFormField(
+                                controller: chatTextController,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                                validator: InputValidations.emailValidatior,
+                                maxLines: 10,
+                                minLines: 1,
+                                decoration: InputDecoration(
+                                  hintText:
+                                      'Type a message to ${AppConstants.botName}',
+                                  suffixIcon: GestureDetector(
+                                    onTap: () async {
+                                      await ImagePicker().pickImage(
+                                          source: ImageSource.gallery);
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Transform.rotate(
+                                        angle: (math.pi / 180) * 135,
+                                        child: const Icon(Icons.link),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              );
-                            }),
-                          ),
-                        ],
+                              ),
+                            ),
+                            const Spacer(
+                              flex: 2,
+                            ),
+                            Flexible(
+                              flex: 13,
+                              child: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      HapticFeedback.selectionClick();
+                                      messages.add(ChatMessage(
+                                          isSender: true,
+                                          message:
+                                              chatTextController.text.trim()));
+                                    });
+                                    player.seek(Duration.zero);
+                                    player.play();
+                                    chatTextController.clear();
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                    padding: const EdgeInsets.all(13.0),
+                                    child: Transform.rotate(
+                                      angle: math.pi / 180 * 310,
+                                      child: const Icon(
+                                        Icons.send_rounded,
+                                        color: AppColors.white,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   }),

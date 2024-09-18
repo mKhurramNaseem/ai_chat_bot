@@ -34,7 +34,7 @@ class CpSenderTile extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
-                    'Hi!  I am Khurram What are you doing Can We play cricket',
+                    text,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: AppColors.white,
                           fontWeight: FontWeight.normal,

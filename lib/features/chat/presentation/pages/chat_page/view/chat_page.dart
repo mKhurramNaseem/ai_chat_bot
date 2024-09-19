@@ -1,27 +1,47 @@
-import 'package:just_audio/just_audio.dart';
-import 'dart:math' as math;
-import 'package:ai_chat_bot/core/core.dart';
-import 'package:flutter/scheduler.dart';
+import 'dart:developer';
 
-class ChatPage extends StatefulWidget {
+import 'package:ai_chat_bot/core/core.dart';
+
+class ChatPage extends StatelessWidget {
   static const pageName = '/chatPage';
   const ChatPage({super.key});
 
   @override
-  State<ChatPage> createState() => _ChatPageState();
+  Widget build(BuildContext context) {
+    final messages =
+        ModalRoute.of(context)!.settings.arguments as List<ChatMessage>;
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ChatBloc>(
+          create: (context) => ChatBloc(chats: messages),
+        ),
+        BlocProvider<ImagePickerBloc>(
+          create: (context) => ImagePickerBloc(),
+        ),
+      ],
+      child: const ChatPageBody(),
+    );
+  }
 }
 
-class _ChatPageState extends State<ChatPage> {
-  late ScrollController scrollController;
-  late TextEditingController chatTextController;
+class ChatPageBody extends StatefulWidget {
+  const ChatPageBody({super.key});
+
+  @override
+  State<ChatPageBody> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPageBody> {
+  late ChatScrollController scrollController;
+  late ChatTextEditingController chatTextController;
   late AudioPlayer player;
   var times = 2;
 
   @override
   void initState() {
     super.initState();
-    scrollController = ScrollController();
-    chatTextController = TextEditingController();
+    scrollController = ChatScrollController();
+    chatTextController = ChatTextEditingController();
     player = AudioPlayer();
     initialize();
   }
@@ -45,200 +65,87 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     MediaQuery.viewInsetsOf(context).bottom > 0;
-    SchedulerBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        if (scrollController.hasClients) {
-          scrollController
-              .jumpTo(scrollController.position.maxScrollExtent * times);
-          times = 1;
-        }
-      },
-    );
-    return Scaffold(
-      appBar: CpAppBar(),
-      body: Center(
-        child: CpBaseWidget(
-          child: Stack(
-            children: [
-              Column(
+    return MultiProvider(
+      providers: [
+        ListenableProvider<ChatTextEditingController>(
+          create: (context) => chatTextController,
+        ),
+        ListenableProvider<ChatScrollController>(
+          create: (context) => scrollController,
+        ),
+        Provider<AudioPlayer>(
+          create: (context) => player,
+        )
+      ],
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<ChatBloc, ChatState>(listener: _chatBlocStateListener),
+          BlocListener<ImagePickerBloc, ImagePickerState>(
+              listener: _imagePickerBlocListener),
+        ],
+        child: Scaffold(
+          appBar: CpAppBar(),
+          body: Center(
+            child: CpBaseWidget(
+              child: Stack(
                 children: [
-                  Expanded(
-                    child: CustomScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      controller: scrollController,
-                      slivers: [
-                        SliverList.builder(
-                          itemCount: messages.length,
-                          itemBuilder: (context, index) {
-                            return messages[index].isSender
-                                ? CpSenderTile(text: messages[index].message)
-                                : CpReceiverTile(
-                                    text: messages[index].message,
-                                    showIcon: index > 0
-                                        ? messages[index - 1].isSender
-                                        : true,
-                                  );
-                          },
-                        ),
-                        SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: (MediaQuery.sizeOf(context).height -
-                                    kToolbarHeight -
-                                    MediaQuery.paddingOf(context).top) *
-                                0.1,
-                          ),
-                        ),
-                      ],
+                  Column(
+                    children: [
+                      Expanded(
+                        child: BlocBuilder<ChatBloc, ChatState>(
+                            builder: (context, state) {
+                          SchedulerBinding.instance
+                              .addPostFrameCallback(_postFrameCallback);
+                          return CpChatListView(
+                            messages: state.messages,
+                          );
+                        }),
+                      ),
+                    ],
+                  ),
+                  const Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: CpChatField(),
                     ),
                   ),
                 ],
               ),
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: LayoutBuilder(builder: (context, constraints) {
-                    return Container(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Expanded(
-                              flex: 85,
-                              child: TextFormField(
-                                controller: chatTextController,
-                                style: Theme.of(context).textTheme.bodyLarge,
-                                validator: InputValidations.emailValidatior,
-                                maxLines: 10,
-                                minLines: 1,
-                                decoration: InputDecoration(
-                                  hintText:
-                                      'Type a message to ${AppConstants.botName}',
-                                  suffixIcon: GestureDetector(
-                                    onTap: () async {
-                                      await ImagePicker().pickImage(
-                                          source: ImageSource.gallery);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Transform.rotate(
-                                        angle: (math.pi / 180) * 135,
-                                        child: const Icon(Icons.link),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Spacer(
-                              flex: 2,
-                            ),
-                            Flexible(
-                              flex: 13,
-                              child: LayoutBuilder(
-                                  builder: (context, constraints) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      HapticFeedback.selectionClick();
-                                      messages.add(ChatMessage(
-                                          isSender: true,
-                                          message:
-                                              chatTextController.text.trim()));
-                                    });
-                                    player.seek(Duration.zero);
-                                    player.play();
-                                    chatTextController.clear();
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    ),
-                                    padding: const EdgeInsets.all(13.0),
-                                    child: Transform.rotate(
-                                      angle: math.pi / 180 * 310,
-                                      child: const Icon(
-                                        Icons.send_rounded,
-                                        color: AppColors.white,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
-}
 
-List<ChatMessage> messages = [
-  ChatMessage(
-    isSender: false,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: false,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: true,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: true,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: false,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: false,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: true,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: true,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: true,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: false,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: false,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: true,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: false,
-    message: 'Hello! I am here',
-  ),
-  ChatMessage(
-    isSender: false,
-    message: 'Hello! I am here',
-  ),
-];
+  void _postFrameCallback(Duration timeStamp) {
+    if (scrollController.hasClients) {      
+      log('Called');
+      scrollController
+          .jumpTo(scrollController.position.maxScrollExtent * times);
+      times = 1;
+    }
+  }
+
+  void _imagePickerBlocListener(BuildContext context, state) {
+    if (state is ImagePickerDoneState) {
+      var chatBloc = context.read<ChatBloc>();
+      FocusManager.instance.primaryFocus?.unfocus();
+      var futureOfEditScreen = Navigator.of(context)
+          .pushNamed(ImageEditPage.pageName, arguments: state.image);
+      futureOfEditScreen.then(
+        (value) {
+          chatBloc.add(ChatSendMessageEvent(message: value as ChatMessage));
+        },
+      );
+    }
+  }
+
+  void _chatBlocStateListener(BuildContext context, ChatState state) {
+    if (state is ChatUpdateState) {
+      player.seek(Duration.zero);
+      player.play();
+      context.read<ChatTextEditingController>().clear();
+    }
+  }
+}

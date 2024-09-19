@@ -1,7 +1,7 @@
 import 'package:ai_chat_bot/core/core.dart';
 
 class AppButtonTheme {
-  static const _elevation = 10.0, _zeroElevation = 0.0;
+  static const _elevation = 10.0, _zeroElevation = 0.0 , _opacity = 0.5;
   static final buttonTheme = ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: const WidgetStatePropertyAll(AppColors.cyan),
@@ -14,9 +14,9 @@ class AppButtonTheme {
           return _elevation;
         },
       ),
-      // shadowColor: WidgetStatePropertyAll(
-      //   AppColors.cyan.withOpacity(_opacity),
-      // ),
+      shadowColor: WidgetStatePropertyAll(
+        AppColors.cyan.withOpacity(_opacity),
+      ),
       textStyle: const WidgetStatePropertyAll(
         TextStyle(
           fontFamily: AppTextStyleAttributes.titleFontFamily,
@@ -38,9 +38,9 @@ class AppButtonTheme {
           return _elevation;
         },
       ),
-      // shadowColor: WidgetStatePropertyAll(
-      //   AppColors.cyan.withOpacity(_opacity),
-      // ),
+      shadowColor: WidgetStatePropertyAll(
+        AppColors.cyan.withOpacity(_opacity),
+      ),
       textStyle: const WidgetStatePropertyAll(
         TextStyle(
           fontFamily: AppTextStyleAttributes.titleFontFamily,

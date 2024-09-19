@@ -2,10 +2,10 @@ import 'package:ai_chat_bot/core/core.dart';
 
 class CpSenderTile extends StatelessWidget {
   static const _specificRadius = 6.0;
-  final String text;
+  final ChatMessage message;
   const CpSenderTile({
     super.key,
-    required this.text,
+    required this.message,
   });
 
   @override
@@ -24,23 +24,55 @@ class CpSenderTile extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
-                  borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(_specificRadius),
-                    bottomLeft: Radius.elliptical(17, 20),
-                    topLeft: Radius.elliptical(17, 20),
-                    topRight: Radius.elliptical(17, 20),
+                  borderRadius: BorderRadius.only(
+                    bottomRight: const Radius.circular(_specificRadius),
+                    bottomLeft: message.image != null && message.message.isEmpty
+                        ? const Radius.circular(_specificRadius)
+                        : const Radius.elliptical(17, 20),
+                    topLeft: message.image == null
+                        ? const Radius.elliptical(17, 20)
+                        : const Radius.circular(_specificRadius),
+                    topRight: message.image == null
+                        ? const Radius.elliptical(17, 20)
+                        : const Radius.circular(_specificRadius),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    text,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.normal,
+                child: message.image == null
+                    ? Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          message.message,
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.normal,
+                                  ),
                         ),
-                  ),
-                ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.memory(message.image!),
+                            if (message.message.isNotEmpty)
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 7.0, left: 7.0, right: 7.0),
+                                child: Text(
+                                  message.message,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                        color: AppColors.white,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                              )
+                          ],
+                        ),
+                      ),
               ),
             ),
           ),

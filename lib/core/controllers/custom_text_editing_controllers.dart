@@ -7,3 +7,6 @@ class PasswordTextEditingController extends TextEditingController{}
 
 // Confirm Password Controller
 class ConfirmPasswordTextEditingController extends TextEditingController{}
+
+// Chat Controller
+class ChatTextEditingController extends TextEditingController{}

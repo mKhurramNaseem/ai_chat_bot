@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 extension StrModification on String{
   String get obscureEmail{
     var emailBody = substring(0, indexOf('@'));
@@ -19,4 +20,13 @@ extension StrModification on String{
 extension DoubleModification on double{
   bool get isZero => this == 0.0;
   bool get isGreaterThanZero => this > 0.0;
+  double get degToRad => math.pi / 180 * this;
+  double get radToDeg => 180 / math.pi * this;
+}
+
+extension IntegerModification on int{
+  bool get isZero => this == 0.0;
+  bool get isGreaterThanZero => this > 0.0;
+  double get degToRad => math.pi / 180 * this;
+  double get radToDeg => 180 / math.pi * this;
 }

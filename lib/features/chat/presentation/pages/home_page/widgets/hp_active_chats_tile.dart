@@ -1,5 +1,6 @@
 import 'package:ai_chat_bot/core/core.dart';
 
+
 class HpActiveChatsTile extends StatelessWidget {
   static const _startSpace = 5,
       _middleSpace = 3,
@@ -11,46 +12,51 @@ class HpActiveChatsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HpBaseWidget(
-      child: Container(
-        decoration: ShapeDecoration(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(30.0),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pushNamed(ChatPage.pageName , arguments: AppDummyData.messages);
+        },
+        child: Container(
+          decoration: ShapeDecoration(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30.0),
+                ),
               ),
-            ),
-            color: Theme.of(context).colorScheme.onPrimaryContainer),
-        child: Row(
-          children: [
-            const Spacer(
-              flex: _startSpace,
-            ),
-            Expanded(
-              flex: _imageFlex,
-              child: Image.asset(
-                AppImages.simpleImage,
+              color: Theme.of(context).colorScheme.onPrimaryContainer),
+          child: Row(
+            children: [
+              const Spacer(
+                flex: _startSpace,
               ),
-            ),
-            const Spacer(
-              flex: _middleSpace,
-            ),
-            const Expanded(
-              flex: _tileTextsFlex,
-              child: HpActiveChatsTileTexts(),
-            ),
-            const Spacer(
-              flex: _middleSpace,
-            ),
-            const Expanded(
-              flex: _iconFlex,
-              child: Icon(
-                Icons.chat_rounded,
-                color: AppColors.cyan,
+              Expanded(
+                flex: _imageFlex,
+                child: Image.asset(
+                  AppImages.simpleImage,
+                ),
               ),
-            ),
-            const Spacer(
-              flex: _startSpace,
-            ),
-          ],
+              const Spacer(
+                flex: _middleSpace,
+              ),
+              const Expanded(
+                flex: _tileTextsFlex,
+                child: HpActiveChatsTileTexts(),
+              ),
+              const Spacer(
+                flex: _middleSpace,
+              ),
+              const Expanded(
+                flex: _iconFlex,
+                child: Icon(
+                  Icons.chat_rounded,
+                  color: AppColors.cyan,
+                ),
+              ),
+              const Spacer(
+                flex: _startSpace,
+              ),
+            ],
+          ),
         ),
       ),
     );

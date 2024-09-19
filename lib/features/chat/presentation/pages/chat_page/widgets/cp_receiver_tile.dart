@@ -2,12 +2,12 @@ import 'package:ai_chat_bot/core/core.dart';
 
 class CpReceiverTile extends StatelessWidget {
   static const _specificRadius = 6.0;
-  final String text;
+  final ChatMessage chatMessage;
   final bool showIcon;
   const CpReceiverTile({
     super.key,
-    required this.text,
     required this.showIcon,
+    required this.chatMessage,
   });
 
   @override
@@ -19,6 +19,7 @@ class CpReceiverTile extends StatelessWidget {
           Flexible(
             flex: 70,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (showIcon)
                   Padding(
@@ -45,7 +46,7 @@ class CpReceiverTile extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Text(
-                      '$text $text $text $text $text $text',
+                      chatMessage.message,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.normal,
                           ),

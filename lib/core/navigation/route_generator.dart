@@ -5,6 +5,7 @@ import 'package:ai_chat_bot/features/auth/presentation/pages/let_in_page/view/le
 import 'package:ai_chat_bot/features/auth/presentation/pages/set_finger_print_page/view/set_finger_print_page.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/activity_page/view/activity_page.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/all_activity_page/view/all_activity_page.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/image_edit_page/view/image_edit_page.dart';
 import 'package:ai_chat_bot/features/profile/presentation/edit_profile_page/view/edit_profile_page.dart';
 import 'package:ai_chat_bot/features/profile/presentation/fill_profile_page/view/fill_profile_page.dart';
 import 'package:ai_chat_bot/features/settings/presentation/pages/help_center_page/view/help_center_page.dart';
@@ -27,7 +28,8 @@ class RouteGenerator {
       WelcomePage.pageName => CupertinoPageRoute(builder: (context) => const WelcomePage(),),
       HomePage.pageName => CupertinoPageRoute(builder: (context) => const HomePage(),),
       EndedChatsPage.pageName => CupertinoPageRoute(builder: (context) => const EndedChatsPage(),),
-      ChatPage.pageName => CupertinoPageRoute(builder: (context) => const ChatPage(),),
+      ChatPage.pageName => CupertinoPageRoute(builder: (context) => const ChatPage(),settings: setttings,),
+      ImageEditPage.pageName => CupertinoPageRoute(builder: (context) => const ImageEditPage(),settings: setttings),
       ActivityPage.pageName => CupertinoPageRoute(builder: (context) => const ActivityPage(),),
       SettingsPage.pageName => CupertinoPageRoute(builder: (context) => const SettingsPage(),),
       LanguagePage.pageName => CupertinoPageRoute(builder: (context) => const LanguagePage(),),
@@ -36,7 +38,7 @@ class RouteGenerator {
       AllActivityPage.pageName => CupertinoPageRoute(builder: (context) => const AllActivityPage(),),
       FillProfilePage.pageName => CupertinoPageRoute(builder: (context) => const FillProfilePage(),),
       CreateNewPinPage.pageName => CupertinoPageRoute(builder: (context) => const CreateNewPinPage(),),
-      SetFingerPrintPage.pageName => CupertinoPageRoute(builder: (context) => const SetFingerPrintPage(),),
+      SetFingerPrintPage.pageName => CupertinoPageRoute(builder: (context) => const SetFingerPrintPage(),),      
       _ => CupertinoPageRoute(builder: (context) => const AppErrorPage(),),
     };
   }

@@ -14,7 +14,7 @@ class HpStartChatButton extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(ChatPage.pageName);
+                  Navigator.of(context).pushNamed(ChatPage.pageName , arguments: <ChatMessage>[]);
                 },
                 style: ButtonStyle(
                   fixedSize: WidgetStatePropertyAll(

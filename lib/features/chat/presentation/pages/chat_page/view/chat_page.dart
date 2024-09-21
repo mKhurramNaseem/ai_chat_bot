@@ -135,7 +135,9 @@ class _ChatPageState extends State<ChatPageBody> {
           .pushNamed(ImageEditPage.pageName, arguments: state.image);
       futureOfEditScreen.then(
         (value) {
-          chatBloc.add(ChatSendMessageEvent(message: value as ChatMessage));
+          if(value != null){
+            chatBloc.add(ChatSendMessageEvent(message: value as ChatMessage));
+          }          
         },
       );
     }

@@ -54,7 +54,11 @@ class CpSenderTile extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Image.memory(message.image!),
+                            Container(
+                                color: AppColors.black,
+                                child: Image.memory(
+                                  message.image!,
+                                )),
                             if (message.message.isNotEmpty)
                               Padding(
                                 padding: const EdgeInsets.only(

@@ -6,6 +6,7 @@ export 'package:ai_chat_bot/core/controllers/otp_controllers.dart';
 export 'package:ai_chat_bot/core/navigation/route_generator.dart';
 export 'package:ai_chat_bot/core/theme/app_color_scheme.dart';
 export 'package:ai_chat_bot/core/theme/app_text_theme.dart';
+export 'package:ai_chat_bot/core/util/app_enums.dart';
 export 'package:ai_chat_bot/core/theme/app_theme.dart';
 export 'package:ai_chat_bot/core/util/app_constants.dart';
 export 'package:ai_chat_bot/core/util/app_dummy_data.dart';
@@ -57,8 +58,11 @@ export 'package:ai_chat_bot/features/auth/presentation/pages/login_account_page/
 export 'package:ai_chat_bot/features/auth/presentation/pages/login_account_page/widgets/lap_title_text.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/set_finger_print_page/view/set_finger_print_page.dart';
 export 'package:ai_chat_bot/features/chat/domain/models/chat_message.dart';
+export 'package:ai_chat_bot/features/chat/domain/models/shape.dart';
 export 'package:ai_chat_bot/features/chat/presentation/bloc/chat_bloc/chat_bloc.dart';
+export 'package:ai_chat_bot/features/chat/presentation/bloc/image_edit_bloc/image_edit_bloc.dart';
 export 'package:ai_chat_bot/features/chat/presentation/bloc/image_picker_bloc/image_picker_bloc.dart';
+export 'package:ai_chat_bot/features/chat/presentation/bloc/widget_to_image_conversion_bloc/widget_to_image_conversion_bloc.dart';
 export 'package:ai_chat_bot/features/chat/presentation/pages/chat_page/view/chat_page.dart';
 export 'package:ai_chat_bot/features/chat/presentation/pages/chat_page/widgets/cp_app_bar.dart';
 export 'package:ai_chat_bot/features/chat/presentation/pages/chat_page/widgets/cp_base_widget.dart';
@@ -70,6 +74,11 @@ export 'package:ai_chat_bot/features/chat/presentation/pages/ended_chats_page/vi
 export 'package:ai_chat_bot/features/chat/presentation/pages/home_page/view/home_page.dart';
 export 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_base_widget.dart';
 export 'package:ai_chat_bot/features/chat/presentation/pages/image_edit_page/view/image_edit_page.dart';
+export 'package:ai_chat_bot/features/chat/presentation/pages/image_edit_page/widgets/iep_icons_bar.dart';
+export 'package:ai_chat_bot/features/chat/presentation/pages/image_edit_page/widgets/iep_image.dart';
+export 'package:ai_chat_bot/features/chat/presentation/pages/image_edit_page/widgets/iep_shapes_bar_widget.dart';
+export 'package:ai_chat_bot/features/chat/presentation/pages/image_edit_page/widgets/iep_stroke_bar_widget.dart';
+export 'package:ai_chat_bot/features/chat/presentation/pages/image_edit_page/widgets/iep_undo_redo_widget.dart';
 export 'package:ai_chat_bot/features/chat/presentation/pages/welcome_page/view/welcome_page.dart';
 export 'package:ai_chat_bot/features/chat/presentation/pages/welcome_page/widgets/wp_base_widget.dart';
 export 'package:ai_chat_bot/features/profile/presentation/fill_profile_page/widgets/fpp_base_widget.dart';
@@ -81,6 +90,7 @@ export 'package:ai_chat_bot/features/settings/presentation/pages/settings_page/w
 export 'package:ai_chat_bot/features/settings/presentation/pages/settings_page/widgets/sp_profile_image.dart';
 export 'package:ai_chat_bot/features/settings/presentation/pages/settings_page/widgets/sp_texts.dart';
 export 'package:ai_chat_bot/features/settings/presentation/pages/settings_page/widgets/sp_tiles.dart';
+export 'package:flex_color_picker/flex_color_picker.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter/scheduler.dart';
 export 'package:flutter/services.dart';
@@ -91,3 +101,4 @@ export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 export 'package:image_picker/image_picker.dart';
 export 'package:just_audio/just_audio.dart';
 export 'package:provider/provider.dart';
+

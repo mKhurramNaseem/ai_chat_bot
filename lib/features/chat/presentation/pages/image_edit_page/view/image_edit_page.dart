@@ -1,6 +1,6 @@
-import 'dart:io';
+import 'dart:developer';
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/bloc/edit_image_bloc/edit_image_bloc.dart';
+import 'package:ai_chat_bot/features/chat/presentation/bloc/canvas_bloc/canvas_bloc.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/image_edit_page/widgets/iep_chat_field.dart';
 
 class ImageEditPage extends StatelessWidget {
@@ -9,8 +9,18 @@ class ImageEditPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<EditImageBloc>(
-      create: (context) => EditImageBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<WidgetToImageConversionBloc>(
+          create: (context) => WidgetToImageConversionBloc(),
+        ),
+        BlocProvider<ImageEditBloc>(
+          create: (context) => ImageEditBloc(),
+        ),
+        BlocProvider<CanvasBloc>(
+          create: (context) => CanvasBloc(),
+        ),
+      ],
       child: const ImageEditPageBody(),
     );
   }
@@ -41,7 +51,7 @@ class _ImageEditPageState extends State<ImageEditPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    final file = ModalRoute.of(context)!.settings.arguments as File;
+    
     return MultiProvider(
       providers: [
         ListenableProvider<ChatTextEditingController>(
@@ -51,39 +61,48 @@ class _ImageEditPageState extends State<ImageEditPageBody> {
           create: (context) => key,
         ),
       ],
-      child: BlocListener<EditImageBloc, EditImageState>(
+      child: BlocListener<WidgetToImageConversionBloc,
+          WidgetToImageConversionState>(
         listener: _editImageBlocListener,
         child: Scaffold(
           body: Center(
-            child: SizedBox(
-              height: MediaQuery.sizeOf(context).height,
-              child: Stack(
-                children: [
-                  SingleChildScrollView(
-                    child: SizedBox(
-                      height: MediaQuery.sizeOf(context).height,
-                      child: Center(
-                        child: RepaintBoundary(
-                          key: key,
-                          child: Stack(
-                            children: [
-                              Image.file(file),
-                              CustomPaint(
-                                painter: DrawingPainter(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Positioned.fill(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: IepChatField(),
-                    ),
-                  ),
-                ],
+            child: GestureDetector(
+              onPanDown: (details) {
+                log('[Pan Down]');
+                context.read<CanvasBloc>().add(CanvasStartEvent(
+                      details: details,
+                    ));
+              },
+              onPanUpdate: (details) {
+                log('[Pan Updating]');
+                context
+                    .read<CanvasBloc>()
+                    .add(CanvasUpdateEvent(details: details));
+              },
+              onPanEnd: (details) {
+                log('[Pan End]');
+                context
+                    .read<CanvasBloc>()
+                    .add(CanvasEndEvent(details: details));
+              },
+              child: SizedBox(
+                height: MediaQuery.sizeOf(context).height,
+                child: Stack(
+                  children: [
+                    const IepImage(),
+                    BlocBuilder<ImageEditBloc, ImageEditState>(
+                        builder: (context, state) {
+                      if (state is ImageEditSimpleState) {
+                        return const IepChatField();
+                      }
+                      return const SizedBox.expand();
+                    }),
+                    const IepIconsBar(),
+                    const IepUndoRedoWidget(),
+                    const IepStrokeBarWidget(),
+                    const IepShapesBarWidget(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -93,30 +112,11 @@ class _ImageEditPageState extends State<ImageEditPageBody> {
   }
 
   void _editImageBlocListener(BuildContext context, state) {
-    if (state is EditImageDoneState) {
+    if (state is WidgetToImageConversionNavigateState) {
       Navigator.of(context).pop(ChatMessage(
           isSender: true,
           message: chatController.text.trim(),
           image: state.imageBytes));
     }
   }
-}
-
-class DrawingPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // canvas.drawRect(
-    //   const Rect.fromLTWH(0, 0, 200, 300),
-    //   Paint()
-    //     ..color = Colors.red
-    //     ..style = PaintingStyle.stroke
-    //     ..strokeWidth = 5,
-    // );
-  }
-
-  @override
-  bool shouldRepaint(DrawingPainter oldDelegate) => true;
-
-  @override
-  bool shouldRebuildSemantics(DrawingPainter oldDelegate) => false;
 }

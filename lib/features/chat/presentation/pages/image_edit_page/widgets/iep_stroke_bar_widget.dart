@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/presentation/bloc/canvas_bloc/canvas_bloc.dart';
 
@@ -19,8 +17,7 @@ class IepStrokeBarWidget extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(
                 right: 15.0, bottom: MediaQuery.sizeOf(context).height * 0.1),
-            child: StatefulBuilder(builder: (context, setState) {
-              log('Rebuilds ????????????????????????????????????????? ${bloc.stroke}');
+            child: StatefulBuilder(builder: (context, setState) {              
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -45,8 +42,7 @@ class IepStrokeBarWidget extends StatelessWidget {
                     iconData: Icons.circle,
                     strokeType: StrokeType.thick,
                     isSelected: StrokeType.thick == bloc.stroke,
-                    onTap: () {
-                      log('Clicked');
+                    onTap: () {                      
                       setState(() => bloc.stroke = StrokeType.thick);
                     },
                   ),

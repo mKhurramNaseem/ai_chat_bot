@@ -1,16 +1,21 @@
-
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/chat_page/widgets/cp_loading_tile.dart';
 
 class CpChatListView extends StatelessWidget {
   final List<ChatMessage> messages;
-  const CpChatListView({super.key , required this.messages,});
+  final bool isResponseLoading;
+  const CpChatListView({
+    super.key,
+    required this.messages,
+    required this.isResponseLoading,
+  });
 
   @override
   Widget build(BuildContext context) {
     var scrollController = context.read<ChatScrollController>();
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
-      controller: context.read<ChatScrollController>(),
+      controller: context.read<ChatScrollController>(),      
       slivers: [
         SliverList.builder(
           itemCount: messages.length,
@@ -23,6 +28,10 @@ class CpChatListView extends StatelessWidget {
                   );
           },
         ),
+        if (isResponseLoading)
+          const SliverToBoxAdapter(
+            child: CpLoadingTile(),
+          ),
         SliverToBoxAdapter(
           child: SizedBox(
             height: (MediaQuery.sizeOf(context).height -

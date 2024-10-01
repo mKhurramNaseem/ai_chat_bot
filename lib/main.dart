@@ -1,6 +1,12 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_route_observer.dart';
+import 'package:ai_chat_bot/injection_container.dart';
 
-void main() {
+final hpNavigatorObserver = HpNavigatorObserver();
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  initChats();
   runApp(const MyApp());
 }
 
@@ -19,7 +25,9 @@ class MyApp extends StatelessWidget {
       // Routes
       onGenerateRoute: RouteGenerator.onGenerateRoute,
       onGenerateInitialRoutes: RouteGenerator.onGenerateInitialRoutes,
-      initialRoute: HomePage.pageName,
+      initialRoute: WelcomePage.pageName,
+
+      navigatorObservers: [hpNavigatorObserver],
     );
   }
 }

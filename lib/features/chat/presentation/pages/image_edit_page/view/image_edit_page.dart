@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/presentation/bloc/canvas_bloc/canvas_bloc.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/image_edit_page/widgets/iep_chat_field.dart';
@@ -66,43 +65,23 @@ class _ImageEditPageState extends State<ImageEditPageBody> {
         listener: _editImageBlocListener,
         child: Scaffold(
           body: Center(
-            child: GestureDetector(
-              onPanDown: (details) {
-                log('[Pan Down]');
-                context.read<CanvasBloc>().add(CanvasStartEvent(
-                      details: details,
-                    ));
-              },
-              onPanUpdate: (details) {
-                log('[Pan Updating]');
-                context
-                    .read<CanvasBloc>()
-                    .add(CanvasUpdateEvent(details: details));
-              },
-              onPanEnd: (details) {
-                log('[Pan End]');
-                context
-                    .read<CanvasBloc>()
-                    .add(CanvasEndEvent(details: details));
-              },
-              child: SizedBox(
-                height: MediaQuery.sizeOf(context).height,
-                child: Stack(
-                  children: [
-                    const IepImage(),
-                    BlocBuilder<ImageEditBloc, ImageEditState>(
-                        builder: (context, state) {
-                      if (state is ImageEditSimpleState) {
-                        return const IepChatField();
-                      }
-                      return const SizedBox.expand();
-                    }),
-                    const IepIconsBar(),
-                    const IepUndoRedoWidget(),
-                    const IepStrokeBarWidget(),
-                    const IepShapesBarWidget(),
-                  ],
-                ),
+            child: SizedBox(
+              height: MediaQuery.sizeOf(context).height,
+              child: Stack(
+                children: [
+                  const IepImage(),
+                  BlocBuilder<ImageEditBloc, ImageEditState>(
+                      builder: (context, state) {
+                    if (state is ImageEditSimpleState) {
+                      return const IepChatField();
+                    }
+                    return const SizedBox.expand();
+                  }),
+                  const IepIconsBar(),
+                  const IepUndoRedoWidget(),
+                  const IepStrokeBarWidget(),
+                  const IepShapesBarWidget(),
+                ],
               ),
             ),
           ),

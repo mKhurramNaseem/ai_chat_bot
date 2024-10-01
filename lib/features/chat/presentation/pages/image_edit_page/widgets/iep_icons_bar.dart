@@ -74,6 +74,7 @@ class _IepIconsBarState extends State<IepIconsBar>
                   context.read<WidgetToImageConversionBloc>().add(
                       WidgetToImageConversionEvent(
                           widgetKey: context.read<GlobalKey>()));
+                           context.read<CanvasBloc>().add(CanvasInitialEvent());  
                   animationController.reverse();
                   changeIcon = false;
                 } else {
@@ -81,7 +82,9 @@ class _IepIconsBarState extends State<IepIconsBar>
                   context.read<ImageEditBloc>().add(const ImageEditEvent(
                       pageType: ImageEditPageType.drawingType));
                   final bloc =
-                      context.read<CanvasBloc>().shape = ShapeType.customLine;
+                      context.read<CanvasBloc>();
+                      bloc.shape = ShapeType.customLine;
+                   
                   changeIcon = false;
                 }
               },

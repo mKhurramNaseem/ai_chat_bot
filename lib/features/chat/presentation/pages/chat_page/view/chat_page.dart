@@ -1,6 +1,6 @@
-import 'dart:developer';
 
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/injection_container.dart';
 
 class ChatPage extends StatelessWidget {
   static const pageName = '/chatPage';
@@ -8,12 +8,15 @@ class ChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final messages =
-        ModalRoute.of(context)!.settings.arguments as List<ChatMessage>;
     return MultiBlocProvider(
       providers: [
         BlocProvider<ChatBloc>(
-          create: (context) => ChatBloc(chats: messages),
+          create: (context) => ChatBloc(
+            getUpdatedChatUsecase: sl(),
+            sendMessageUsecase: sl(),
+            startChatUsecase: sl(),
+            getPreviousChatUsecase: sl(),
+          ),
         ),
         BlocProvider<ImagePickerBloc>(
           create: (context) => ImagePickerBloc(),
@@ -52,6 +55,18 @@ class _ChatPageState extends State<ChatPageBody> {
         'assets/audios/send_message_sound.mp3',
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final chatBloc = context.read<ChatBloc>();
+    final chatId = ModalRoute.of(context)!.settings.arguments as int?;
+    if (chatId == null) {
+      chatBloc.add(StartChatMessageEvent());
+    } else {
+      chatBloc.add(ChatInitialEvent(chatId: chatId));
+    }
   }
 
   @override
@@ -94,10 +109,25 @@ class _ChatPageState extends State<ChatPageBody> {
                       Expanded(
                         child: BlocBuilder<ChatBloc, ChatState>(
                             builder: (context, state) {
-                          SchedulerBinding.instance
-                              .addPostFrameCallback(_postFrameCallback);
+                          // SchedulerBinding.instance.addPostFrameCallback(
+                          //   (timeStamp) {
+                          //     if (state is ChatUpdateState) {
+                          //       if (!state.isSender) {
+                          //         return;
+                          //       }
+                          //     }
+                          //     if (scrollController.hasClients) {
+                          //       scrollController.jumpTo(
+                          //           scrollController.position.maxScrollExtent *
+                          //               times);
+                          //       times = 1;
+                          //     }
+                          //   },
+                          // );
                           return CpChatListView(
                             messages: state.messages,
+                            isResponseLoading:
+                                state is ChatResponseLoadingState,
                           );
                         }),
                       ),
@@ -118,15 +148,6 @@ class _ChatPageState extends State<ChatPageBody> {
     );
   }
 
-  void _postFrameCallback(Duration timeStamp) {
-    if (scrollController.hasClients) {      
-      log('Called');
-      scrollController
-          .jumpTo(scrollController.position.maxScrollExtent * times);
-      times = 1;
-    }
-  }
-
   void _imagePickerBlocListener(BuildContext context, state) {
     if (state is ImagePickerDoneState) {
       var chatBloc = context.read<ChatBloc>();
@@ -135,9 +156,9 @@ class _ChatPageState extends State<ChatPageBody> {
           .pushNamed(ImageEditPage.pageName, arguments: state.image);
       futureOfEditScreen.then(
         (value) {
-          if(value != null){
+          if (value != null) {
             chatBloc.add(ChatSendMessageEvent(message: value as ChatMessage));
-          }          
+          }
         },
       );
     }
@@ -145,9 +166,11 @@ class _ChatPageState extends State<ChatPageBody> {
 
   void _chatBlocStateListener(BuildContext context, ChatState state) {
     if (state is ChatUpdateState) {
-      player.seek(Duration.zero);
-      player.play();
-      context.read<ChatTextEditingController>().clear();
+      if (state.isSender) {
+        player.seek(Duration.zero);
+        player.play();
+        context.read<ChatTextEditingController>().clear();
+      }
     }
   }
 }

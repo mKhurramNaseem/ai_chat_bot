@@ -57,8 +57,8 @@ export 'package:ai_chat_bot/features/auth/presentation/pages/login_account_page/
 export 'package:ai_chat_bot/features/auth/presentation/pages/login_account_page/widgets/lap_space_widgets.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/login_account_page/widgets/lap_title_text.dart';
 export 'package:ai_chat_bot/features/auth/presentation/pages/set_finger_print_page/view/set_finger_print_page.dart';
-export 'package:ai_chat_bot/features/chat/domain/models/chat_message.dart';
-export 'package:ai_chat_bot/features/chat/domain/models/shape.dart';
+export 'package:ai_chat_bot/features/chat/domain/entities/chat_message.dart';
+export 'package:ai_chat_bot/features/chat/domain/entities/shape.dart';
 export 'package:ai_chat_bot/features/chat/presentation/bloc/chat_bloc/chat_bloc.dart';
 export 'package:ai_chat_bot/features/chat/presentation/bloc/image_edit_bloc/image_edit_bloc.dart';
 export 'package:ai_chat_bot/features/chat/presentation/bloc/image_picker_bloc/image_picker_bloc.dart';
@@ -101,4 +101,18 @@ export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 export 'package:image_picker/image_picker.dart';
 export 'package:just_audio/just_audio.dart';
 export 'package:provider/provider.dart';
+export 'package:ai_chat_bot/core/database/db_initializer.dart';
+export 'package:ai_chat_bot/features/chat/data/repository/chat_repository_impl.dart';
+export 'package:ai_chat_bot/features/chat/data/source/local/local_source.dart';
+export 'package:ai_chat_bot/features/chat/data/source/local/local_source_impl.dart';
+export 'package:ai_chat_bot/features/chat/data/source/remote/remote_source.dart';
+export 'package:ai_chat_bot/features/chat/data/source/remote/remote_source_impl.dart';
+export 'package:ai_chat_bot/features/chat/domain/repository/chat_repository.dart';
+export 'package:ai_chat_bot/features/chat/domain/usecases/get_active_chats_usecase.dart';
+export 'package:ai_chat_bot/features/chat/domain/usecases/get_previous_chat_usecase.dart';
+export 'package:ai_chat_bot/features/chat/domain/usecases/get_updated_chat_usecase.dart';
+export 'package:ai_chat_bot/features/chat/domain/usecases/send_message_usecase.dart';
+export 'package:ai_chat_bot/features/chat/domain/usecases/start_chat_usecase.dart';
+export 'package:get_it/get_it.dart';
+
 

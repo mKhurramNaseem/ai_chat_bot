@@ -3,27 +3,32 @@ import 'dart:ui';
 
 import 'package:ai_chat_bot/core/core.dart';
 
-import '../../../../domain/models/custom_line.dart';
-import '../../../../domain/models/quadrilateral.dart';
-import '../../../../domain/models/triangle.dart';
+import '../../../../domain/entities/custom_line.dart';
+import '../../../../domain/entities/quadrilateral.dart';
+import '../../../../domain/entities/triangle.dart';
 
 class IepPainter extends CustomPainter {
   static const _borderRadius = 20.0;
 
+  final bool drawEnable;
   final List<Shape> track;
   final Shape shape;
 
   IepPainter({
     required this.shape,
     required this.track,
+    required this.drawEnable,
   });
 
   @override
-  void paint(Canvas canvas, Size size) {
-    for (var i = 0; i < track.length; i++) {
+  void paint(Canvas canvas, Size size) {    
+    if(drawEnable){
+      log('Track : ${track.toString()}');
+      for (var i = 0; i < track.length; i++) {
       drawRespectiveShape(canvas, track[i]);
     }
     drawRespectiveShape(canvas, shape);
+    }    
   }
 
   @override
@@ -32,8 +37,7 @@ class IepPainter extends CustomPainter {
   @override
   bool shouldRebuildSemantics(IepPainter oldDelegate) => false;
 
-  drawRespectiveShape(Canvas canvas, Shape shape) {
-    log('Shape drawing $shape');
+  drawRespectiveShape(Canvas canvas, Shape shape) {    
     if (shape is Line) {
       drawLine(canvas, shape);
     } else if (shape is Oval) {
@@ -61,7 +65,7 @@ class IepPainter extends CustomPainter {
       ..color = line.color
       ..strokeWidth = strokeWidth
       ..style = line.paintingStyle;
-    canvas.drawLine(line.begin, line.end, paint);
+    canvas.drawLine(line.begin, line.end, paint);    
     // canvas.drawLine(line.end, , paint);
   }
 

@@ -1,10 +1,13 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/chat/presentation/bloc/active_chats_bloc/active_chats_bloc.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_active_chats.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_active_chats_tile.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_app_bar.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_ended_chats.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_ended_chats_tile.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_start_chat_button.dart';
+import 'package:ai_chat_bot/injection_container.dart';
+import 'package:ai_chat_bot/main.dart';
 
 class HomePage extends StatelessWidget {
   static const pageName = '/homePage';
@@ -12,58 +15,111 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ActiveChatsBloc>(
+          create: (context) => ActiveChatsBloc(
+            activeChatsUsecase: sl(),
+          ),
+        ),
+      ],
+      child: const HomePageBody(),
+    );
+  }
+}
+
+class HomePageBody extends StatefulWidget {
+  const HomePageBody({super.key});
+
+  @override
+  State<HomePageBody> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePageBody> with RouteAware{
+
+
+  @override
+  void initState() {    
+    super.initState();
+        hpNavigatorObserver.subscribe(this);
+  }
+
+  @override
+  void dispose() {
+    hpNavigatorObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPop() {      
+    context.read<ActiveChatsBloc>().add(ActiveChatsFetchEvent());
+    super.didPop();    
+  }
+
+  @override
+  Widget build(BuildContext context) {        
     return Scaffold(
       appBar: HpAppBar(),
-      body: const Center(
+      body: Center(
         child: Column(
           children: [
-            Expanded(
+            const Expanded(
               flex: 8,
               child: HpActiveChats(),
             ),
-            Spacer(
+            const Spacer(
               flex: 1,
             ),
             Expanded(
               flex: 15,
-              child: HpActiveChatsTile(),
+              child: BlocBuilder<ActiveChatsBloc, ActiveChatsState>(
+                  builder: (context, state) {
+                if (state is ActiveChatsDoneState) {
+                  return HpActiveChatsTile(
+                    chat: state.activeChats[0],
+                  );
+                } else if (state is ActiveChatsEmptyState) {
+                  return const ColoredBox(color: Colors.red);
+                }
+                return const SizedBox();
+              }),
             ),
-            Spacer(
+            const Spacer(
               flex: 1,
             ),
-            Expanded(
+            const Expanded(
               flex: 8,
               child: HpEndedChats(),
             ),
-            Spacer(
+            const Spacer(
               flex: 2,
             ),
-            Expanded(
+            const Expanded(
               flex: 15,
               child: HpEndedChatsTile(),
             ),
-            Spacer(
+            const Spacer(
               flex: 2,
             ),
-            Expanded(
+            const Expanded(
               flex: 15,
               child: HpEndedChatsTile(),
             ),
-            Spacer(
+            const Spacer(
               flex: 2,
             ),
-            Expanded(
+            const Expanded(
               flex: 15,
               child: HpEndedChatsTile(),
             ),
-            Spacer(
+            const Spacer(
               flex: 2,
             ),
-            Expanded(
+            const Expanded(
               flex: 10,
               child: HpStartChatButton(),
             ),
-            Spacer(
+            const Spacer(
               flex: 3,
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class CpReceiverTile extends StatelessWidget {
   static const _specificRadius = 6.0;
@@ -45,11 +46,13 @@ class CpReceiverTile extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      chatMessage.message,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.normal,
-                          ),
+                    child: MarkdownBody(
+                      data: chatMessage.message,
+                      fitContent: true,
+                      selectable: true,
+                      styleSheet: MarkdownStyleSheet.fromTheme(
+                        Theme.of(context),
+                      ),
                     ),
                   ),
                 ),

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/presentation/bloc/canvas_bloc/canvas_bloc.dart';
@@ -10,45 +9,53 @@ class IepImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var file = ModalRoute.of(context)!.settings.arguments as File;
-    log('Rebuild');
     return Positioned.fill(
-      child: SizedBox(
-        height: MediaQuery.sizeOf(context).height,
+      child: GestureDetector(
+        onPanDown: (details) {
+          context.read<CanvasBloc>().add(CanvasStartEvent(
+                details: details,
+              ));
+        },
+        onPanUpdate: (details) {
+          context.read<CanvasBloc>().add(CanvasUpdateEvent(details: details));
+        },
+        onPanEnd: (details) {
+          context.read<CanvasBloc>().add(CanvasEndEvent(details: details));
+        },
         child: Center(
-          child: RepaintBoundary(
-            key: context.read<GlobalKey>(),
-            child: Builder(builder: (context) {
-              Shape shape = Line(begin: Offset.zero, end: Offset.zero);
-              List<Shape> track = [];
-              return BlocBuilder<CanvasBloc, CanvasState>(
-                  builder: (context, state) {
-                log("Rebuilding");
-                if (state is CanvasUpdatedState) {
-                  shape = state.current;
-                  track = state.track;
-                }
-                return CustomPaint(
-                  foregroundPainter: IepPainter(
-                    shape: shape,
-                    track: track,
-                  ),
-                  child: SizedBox(
-                    height: MediaQuery.sizeOf(context).height,
-                    width: MediaQuery.sizeOf(context).width,
+          child: Builder(builder: (context) {
+            Shape shape = context.read<CanvasBloc>().currentShape;
+            List<Shape> track = context.read<CanvasBloc>().previous;
+            return BlocBuilder<CanvasBloc, CanvasState>(
+                builder: (context, state) {
+              if (state is CanvasUpdatedState) {
+                shape = state.current;
+                track = state.track;
+              }
+              return SizedBox(
+                height: MediaQuery.sizeOf(context).height,
+                width: MediaQuery.sizeOf(context).width,
+                child: RepaintBoundary(
+                  key: context.read<GlobalKey>(),
+                  child: CustomPaint(
+                    foregroundPainter: IepPainter(
+                      shape: shape,
+                      track: track,
+                      drawEnable: context.read<ImageEditBloc>().state is! ImageEditSimpleState,
+                    ),
                     child: BlocBuilder<WidgetToImageConversionBloc,
                             WidgetToImageConversionState>(
-                        builder: (context, state) {                          
+                        builder: (context, state) {
                       if (state is WidgetToImageConversionDoneState) {
-                        log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
                         file = state.imageFile;
                       }
-                      return Image.file(file);
+                      return FittedBox(child: Image.file(file));
                     }),
                   ),
-                );
-              });
-            }),
-          ),
+                ),
+              );
+            });
+          }),
         ),
       ),
     );

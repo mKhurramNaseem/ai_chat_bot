@@ -59,7 +59,7 @@ class CpChatField extends StatelessWidget {
                                 message: context
                                     .read<ChatTextEditingController>()
                                     .text
-                                    .trim())));
+                                    .trim(), image: null,),));
                       },
                       child: Container(
                         decoration: BoxDecoration(

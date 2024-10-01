@@ -1,5 +1,6 @@
+import 'dart:developer';
 import 'package:ai_chat_bot/core/core.dart';
-
+import 'package:ai_chat_bot/features/chat/domain/entities/chat.dart';
 
 class HpActiveChatsTile extends StatelessWidget {
   static const _startSpace = 5,
@@ -7,14 +8,19 @@ class HpActiveChatsTile extends StatelessWidget {
       _tileTextsFlex = 44,
       _imageFlex = 30,
       _iconFlex = 10;
-  const HpActiveChatsTile({super.key});
+  final Chat chat;
+  const HpActiveChatsTile({
+    super.key,
+    required this.chat,
+  });
 
   @override
   Widget build(BuildContext context) {
     return HpBaseWidget(
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).pushNamed(ChatPage.pageName , arguments: AppDummyData.messages);
+          Navigator.of(context)
+              .pushNamed(ChatPage.pageName, arguments: chat.chatId);
         },
         child: Container(
           decoration: ShapeDecoration(
@@ -38,9 +44,11 @@ class HpActiveChatsTile extends StatelessWidget {
               const Spacer(
                 flex: _middleSpace,
               ),
-              const Expanded(
+              Expanded(
                 flex: _tileTextsFlex,
-                child: HpActiveChatsTileTexts(),
+                child: HpActiveChatsTileTexts(
+                  text: chat.lastMessage,
+                ),
               ),
               const Spacer(
                 flex: _middleSpace,
@@ -66,10 +74,12 @@ class HpActiveChatsTile extends StatelessWidget {
 class HpActiveChatsTileTexts extends StatelessWidget {
   static const _titleTextFlex = 47, _spacer = 3, _messageFlex = 50;
   static const _titleFontSize = 0.32, _messageFontSize = 0.22;
-  static const
-      _message = 'Hello Khurram! I\'m Bobo How are you today??';
   static const _maxLines = 2;
-  const HpActiveChatsTileTexts({super.key});
+  final String text;
+  const HpActiveChatsTileTexts({
+    super.key,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -100,10 +110,11 @@ class HpActiveChatsTileTexts extends StatelessWidget {
           flex: _messageFlex,
           child: LayoutBuilder(
             builder: (context, constraints) {
+              log(text);
               return Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  _message,
+                  text,
                   maxLines: _maxLines,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(

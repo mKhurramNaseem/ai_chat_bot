@@ -8,15 +8,12 @@ abstract class ChatMessagesRepository {
   Future<Either<ChatFailure, List<ChatMessage>>> getPreviousMessagesList(
       int chatId);
   Future<Either<ChatFailure, List<ChatMessage>>> getUpdatedMessagesList(
-    int chatId,
-    ChatMessageModel message,
-  );
+      int chatId, ChatMessageModel message);
   Future<Either<ChatFailure, List<ChatMessage>>>
-      getUpdatedMessagesListForSender(
-    int chatId,
-    ChatMessageModel message,
-  );
+      getUpdatedMessagesListForSender(int chatId, ChatMessageModel message);
   Future<Either<ChatFailure, int>> createChat();
   Future<Either<ChatFailure, List<Chat>>> getEndedChats();
   Future<Either<ChatFailure, List<Chat>>> getActiveChats();
+  Future<Either<ChatFailure, bool>> endCurrentSession(int chatId);
+  Future<Either<ChatFailure,bool>> deleteChat(int chatId);
 }

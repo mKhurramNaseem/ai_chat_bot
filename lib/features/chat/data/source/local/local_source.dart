@@ -11,4 +11,5 @@ abstract class ChatLocalDataSource{
   Future<bool> addMessage(int chatId,ChatMessageModel chatMessage);
   Future<List<ChatMessageModel>> getMessages(int chatId);
   Future<bool> deleteMessages(int chatId);
+  Future<bool> endChat(int chatId);  
 }

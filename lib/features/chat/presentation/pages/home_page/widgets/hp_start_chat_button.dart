@@ -1,4 +1,5 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/chat/domain/entities/chat_params.dart';
 
 class HpStartChatButton extends StatelessWidget {
   static const _text = 'Start Another Chat with ${AppConstants.botName}';
@@ -14,7 +15,7 @@ class HpStartChatButton extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
                 onPressed: () {                  
-                  Navigator.of(context).pushNamed(ChatPage.pageName , arguments: null);
+                  Navigator.of(context).pushNamed(ChatPage.pageName , arguments: ChatParams(isActive: true,));
                 },
                 style: ButtonStyle(
                   fixedSize: WidgetStatePropertyAll(

@@ -19,7 +19,8 @@ class StartChatMessageEvent extends ChatEvent{}
 @immutable
 class ChatSendMessageEvent extends ChatEvent{
   final ChatMessage message;
-
   const ChatSendMessageEvent({required this.message});
-
 }
+
+@immutable
+class ChatMessageEndEvent extends ChatEvent{}

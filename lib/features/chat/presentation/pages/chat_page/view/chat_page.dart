@@ -1,10 +1,15 @@
-
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/chat/domain/entities/chat_params.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/chat_page/widgets/cp_error_dialog.dart';
 import 'package:ai_chat_bot/injection_container.dart';
 
 class ChatPage extends StatelessWidget {
   static const pageName = '/chatPage';
-  const ChatPage({super.key});
+  final ChatParams chatParams;
+  const ChatPage({
+    super.key,
+    required this.chatParams,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,23 +17,29 @@ class ChatPage extends StatelessWidget {
       providers: [
         BlocProvider<ChatBloc>(
           create: (context) => ChatBloc(
-            getUpdatedChatUsecase: sl(),
-            sendMessageUsecase: sl(),
-            startChatUsecase: sl(),
-            getPreviousChatUsecase: sl(),
-          ),
+              getUpdatedChatUsecase: sl(),
+              sendMessageUsecase: sl(),
+              startChatUsecase: sl(),
+              getPreviousChatUsecase: sl(),
+              endCurrentSessionUsecase: sl()),
         ),
         BlocProvider<ImagePickerBloc>(
           create: (context) => ImagePickerBloc(),
         ),
       ],
-      child: const ChatPageBody(),
+      child: ChatPageBody(
+        chatParams: chatParams,
+      ),
     );
   }
 }
 
 class ChatPageBody extends StatefulWidget {
-  const ChatPageBody({super.key});
+  final ChatParams chatParams;
+  const ChatPageBody({
+    super.key,
+    required this.chatParams,
+  });
 
   @override
   State<ChatPageBody> createState() => _ChatPageState();
@@ -47,6 +58,12 @@ class _ChatPageState extends State<ChatPageBody> {
     chatTextController = ChatTextEditingController();
     player = AudioPlayer();
     initialize();
+    final chatBloc = context.read<ChatBloc>();
+    if (widget.chatParams.chatId == null) {
+      chatBloc.add(StartChatMessageEvent());
+    } else {
+      chatBloc.add(ChatInitialEvent(chatId: widget.chatParams.chatId!));
+    }
   }
 
   initialize() async {
@@ -60,13 +77,6 @@ class _ChatPageState extends State<ChatPageBody> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final chatBloc = context.read<ChatBloc>();
-    final chatId = ModalRoute.of(context)!.settings.arguments as int?;
-    if (chatId == null) {
-      chatBloc.add(StartChatMessageEvent());
-    } else {
-      chatBloc.add(ChatInitialEvent(chatId: chatId));
-    }
   }
 
   @override
@@ -79,6 +89,7 @@ class _ChatPageState extends State<ChatPageBody> {
 
   @override
   Widget build(BuildContext context) {
+    final chatParams = ModalRoute.of(context)!.settings.arguments as ChatParams;
     MediaQuery.viewInsetsOf(context).bottom > 0;
     return MultiProvider(
       providers: [
@@ -133,12 +144,13 @@ class _ChatPageState extends State<ChatPageBody> {
                       ),
                     ],
                   ),
-                  const Positioned.fill(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: CpChatField(),
+                  if (chatParams.isActive)
+                    const Positioned.fill(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: CpChatField(),
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
@@ -171,6 +183,14 @@ class _ChatPageState extends State<ChatPageBody> {
         player.play();
         context.read<ChatTextEditingController>().clear();
       }
+    } else if (state is ChatMessageEndState) {
+      Navigator.of(context).pop();
+    } else if (state is ChatErrorState) {
+      showDialog(
+        context: context,
+        barrierColor: Theme.of(context).dialogTheme.barrierColor,
+        builder: (context) => CpErrorDialog(message: state.message),
+      );
     }
   }
 }

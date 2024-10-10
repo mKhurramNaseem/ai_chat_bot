@@ -2,27 +2,27 @@ import 'dart:math' as math;
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/domain/entities/chat.dart';
 import 'package:ai_chat_bot/features/chat/domain/entities/chat_params.dart';
-import 'package:ai_chat_bot/features/chat/presentation/bloc/end_chats_bloc/end_chats_bloc.dart';
+import 'package:ai_chat_bot/features/chat/presentation/bloc/active_chats_bloc/active_chats_bloc.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/active_chats_page/widgets/acp_delete_dialog.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/ended_chats_page/widgets/ecp_base_widgets.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/ended_chats_page/widgets/ecp_delete_dialog.dart';
 
-class EcpListTile extends StatefulWidget {
+class AcpListTile extends StatefulWidget {
   static const _startSpace = 5,
       _middleSpace = 3,
       _tileTextsFlex = 57,
       _imageFlex = 30;
   static const _padding = 0.01, _heightPercent = 0.15;
   final Chat chat;
-  const EcpListTile({
+  const AcpListTile({
     super.key,
     required this.chat,
   });
 
   @override
-  State<EcpListTile> createState() => _EcpListTileState();
+  State<AcpListTile> createState() => _AcpListTileState();
 }
 
-class _EcpListTileState extends State<EcpListTile> {
+class _AcpListTileState extends State<AcpListTile> {
   var previousDistance = 0.0;
   var distance = 0.0;
   var direction = 0.0;
@@ -36,12 +36,12 @@ class _EcpListTileState extends State<EcpListTile> {
 
   @override
   Widget build(BuildContext context) {
-    final endedChatsBloc = context.read<EndChatsBloc>();
+    var activeChatsBloc = context.read<ActiveChatsBloc>();
     final height = MediaQuery.sizeOf(context).height -
         kToolbarHeight -
         MediaQuery.paddingOf(context).top;
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: height * EcpListTile._padding),
+      padding: EdgeInsets.symmetric(vertical: height * AcpListTile._padding),
       child: GestureDetector(
         onHorizontalDragStart: (details) {
           setState(() {
@@ -83,7 +83,7 @@ class _EcpListTileState extends State<EcpListTile> {
         child: EcpBaseWidget(
           child: LayoutBuilder(builder: (context, constraints) {
             return SizedBox(
-              height: height * EcpListTile._heightPercent,
+              height: height * AcpListTile._heightPercent,
               width: constraints.maxWidth,
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -99,8 +99,10 @@ class _EcpListTileState extends State<EcpListTile> {
                             showDialog(
                               context: context,
                               builder: (context) => BlocProvider.value(
-                                value: endedChatsBloc,
-                                child: EcpDeleteDialog(chatId: widget.chat.chatId,),
+                                value: activeChatsBloc,
+                                child: AcpDeleteDialog(
+                                  chatId: widget.chat.chatId,
+                                ),
                               ),
                             );
                             setState(() {
@@ -108,7 +110,7 @@ class _EcpListTileState extends State<EcpListTile> {
                             });
                           },
                           child: Container(
-                            height: height * EcpListTile._heightPercent,
+                            height: height * AcpListTile._heightPercent,
                             decoration: const BoxDecoration(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(30.0),
@@ -144,7 +146,7 @@ class _EcpListTileState extends State<EcpListTile> {
                           onTap: () {
                             Navigator.of(context).pushNamed(ChatPage.pageName,
                                 arguments: ChatParams(
-                                    isActive: false,
+                                    isActive: true,
                                     chatId: widget.chat.chatId));
                           },
                           child: Container(
@@ -159,26 +161,26 @@ class _EcpListTileState extends State<EcpListTile> {
                             child: Row(
                               children: [
                                 const Spacer(
-                                  flex: EcpListTile._startSpace,
+                                  flex: AcpListTile._startSpace,
                                 ),
                                 Expanded(
-                                  flex: EcpListTile._imageFlex,
+                                  flex: AcpListTile._imageFlex,
                                   child: Image.asset(
                                     AppImages.simpleImage,
                                   ),
                                 ),
                                 const Spacer(
-                                  flex: EcpListTile._middleSpace,
+                                  flex: AcpListTile._middleSpace,
                                 ),
                                 Expanded(
-                                  flex: EcpListTile._tileTextsFlex,
-                                  child: EcpEndedChatsTileTexts(
+                                  flex: AcpListTile._tileTextsFlex,
+                                  child: AcpActiveChatsTileTexts(
                                     endDate: widget.chat.endTime,
                                     message: widget.chat.lastMessage,
                                   ),
                                 ),
                                 const Spacer(
-                                  flex: EcpListTile._startSpace,
+                                  flex: AcpListTile._startSpace,
                                 ),
                               ],
                             ),
@@ -197,14 +199,14 @@ class _EcpListTileState extends State<EcpListTile> {
   }
 }
 
-class EcpEndedChatsTileTexts extends StatelessWidget {
+class AcpActiveChatsTileTexts extends StatelessWidget {
   static const _titleTextFlex = 47, _spacer = 3, _messageFlex = 50;
   static const _titleFontSize = 0.32, _messageFontSize = 0.22;
   static const _title = AppConstants.botName;
   static const _maxLines = 2;
   final String message;
   final DateTime endDate;
-  const EcpEndedChatsTileTexts({
+  const AcpActiveChatsTileTexts({
     super.key,
     required this.message,
     required this.endDate,

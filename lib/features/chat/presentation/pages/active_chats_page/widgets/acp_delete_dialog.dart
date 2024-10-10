@@ -1,9 +1,9 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/bloc/end_chats_bloc/end_chats_bloc.dart';
+import 'package:ai_chat_bot/features/chat/presentation/bloc/active_chats_bloc/active_chats_bloc.dart';
 
-class EcpDeleteDialog extends StatelessWidget {
+class AcpDeleteDialog extends StatelessWidget {
   final int chatId;
-  const EcpDeleteDialog({super.key , required this.chatId});
+  const AcpDeleteDialog({super.key , required this.chatId,});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class EcpDeleteDialog extends StatelessWidget {
                         width: constraints.maxWidth,
                         child: ElevatedButton(
                           onPressed: () {
-                            context.read<EndChatsBloc>().add(EndChatsDeleteEvent(chatId: chatId));
+                            context.read<ActiveChatsBloc>().add(ActiveChatDeleteEvent(chatId: chatId));
                             Navigator.of(context).pop();
                           },
                           child: const Text('Yes, Delete'),

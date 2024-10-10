@@ -13,8 +13,13 @@ class CpEndSessionDialog extends StatelessWidget {
           'Are you sure you want to end chat session with ${AppConstants.botName}',
       positiveBtnText: 'Yes, End Session',
       negativeBtnText: 'Cancel',
-      onPositiveBtnPressed: () {},
-      onNegativeBtnPressed: () {},
+      onPositiveBtnPressed: () {
+        context.read<ChatBloc>().add(ChatMessageEndEvent());
+        Navigator.of(context).pop();
+      },
+      onNegativeBtnPressed: () {
+        Navigator.of(context).pop();
+      },
     );
   }
 }

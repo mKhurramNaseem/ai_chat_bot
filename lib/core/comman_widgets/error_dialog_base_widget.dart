@@ -1,18 +1,24 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/bloc/end_chats_bloc/end_chats_bloc.dart';
 
-class EcpDeleteDialog extends StatelessWidget {
-  final int chatId;
-  const EcpDeleteDialog({super.key , required this.chatId});
+class ErrorDialogBaseWidget extends StatelessWidget {
+  final String image;
+  final String title;
+  final String subtitle;
+  const ErrorDialogBaseWidget({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.subtitle,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
           MediaQuery.sizeOf(context).width * 0.1,
-          MediaQuery.sizeOf(context).height * 0.2,
+          MediaQuery.sizeOf(context).height * 0.23,
           MediaQuery.sizeOf(context).width * 0.1,
-          MediaQuery.sizeOf(context).height * 0.2),
+          MediaQuery.sizeOf(context).height * 0.23),
       child: Container(
         height: MediaQuery.sizeOf(context).height * 0.6,
         width: MediaQuery.sizeOf(context).width * 0.8,
@@ -35,7 +41,7 @@ class EcpDeleteDialog extends StatelessWidget {
                   Expanded(
                     flex: 32,
                     child: Image.asset(
-                      AppImages.crossEyedImage,
+                      image,
                     ),
                   ),
                   const Spacer(
@@ -45,7 +51,7 @@ class EcpDeleteDialog extends StatelessWidget {
                     flex: 8,
                     child: LayoutBuilder(builder: (context, constraints) {
                       return Text(
-                        'Delete Chat?',
+                        title,
                         style:
                             Theme.of(context).textTheme.headlineSmall?.copyWith(
                                   fontSize: constraints.maxHeight * 0.5,
@@ -57,31 +63,13 @@ class EcpDeleteDialog extends StatelessWidget {
                     flex: 13,
                     child: LayoutBuilder(builder: (context, constraints) {
                       return Text(
-                        'Are you sure you want to delete this ended chat?',
+                        subtitle,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               fontSize: constraints.maxHeight * 0.25,
                             ),
                       );
                     }),
-                  ),
-                  Expanded(
-                    flex: 11,
-                    child: LayoutBuilder(builder: (context, constraints) {
-                      return SizedBox(
-                        width: constraints.maxWidth,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            context.read<EndChatsBloc>().add(EndChatsDeleteEvent(chatId: chatId));
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Yes, Delete'),
-                        ),
-                      );
-                    }),
-                  ),
-                  const Spacer(
-                    flex: 4,
                   ),
                   Expanded(
                     flex: 11,
@@ -109,7 +97,7 @@ class EcpDeleteDialog extends StatelessWidget {
                     ),
                   ),
                   const Spacer(
-                    flex: 6,
+                    flex: 5,
                   ),
                 ],
               ),

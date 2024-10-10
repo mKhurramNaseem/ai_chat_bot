@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/domain/entities/chat.dart';
+import 'package:ai_chat_bot/features/chat/domain/entities/chat_params.dart';
 
 class HpActiveChatsTile extends StatelessWidget {
   static const _startSpace = 5,
@@ -20,7 +21,7 @@ class HpActiveChatsTile extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.of(context)
-              .pushNamed(ChatPage.pageName, arguments: chat.chatId);
+              .pushNamed(ChatPage.pageName, arguments: ChatParams(chatId: chat.chatId,isActive: true,));
         },
         child: Container(
           decoration: ShapeDecoration(

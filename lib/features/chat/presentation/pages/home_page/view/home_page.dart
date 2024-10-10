@@ -1,10 +1,13 @@
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/presentation/bloc/active_chats_bloc/active_chats_bloc.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_active_chats.dart';
+import 'package:ai_chat_bot/features/chat/presentation/bloc/end_chats_bloc/end_chats_bloc.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_active_chats_empty_widget.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_active_chats_text.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_active_chats_tile.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_app_bar.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_ended_chats.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_ended_chats_tile.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_ended_chats_empty_widget.dart';
+import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_ended_chats_text.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_start_chat_button.dart';
 import 'package:ai_chat_bot/injection_container.dart';
 import 'package:ai_chat_bot/main.dart';
@@ -18,8 +21,12 @@ class HomePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ActiveChatsBloc>(
-          create: (context) => ActiveChatsBloc(
-            activeChatsUsecase: sl(),
+        create: (context) => ActiveChatsBloc(activeChatsUsecase: sl(),deleteChatUsecase: sl(),),
+        ),
+        BlocProvider<EndChatsBloc>(
+          create: (context) => EndChatsBloc(
+            getEndedChatsUsecase: sl(),
+            deleteChatUsecase: sl(),
           ),
         ),
       ],
@@ -35,13 +42,13 @@ class HomePageBody extends StatefulWidget {
   State<HomePageBody> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePageBody> with RouteAware{
-
-
+class _HomePageState extends State<HomePageBody> with RouteAware {
   @override
-  void initState() {    
+  void initState() {
     super.initState();
-        hpNavigatorObserver.subscribe(this);
+    hpNavigatorObserver.subscribe(this);
+    context.read<ActiveChatsBloc>().add(ActiveChatsFetchEvent());
+    context.read<EndChatsBloc>().add(EndChatsFetchEvent());
   }
 
   @override
@@ -51,13 +58,14 @@ class _HomePageState extends State<HomePageBody> with RouteAware{
   }
 
   @override
-  void didPop() {      
+  void didPop() {
     context.read<ActiveChatsBloc>().add(ActiveChatsFetchEvent());
-    super.didPop();    
+    context.read<EndChatsBloc>().add(EndChatsFetchEvent());
+    super.didPop();
   }
 
   @override
-  Widget build(BuildContext context) {        
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: HpAppBar(),
       body: Center(
@@ -79,7 +87,7 @@ class _HomePageState extends State<HomePageBody> with RouteAware{
                     chat: state.activeChats[0],
                   );
                 } else if (state is ActiveChatsEmptyState) {
-                  return const ColoredBox(color: Colors.red);
+                  return const HpActiveChatsEmptyWidget();
                 }
                 return const SizedBox();
               }),
@@ -89,31 +97,24 @@ class _HomePageState extends State<HomePageBody> with RouteAware{
             ),
             const Expanded(
               flex: 8,
-              child: HpEndedChats(),
+              child: HpEndedChatsText(),
             ),
             const Spacer(
               flex: 2,
             ),
-            const Expanded(
-              flex: 15,
-              child: HpEndedChatsTile(),
-            ),
-            const Spacer(
-              flex: 2,
-            ),
-            const Expanded(
-              flex: 15,
-              child: HpEndedChatsTile(),
-            ),
-            const Spacer(
-              flex: 2,
-            ),
-            const Expanded(
-              flex: 15,
-              child: HpEndedChatsTile(),
-            ),
-            const Spacer(
-              flex: 2,
+            Expanded(
+              flex: 51,
+              child: BlocBuilder<EndChatsBloc, EndChatsState>(
+                  builder: (context, state) {
+                if (state is EndChatsDoneState) {
+                  return HpEndedChats(
+                    chats: state.endedChats,
+                  );
+                } else if (state is EndChatsEmptyState) {
+                  return const HpEndedChatsEmptyWidget();
+                }
+                return const SizedBox();
+              }),
             ),
             const Expanded(
               flex: 10,

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/chat/domain/usecases/end_current_session_usecase.dart';
 part 'chat_event.dart';
 part 'chat_state.dart';
 
@@ -8,6 +9,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final GetUpdatedChatUsecase getUpdatedChatUsecase;
   final StartChatUsecase startChatUsecase;
   final SendMessageUsecase sendMessageUsecase;
+  final EndCurrentSessionUsecase endCurrentSessionUsecase;
   List<ChatMessage> chats = [];
   int currentChatId = 0;
   ChatBloc({
@@ -15,6 +17,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     required this.startChatUsecase,
     required this.sendMessageUsecase,
     required this.getPreviousChatUsecase,
+    required this.endCurrentSessionUsecase,
   }) : super(
           const ChatInitialState(
             messages: [],
@@ -23,6 +26,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<ChatInitialEvent>(_handleChatInitialEvent);
     on<ChatSendMessageEvent>(_handleSendMessageEvent);
     on<StartChatMessageEvent>(_handleStartMessage);
+    on<ChatMessageEndEvent>(_handleChatMessageEndEvent);
   }
 
   FutureOr<void> _handleSendMessageEvent(
@@ -33,12 +37,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     );
     emit(ChatUpdateState(messages: chats, isSender: true));
     emit(ChatResponseLoadingState(messages: chats));
-    result = await getUpdatedChatUsecase(currentChatId, event.message);
+    result = await getUpdatedChatUsecase(currentChatId, event.message);    
     if (result.isRight()) {
       chats = result.getOrElse(
         () => [],
       );
       emit(ChatUpdateState(messages: chats, isSender: false));
+    }else{
+      emit(ChatErrorState(messages: chats, message: 'Unable to get response'));
     }
   }
 
@@ -61,6 +67,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         () => [],
       );
       emit(ChatInitialState(messages: list));
+    }
+  }
+
+  FutureOr<void> _handleChatMessageEndEvent(ChatMessageEndEvent event, Emitter<ChatState> emit) async{
+    var result = await endCurrentSessionUsecase(currentChatId);
+    if(result.isRight()){
+      var isEnded = result.getOrElse(() => false,);
+      if(isEnded){
+        emit(ChatMessageEndState(messages: chats));
+      }
     }
   }
 }

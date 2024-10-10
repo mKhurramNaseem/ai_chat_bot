@@ -32,20 +32,22 @@ class ChatRepositoryImpl extends ChatMessagesRepository {
     int chatId,
     ChatMessageModel message,
   ) async {
-    try {      
-      var answer = await remoteDataSource.sendMessage(message);
-      log(answer.message);
+    try {
+      var answer = await remoteDataSource.sendMessage(
+        message,
+        await localDataSource.getMessages(chatId),
+      );
       var isAdded = await localDataSource.addMessage(chatId, answer);
+      log(isAdded.toString());
       await localDataSource.updateChatLastMessage(chatId, answer.message);
       if (isAdded) {
         var chatMessages = await localDataSource.getMessages(chatId);
-        log('Right Returned');
         return Right(chatMessages);
       } else {
         return Left(ChatFailure());
       }
     } catch (e) {
-      log('[Error : ${e.toString()}]');
+      log('Error : ${e.toString()}');
       return Left(ChatFailure());
     }
   }
@@ -56,14 +58,12 @@ class ChatRepositoryImpl extends ChatMessagesRepository {
     int chatId,
     ChatMessageModel message,
   ) async {
-    log('Get Udated message Called');
     try {
       await localDataSource.updateChatLastMessage(chatId, message.message);
       await localDataSource.addMessage(chatId, message);
       var chatMessages = await localDataSource.getMessages(chatId);
       return Right(chatMessages);
-    } catch (e) {
-      log('[Error : ${e.toString()}]');
+    } catch (e) {      
       return Left(ChatFailure());
     }
   }
@@ -73,7 +73,7 @@ class ChatRepositoryImpl extends ChatMessagesRepository {
     try {
       var isCreated = await localDataSource.createChat();
       return Right(isCreated);
-    } catch (e) {
+    } catch (e) {      
       return Left(ChatFailure());
     }
   }
@@ -88,7 +88,7 @@ class ChatRepositoryImpl extends ChatMessagesRepository {
             (element) => !element.isEnded,
           )
           .toList());
-    } catch (e) {
+    } catch (e) {      
       return Left(ChatFailure());
     }
   }
@@ -103,7 +103,28 @@ class ChatRepositoryImpl extends ChatMessagesRepository {
             (element) => element.isEnded,
           )
           .toList());
-    } catch (e) {
+    } catch (e) {      
+      return Left(ChatFailure());
+    }
+  }
+
+  @override
+  Future<Either<ChatFailure, bool>> endCurrentSession(int chatId) async {
+    try {
+      var isEnded = await localDataSource.endChat(chatId);
+      return Right(isEnded);
+    } catch (e) {      
+      return Left(ChatFailure());
+    }
+  }
+
+  @override
+  Future<Either<ChatFailure, bool>> deleteChat(int chatId) async{
+    try{
+      var isChatEnded = await localDataSource.deleteChat(chatId);
+      var isMessageEnded = await localDataSource.deleteMessages(chatId);
+      return Right(isChatEnded && isMessageEnded);
+    }catch(e){      
       return Left(ChatFailure());
     }
   }

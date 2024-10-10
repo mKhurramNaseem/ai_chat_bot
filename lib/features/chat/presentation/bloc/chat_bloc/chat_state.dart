@@ -22,3 +22,14 @@ final class ChatUpdateState extends ChatState {
   final bool isSender;
   const ChatUpdateState({required super.messages , required this.isSender}); 
 }
+
+@immutable
+final class ChatErrorState extends ChatState {
+  final String message;
+  const ChatErrorState({required super.messages , required this.message}); 
+}
+
+@immutable
+final class ChatMessageEndState extends ChatState {  
+  const ChatMessageEndState({required super.messages}); 
+}

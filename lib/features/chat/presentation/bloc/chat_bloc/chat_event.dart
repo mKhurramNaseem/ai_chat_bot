@@ -24,3 +24,6 @@ class ChatSendMessageEvent extends ChatEvent{
 
 @immutable
 class ChatMessageEndEvent extends ChatEvent{}
+
+@immutable
+class ClearChatEvent extends ChatEvent{}

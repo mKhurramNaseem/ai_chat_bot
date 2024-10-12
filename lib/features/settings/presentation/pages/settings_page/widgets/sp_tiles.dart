@@ -12,7 +12,7 @@ class SpEditProfileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: AppIcons.activityIcon,
+      leading: AppIcons.editProfileIcon,
       title: Text(
         'Edit Profile',
         style: Theme.of(context).textTheme.bodyLarge,
@@ -33,7 +33,7 @@ class SpLanguageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: AppIcons.activityIcon,
+      leading: AppIcons.languageIcon,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -62,14 +62,15 @@ class SpDarkModeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = Theme.of(context).brightness;
     return ListTile(
-      leading: AppIcons.activityIcon,
+      leading: AppIcons.darkModeIcon,
       title: Text(
         'Dark Mode',
         style: Theme.of(context).textTheme.bodyLarge,
       ),
       trailing: Switch(
-        value: true,
+        value: brightness == Brightness.dark,
         onChanged: (value) {},
       ),
     );
@@ -84,7 +85,7 @@ class SpHelpCenterTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: AppIcons.activityIcon,
+      leading: AppIcons.helpCenterIcon,
       title: Text(
         'Help Center',
         style: Theme.of(context).textTheme.bodyLarge,
@@ -105,7 +106,7 @@ class SpLogoutTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: AppIcons.activityIcon,
+      leading: AppIcons.logoutIcon,
       title: Text(
         'Logout',
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(

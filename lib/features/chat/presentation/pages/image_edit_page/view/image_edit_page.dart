@@ -33,18 +33,18 @@ class ImageEditPageBody extends StatefulWidget {
 }
 
 class _ImageEditPageState extends State<ImageEditPageBody> {
-  late ChatTextEditingController chatController;
+  late ChatTextEditingController chatController;  
   final key = GlobalKey();
 
   @override
   void initState() {
     super.initState();
-    chatController = ChatTextEditingController();
+    chatController = ChatTextEditingController();    
   }
 
   @override
   void dispose() {
-    chatController.dispose();
+    chatController.dispose();    
     super.dispose();
   }
 
@@ -58,7 +58,7 @@ class _ImageEditPageState extends State<ImageEditPageBody> {
         ),
         Provider<GlobalKey>(
           create: (context) => key,
-        ),
+        ),       
       ],
       child: BlocListener<WidgetToImageConversionBloc,
           WidgetToImageConversionState>(
@@ -90,8 +90,8 @@ class _ImageEditPageState extends State<ImageEditPageBody> {
     );
   }
 
-  void _editImageBlocListener(BuildContext context, state) {
-    if (state is WidgetToImageConversionNavigateState) {
+  void _editImageBlocListener(BuildContext context, state)async {
+    if (state is WidgetToImageConversionNavigateState) {      
       Navigator.of(context).pop(ChatMessage(
           isSender: true,
           message: chatController.text.trim(),

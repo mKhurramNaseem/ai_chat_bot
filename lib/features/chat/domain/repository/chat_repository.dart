@@ -15,5 +15,6 @@ abstract class ChatMessagesRepository {
   Future<Either<ChatFailure, List<Chat>>> getEndedChats();
   Future<Either<ChatFailure, List<Chat>>> getActiveChats();
   Future<Either<ChatFailure, bool>> endCurrentSession(int chatId);
+  Future<Either<ChatFailure, bool>> clearChat(int chatId);
   Future<Either<ChatFailure,bool>> deleteChat(int chatId);
 }

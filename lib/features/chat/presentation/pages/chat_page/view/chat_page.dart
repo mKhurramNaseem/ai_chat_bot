@@ -1,5 +1,6 @@
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/domain/entities/chat_params.dart';
+import 'package:ai_chat_bot/features/chat/presentation/bloc/end_chats_bloc/end_chats_bloc.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/chat_page/widgets/cp_error_dialog.dart';
 import 'package:ai_chat_bot/injection_container.dart';
 
@@ -17,14 +18,22 @@ class ChatPage extends StatelessWidget {
       providers: [
         BlocProvider<ChatBloc>(
           create: (context) => ChatBloc(
-              getUpdatedChatUsecase: sl(),
-              sendMessageUsecase: sl(),
-              startChatUsecase: sl(),
-              getPreviousChatUsecase: sl(),
-              endCurrentSessionUsecase: sl()),
+            getUpdatedChatUsecase: sl(),
+            sendMessageUsecase: sl(),
+            startChatUsecase: sl(),
+            getPreviousChatUsecase: sl(),
+            endCurrentSessionUsecase: sl(),
+            clearChatUsecase: sl(),
+          ),
         ),
         BlocProvider<ImagePickerBloc>(
           create: (context) => ImagePickerBloc(),
+        ),
+        BlocProvider<EndChatsBloc>(
+          create: (context) => EndChatsBloc(
+            getEndedChatsUsecase: sl(),
+            deleteChatUsecase: sl(),
+          ),
         ),
       ],
       child: ChatPageBody(

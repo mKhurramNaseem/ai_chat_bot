@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/chat/domain/usecases/clear_chat_usecase.dart';
 import 'package:ai_chat_bot/features/chat/domain/usecases/end_current_session_usecase.dart';
 part 'chat_event.dart';
 part 'chat_state.dart';
@@ -10,6 +11,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final StartChatUsecase startChatUsecase;
   final SendMessageUsecase sendMessageUsecase;
   final EndCurrentSessionUsecase endCurrentSessionUsecase;
+  final ClearChatUsecase clearChatUsecase;
   List<ChatMessage> chats = [];
   int currentChatId = 0;
   ChatBloc({
@@ -18,6 +20,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     required this.sendMessageUsecase,
     required this.getPreviousChatUsecase,
     required this.endCurrentSessionUsecase,
+    required this.clearChatUsecase,
   }) : super(
           const ChatInitialState(
             messages: [],
@@ -27,6 +30,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<ChatSendMessageEvent>(_handleSendMessageEvent);
     on<StartChatMessageEvent>(_handleStartMessage);
     on<ChatMessageEndEvent>(_handleChatMessageEndEvent);
+    on<ClearChatEvent>(_handleClearChatEvent);
   }
 
   FutureOr<void> _handleSendMessageEvent(
@@ -77,6 +81,20 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       if(isEnded){
         emit(ChatMessageEndState(messages: chats));
       }
+    }
+  }
+
+  FutureOr<void> _handleClearChatEvent(ClearChatEvent event, Emitter<ChatState> emit) async{
+    var result = await clearChatUsecase(currentChatId);
+    if(result.isRight() && result.getOrElse(() => false,)){     
+      var messagesResult = await getPreviousChatUsecase(currentChatId);
+      if(messagesResult.isRight()){
+        emit(ChatInitialState(messages: messagesResult.getOrElse(() => [],)));      
+      }else{
+        emit(ChatErrorState(messages: chats, message: 'Unable to fetch chats'));
+      }
+    }else{
+      emit(ChatErrorState(messages: chats, message: 'Unable to clear chats'));
     }
   }
 }

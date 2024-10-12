@@ -36,7 +36,7 @@ class ChatRepositoryImpl extends ChatMessagesRepository {
       var answer = await remoteDataSource.sendMessage(
         message,
         await localDataSource.getMessages(chatId),
-      );
+      );            
       var isAdded = await localDataSource.addMessage(chatId, answer);
       log(isAdded.toString());
       await localDataSource.updateChatLastMessage(chatId, answer.message);
@@ -125,6 +125,17 @@ class ChatRepositoryImpl extends ChatMessagesRepository {
       var isMessageEnded = await localDataSource.deleteMessages(chatId);
       return Right(isChatEnded && isMessageEnded);
     }catch(e){      
+      return Left(ChatFailure());
+    }
+  }
+
+
+  @override
+  Future<Either<ChatFailure, bool>> clearChat(int chatId) async{
+    try{
+      var isMessagesClear = await localDataSource.deleteMessages(chatId);
+      return Right(isMessagesClear);
+    }catch(e){
       return Left(ChatFailure());
     }
   }

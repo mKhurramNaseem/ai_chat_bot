@@ -32,11 +32,11 @@ class IepImage extends StatelessWidget {
                 shape = state.current;
                 track = state.track;
               }
-              return SizedBox(
-                height: MediaQuery.sizeOf(context).height,
-                width: MediaQuery.sizeOf(context).width,
-                child: RepaintBoundary(
-                  key: context.read<GlobalKey>(),
+              return RepaintBoundary(
+                    key: context.read<GlobalKey>(),
+                child: SizedBox(
+                  height: MediaQuery.sizeOf(context).height,
+                  width: MediaQuery.sizeOf(context).width,
                   child: CustomPaint(
                     foregroundPainter: IepPainter(
                       shape: shape,
@@ -49,7 +49,7 @@ class IepImage extends StatelessWidget {
                       if (state is WidgetToImageConversionDoneState) {
                         file = state.imageFile;
                       }
-                      return FittedBox(child: Image.file(file));
+                      return FittedBox(child: Image.file(file),);
                     }),
                   ),
                 ),

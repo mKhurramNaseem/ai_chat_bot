@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ai_chat_bot/core/core.dart';
 
 class ChatMessageModel extends ChatMessage {
@@ -8,7 +10,7 @@ class ChatMessageModel extends ChatMessage {
   static const messaageCol = 'message';
   static const imageCol = 'image';
   static const chatIdCol = 'chatId';
-  static const createTable = 'CREATE TABLE $tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, $chatIdCol INTEGER, $messaageCol TEXT, $isSenderCol INTEGER, $imageCol BLOB)';
+  static const createTable = 'CREATE TABLE $tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, $chatIdCol INTEGER, $messaageCol TEXT, $isSenderCol INTEGER, $imageCol TEXT)';
   ChatMessageModel({
     required super.isSender,
     required super.message,
@@ -25,14 +27,14 @@ class ChatMessageModel extends ChatMessage {
       : this(
           isSender: map[isSenderCol] == sender,
           message: map[messaageCol],
-          image: map[imageCol],
+          image: map[imageCol] != null ? File(map[imageCol] as String) : null,
         );
   Map<String, dynamic> toMap(int chatId,) {
     return {
       chatIdCol : chatId,
       isSenderCol : isSender ? sender : receiver,
       messaageCol : message,
-      imageCol : image,       
+      imageCol : image?.path,       
     };
   }
   

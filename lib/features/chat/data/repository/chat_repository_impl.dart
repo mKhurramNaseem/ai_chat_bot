@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:ai_chat_bot/core/util/app_errors.dart';
 import 'package:ai_chat_bot/features/chat/data/models/chat_message_model.dart';
-import 'package:ai_chat_bot/features/chat/data/source/local/local_source.dart';
+import 'package:ai_chat_bot/features/chat/data/source/local/db/local_source.dart';
 import 'package:ai_chat_bot/features/chat/data/source/remote/remote_source.dart';
 import 'package:ai_chat_bot/features/chat/domain/entities/chat.dart';
 import 'package:ai_chat_bot/features/chat/domain/entities/chat_message.dart';
@@ -37,8 +37,7 @@ class ChatRepositoryImpl extends ChatMessagesRepository {
         message,
         await localDataSource.getMessages(chatId),
       );            
-      var isAdded = await localDataSource.addMessage(chatId, answer);
-      log(isAdded.toString());
+      var isAdded = await localDataSource.addMessage(chatId, answer);      
       await localDataSource.updateChatLastMessage(chatId, answer.message);
       if (isAdded) {
         var chatMessages = await localDataSource.getMessages(chatId);

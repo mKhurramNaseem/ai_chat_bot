@@ -1,9 +1,9 @@
-import 'dart:typed_data';
+import 'dart:io';
 
 class ChatMessage {
   bool isSender;
   String message;
-  Uint8List? image;
+  File? image;
   ChatMessage({
     required this.isSender,
     required this.message,

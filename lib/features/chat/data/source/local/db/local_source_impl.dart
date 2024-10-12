@@ -1,6 +1,6 @@
 import 'package:ai_chat_bot/features/chat/data/models/chat_message_model.dart';
 import 'package:ai_chat_bot/features/chat/data/models/chat_model.dart';
-import 'package:ai_chat_bot/features/chat/data/source/local/local_source.dart';
+import 'package:ai_chat_bot/features/chat/data/source/local/db/local_source.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ChatMessageLocalDataSourceImpl extends ChatLocalDataSource{

@@ -103,8 +103,6 @@ export 'package:just_audio/just_audio.dart';
 export 'package:provider/provider.dart';
 export 'package:ai_chat_bot/core/database/db_initializer.dart';
 export 'package:ai_chat_bot/features/chat/data/repository/chat_repository_impl.dart';
-export 'package:ai_chat_bot/features/chat/data/source/local/local_source.dart';
-export 'package:ai_chat_bot/features/chat/data/source/local/local_source_impl.dart';
 export 'package:ai_chat_bot/features/chat/data/source/remote/remote_source.dart';
 export 'package:ai_chat_bot/features/chat/data/source/remote/remote_source_impl.dart';
 export 'package:ai_chat_bot/features/chat/domain/repository/chat_repository.dart';
@@ -114,5 +112,3 @@ export 'package:ai_chat_bot/features/chat/domain/usecases/get_updated_chat_useca
 export 'package:ai_chat_bot/features/chat/domain/usecases/send_message_usecase.dart';
 export 'package:ai_chat_bot/features/chat/domain/usecases/start_chat_usecase.dart';
 export 'package:get_it/get_it.dart';
-
-

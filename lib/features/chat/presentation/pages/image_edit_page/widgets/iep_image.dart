@@ -8,6 +8,8 @@ class IepImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Shape shape = context.read<CanvasBloc>().currentShape;
+    List<Shape> track = context.read<CanvasBloc>().previous;
     var file = ModalRoute.of(context)!.settings.arguments as File;
     return Positioned.fill(
       child: GestureDetector(
@@ -23,39 +25,37 @@ class IepImage extends StatelessWidget {
           context.read<CanvasBloc>().add(CanvasEndEvent(details: details));
         },
         child: Center(
-          child: Builder(builder: (context) {
-            Shape shape = context.read<CanvasBloc>().currentShape;
-            List<Shape> track = context.read<CanvasBloc>().previous;
-            return BlocBuilder<CanvasBloc, CanvasState>(
-                builder: (context, state) {
+          child: RepaintBoundary(
+            key: context.read<GlobalKey>(),
+            child:
+                BlocBuilder<CanvasBloc, CanvasState>(builder: (context, state) {
               if (state is CanvasUpdatedState) {
                 shape = state.current;
                 track = state.track;
               }
-              return RepaintBoundary(
-                    key: context.read<GlobalKey>(),
-                child: SizedBox(
-                  height: MediaQuery.sizeOf(context).height,
-                  width: MediaQuery.sizeOf(context).width,
-                  child: CustomPaint(
-                    foregroundPainter: IepPainter(
-                      shape: shape,
-                      track: track,
-                      drawEnable: context.read<ImageEditBloc>().state is! ImageEditSimpleState,
-                    ),
-                    child: BlocBuilder<WidgetToImageConversionBloc,
-                            WidgetToImageConversionState>(
-                        builder: (context, state) {
-                      if (state is WidgetToImageConversionDoneState) {
-                        file = state.imageFile;
-                      }
-                      return FittedBox(child: Image.file(file),);
-                    }),
-                  ),
+              return CustomPaint(
+                foregroundPainter: IepPainter(
+                  shape: shape,
+                  track: track,
+                  drawEnable: context.read<ImageEditBloc>().state
+                      is! ImageEditSimpleState,
+                ),
+                child: BlocBuilder<WidgetToImageConversionBloc,
+                    WidgetToImageConversionState>(
+                  builder: (context, state) {
+                    if (state is WidgetToImageConversionDoneState) {
+                      file = state.imageFile;
+                    }
+                    return Center(
+                      child: Image.file(
+                        file,
+                      ),
+                    );
+                  },
                 ),
               );
-            });
-          }),
+            }),
+          ),          
         ),
       ),
     );

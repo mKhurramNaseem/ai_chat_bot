@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/domain/entities/chat.dart';
 import 'package:ai_chat_bot/features/chat/domain/entities/chat_params.dart';
@@ -110,8 +109,7 @@ class HpActiveChatsTileTexts extends StatelessWidget {
         Expanded(
           flex: _messageFlex,
           child: LayoutBuilder(
-            builder: (context, constraints) {
-              log(text);
+            builder: (context, constraints) {              
               return Align(
                 alignment: Alignment.topLeft,
                 child: Text(

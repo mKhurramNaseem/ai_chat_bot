@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       // Routes
       onGenerateRoute: RouteGenerator.onGenerateRoute,
       onGenerateInitialRoutes: RouteGenerator.onGenerateInitialRoutes,
-      initialRoute: WelcomePage.pageName,
+      initialRoute: CreateAccountPage.pageName,
 
       navigatorObservers: [hpNavigatorObserver],
     );

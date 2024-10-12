@@ -1,6 +1,7 @@
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/presentation/bloc/canvas_bloc/canvas_bloc.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/image_edit_page/widgets/iep_chat_field.dart';
+import 'package:ai_chat_bot/injection_container.dart';
 
 class ImageEditPage extends StatelessWidget {
   static const pageName = '/imageEditPage';
@@ -11,7 +12,7 @@ class ImageEditPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<WidgetToImageConversionBloc>(
-          create: (context) => WidgetToImageConversionBloc(),
+          create: (context) => WidgetToImageConversionBloc(saveImageToGalleryUsecase: sl()),
         ),
         BlocProvider<ImageEditBloc>(
           create: (context) => ImageEditBloc(),
@@ -33,24 +34,23 @@ class ImageEditPageBody extends StatefulWidget {
 }
 
 class _ImageEditPageState extends State<ImageEditPageBody> {
-  late ChatTextEditingController chatController;  
+  late ChatTextEditingController chatController;
   final key = GlobalKey();
 
   @override
   void initState() {
     super.initState();
-    chatController = ChatTextEditingController();    
+    chatController = ChatTextEditingController();
   }
 
   @override
   void dispose() {
-    chatController.dispose();    
+    chatController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return MultiProvider(
       providers: [
         ListenableProvider<ChatTextEditingController>(
@@ -58,7 +58,7 @@ class _ImageEditPageState extends State<ImageEditPageBody> {
         ),
         Provider<GlobalKey>(
           create: (context) => key,
-        ),       
+        ),
       ],
       child: BlocListener<WidgetToImageConversionBloc,
           WidgetToImageConversionState>(
@@ -90,12 +90,12 @@ class _ImageEditPageState extends State<ImageEditPageBody> {
     );
   }
 
-  void _editImageBlocListener(BuildContext context, state)async {
-    if (state is WidgetToImageConversionNavigateState) {      
+  void _editImageBlocListener(BuildContext context, state) async {
+    if (state is WidgetToImageConversionNavigateState) {
       Navigator.of(context).pop(ChatMessage(
           isSender: true,
           message: chatController.text.trim(),
-          image: state.imageBytes));
+          image: state.imageFile));
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:ai_chat_bot/features/chat/data/models/chat_message_model.dart';
 import 'package:ai_chat_bot/features/chat/data/source/remote/remote_source.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
@@ -8,9 +9,6 @@ class ChatMesssagesRemoteSourceImpl extends ChatMesssagesRemoteDataSource {
     model: 'gemini-1.5-flash',
     apiKey: _apiKey,
   );
-
-  static final _visionModel =
-      GenerativeModel(model: 'gemini-pro-vision', apiKey: _apiKey);
   @override
   Future<ChatMessageModel> sendMessage(
     ChatMessageModel message,
@@ -49,19 +47,20 @@ class ChatMesssagesRemoteSourceImpl extends ChatMesssagesRemoteDataSource {
 
   Future<String> _messageWithImage(
       ChatMessageModel message, List<ChatMessageModel> historyMessages) async {
+        log(message.image.toString());
     var prompt = TextPart(message.message);
-    var imagePart = [DataPart('image/jpeg', message.image!)];
+    var imagePart = [DataPart('image/jpeg', message.image!.readAsBytesSync())];
     final content = [
       Content.multi([prompt, ...imagePart]),
     ];
-    final session = _visionModel.startChat(
+    final session = _model.startChat(
       history: historyMessages.map(
         (e) {
           if (e.isSender) {
             if (e.image != null) {
               return Content.multi([
                 TextPart(e.message),
-                ...[DataPart('image/jpeg', e.image!)]
+                ...[DataPart('image/jpeg', e.image!.readAsBytesSync())]
               ]);
             }
             return Content.text(e.message);

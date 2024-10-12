@@ -56,7 +56,7 @@ class CpSenderTile extends StatelessWidget {
                           children: [
                             Container(
                                 color: AppColors.black,
-                                child: Image.memory(
+                                child: Image.file(
                                   message.image!,
                                 )),
                             if (message.message.isNotEmpty)

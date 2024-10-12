@@ -50,6 +50,7 @@ dependencies:
   google_generative_ai: ^0.4.6
   get_it: ^8.0.0
   flutter_markdown: ^0.7.3+2  
+  image_gallery_saver: ^2.0.3
 
 dev_dependencies:
   flutter_test:

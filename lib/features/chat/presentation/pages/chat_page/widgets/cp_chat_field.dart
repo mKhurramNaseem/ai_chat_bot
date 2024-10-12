@@ -29,7 +29,7 @@ class CpChatField extends StatelessWidget {
                         onTap: () {
                           context
                               .read<ImagePickerBloc>()
-                              .add(ImagePickerEvent());
+                              .add(const ImagePickerEvent(imageSource: AppImageSource.camera));
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),

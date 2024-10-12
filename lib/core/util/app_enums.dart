@@ -13,3 +13,7 @@ enum ShapeType {
   isocelesTriangle,
   customLine,
 }
+
+enum AppImageSource{
+  gallery , camera
+}

@@ -27,7 +27,9 @@ class ChatPage extends StatelessWidget {
           ),
         ),
         BlocProvider<ImagePickerBloc>(
-          create: (context) => ImagePickerBloc(),
+          create: (context) => ImagePickerBloc(
+            pickImageUsecase: sl(),
+          ),
         ),
         BlocProvider<EndChatsBloc>(
           create: (context) => EndChatsBloc(
@@ -65,6 +67,7 @@ class _ChatPageState extends State<ChatPageBody> {
     super.initState();
     scrollController = ChatScrollController();
     chatTextController = ChatTextEditingController();
+    scrollController.addListener(_scrollListener);
     player = AudioPlayer();
     initialize();
     final chatBloc = context.read<ChatBloc>();
@@ -72,6 +75,12 @@ class _ChatPageState extends State<ChatPageBody> {
       chatBloc.add(StartChatMessageEvent());
     } else {
       chatBloc.add(ChatInitialEvent(chatId: widget.chatParams.chatId!));
+    }
+  }
+
+  void _scrollListener() {
+    if (scrollController.hasClients) {
+      
     }
   }
 
@@ -84,20 +93,16 @@ class _ChatPageState extends State<ChatPageBody> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
   void dispose() {
     chatTextController.dispose();
+    scrollController.removeListener(_scrollListener);
     scrollController.dispose();
     player.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
     final chatParams = ModalRoute.of(context)!.settings.arguments as ChatParams;
     MediaQuery.viewInsetsOf(context).bottom > 0;
     return MultiProvider(
@@ -129,21 +134,6 @@ class _ChatPageState extends State<ChatPageBody> {
                       Expanded(
                         child: BlocBuilder<ChatBloc, ChatState>(
                             builder: (context, state) {
-                          // SchedulerBinding.instance.addPostFrameCallback(
-                          //   (timeStamp) {
-                          //     if (state is ChatUpdateState) {
-                          //       if (!state.isSender) {
-                          //         return;
-                          //       }
-                          //     }
-                          //     if (scrollController.hasClients) {
-                          //       scrollController.jumpTo(
-                          //           scrollController.position.maxScrollExtent *
-                          //               times);
-                          //       times = 1;
-                          //     }
-                          //   },
-                          // );
                           return CpChatListView(
                             messages: state.messages,
                             isResponseLoading:

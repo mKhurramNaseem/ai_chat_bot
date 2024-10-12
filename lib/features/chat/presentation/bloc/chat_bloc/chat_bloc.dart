@@ -34,7 +34,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   FutureOr<void> _handleSendMessageEvent(
-      ChatSendMessageEvent event, Emitter<ChatState> emit) async {
+      ChatSendMessageEvent event, Emitter<ChatState> emit) async {        
     var result = await sendMessageUsecase(currentChatId, event.message);
     chats = result.getOrElse(
       () => [],

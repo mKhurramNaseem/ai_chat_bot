@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/domain/entities/chat_params.dart';
 import 'package:ai_chat_bot/features/chat/presentation/bloc/end_chats_bloc/end_chats_bloc.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/chat_page/widgets/cp_error_dialog.dart';
 import 'package:ai_chat_bot/injection_container.dart';
+
+const _fileName = 'chat_page.dart';
 
 class ChatPage extends StatelessWidget {
   static const pageName = '/chatPage';
@@ -20,10 +24,11 @@ class ChatPage extends StatelessWidget {
           create: (context) => ChatBloc(
             getUpdatedChatUsecase: sl(),
             sendMessageUsecase: sl(),
-            startChatUsecase: sl(),
+            createChatUsecase: sl(),
             getPreviousChatUsecase: sl(),
             endCurrentSessionUsecase: sl(),
             clearChatUsecase: sl(),
+            startChatUsecase: sl(),
           ),
         ),
         BlocProvider<ImagePickerBloc>(
@@ -59,8 +64,8 @@ class ChatPageBody extends StatefulWidget {
 class _ChatPageState extends State<ChatPageBody> {
   late ChatScrollController scrollController;
   late ChatTextEditingController chatTextController;
-  late AudioPlayer player;
-  var times = 2;
+  late AudioPlayer player;  
+  bool moveToEnd = true;
 
   @override
   void initState() {
@@ -72,17 +77,13 @@ class _ChatPageState extends State<ChatPageBody> {
     initialize();
     final chatBloc = context.read<ChatBloc>();
     if (widget.chatParams.chatId == null) {
-      chatBloc.add(StartChatMessageEvent());
+      chatBloc.add(CreateChatMessageEvent());
     } else {
       chatBloc.add(ChatInitialEvent(chatId: widget.chatParams.chatId!));
     }
   }
 
-  void _scrollListener() {
-    if (scrollController.hasClients) {
-      
-    }
-  }
+  void _scrollListener() {}
 
   initialize() async {
     await player.setAudioSource(
@@ -93,7 +94,7 @@ class _ChatPageState extends State<ChatPageBody> {
   }
 
   @override
-  void dispose() {
+  void dispose() {    
     chatTextController.dispose();
     scrollController.removeListener(_scrollListener);
     scrollController.dispose();
@@ -102,9 +103,9 @@ class _ChatPageState extends State<ChatPageBody> {
   }
 
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
+    log('Chat Page Build Called', name: _fileName);
     final chatParams = ModalRoute.of(context)!.settings.arguments as ChatParams;
-    MediaQuery.viewInsetsOf(context).bottom > 0;
     return MultiProvider(
       providers: [
         ListenableProvider<ChatTextEditingController>(
@@ -125,32 +126,46 @@ class _ChatPageState extends State<ChatPageBody> {
         ],
         child: Scaffold(
           appBar: CpAppBar(),
-          body: Center(
-            child: CpBaseWidget(
-              child: Stack(
-                children: [
-                  Column(
-                    children: [
-                      Expanded(
-                        child: BlocBuilder<ChatBloc, ChatState>(
-                            builder: (context, state) {
-                          return CpChatListView(
-                            messages: state.messages,
-                            isResponseLoading:
-                                state is ChatResponseLoadingState,
-                          );
-                        }),
-                      ),
-                    ],
-                  ),
-                  if (chatParams.isActive)
-                    const Positioned.fill(
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: CpChatField(),
-                      ),
+          body: NotificationListener<ScrollMetricsNotification>(
+            onNotification: (notification) {                                
+              if (notification.metrics.hasContentDimensions && moveToEnd) {
+                scrollController
+                    .jumpTo(notification.metrics.extentAfter);
+                    moveToEnd = false;
+              }              
+              return true;
+            },
+            child: Center(
+              child: CpBaseWidget(
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Expanded(
+                          child: BlocBuilder<ChatBloc, ChatState>(
+                              builder: (context, state) {
+                            var list = CpChatListView(
+                              messages: state.messages.reversed.toList(),
+                              isResponseLoading:
+                                  state is ChatResponseLoadingState,
+                              isActive: widget.chatParams.isActive,
+                              scrollController: scrollController,
+                            );
+
+                            return list;
+                          }),
+                        ),
+                      ],
                     ),
-                ],
+                    if (chatParams.isActive)
+                      const Positioned.fill(
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: CpChatField(),
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -180,8 +195,9 @@ class _ChatPageState extends State<ChatPageBody> {
       if (state.isSender) {
         player.seek(Duration.zero);
         player.play();
-        context.read<ChatTextEditingController>().clear();
+        context.read<ChatTextEditingController>().clear();        
       }
+      moveToEnd = true;
     } else if (state is ChatMessageEndState) {
       Navigator.of(context).pop();
     } else if (state is ChatErrorState) {

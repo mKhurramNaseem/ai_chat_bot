@@ -37,5 +37,10 @@ class ChatMessageModel extends ChatMessage {
       imageCol : image?.path,       
     };
   }
+
+  @override
+  String toString() {    
+    return 'isSender : $isSender\nmessage : $message\nimage : $image';
+  }
   
 }

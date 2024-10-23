@@ -1,13 +1,18 @@
-
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/all_activity_page/widgets/aap_base_widget.dart';
+import 'package:ai_chat_bot/features/activity/domain/entities/activity.dart';
+import 'package:ai_chat_bot/features/activity/presentation/pages/all_activity_page/widgets/aap_base_widget.dart';
+import 'package:intl/intl.dart';
 
 class AapDetailTile extends StatelessWidget {
   static const _startSpace = 3,
       _middleSpace = 3,
       _tileTextsFlex = 71,
       _imageFlex = 20;
-  const AapDetailTile({super.key});
+  final Activity activity;
+  const AapDetailTile({
+    super.key,
+    required this.activity,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +43,11 @@ class AapDetailTile extends StatelessWidget {
                 const Spacer(
                   flex: _middleSpace,
                 ),
-                const Expanded(
+                Expanded(
                   flex: _tileTextsFlex,
-                  child: AapDetailTileTexts(),
+                  child: AapDetailTileTexts(
+                    activity: activity,
+                  ),
                 ),
                 const Spacer(
                   flex: _startSpace,
@@ -57,10 +64,13 @@ class AapDetailTile extends StatelessWidget {
 class AapDetailTileTexts extends StatelessWidget {
   static const _titleTextFlex = 47, _spacer = 6, _messageFlex = 47;
   static const _titleFontSize = 0.4, _messageFontSize = 0.3;
-  static const _title = '${AppConstants.botName}-Dec 19, 2024',
-      _message = '11:27:35 AM - 13:36:42 PM (2.6 hours)';
+  static const _title = AppConstants.botName;
   static const _maxLines = 2;
-  const AapDetailTileTexts({super.key});
+  final Activity activity;
+  const AapDetailTileTexts({
+    super.key,
+    required this.activity,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +85,9 @@ class AapDetailTileTexts extends StatelessWidget {
               return Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  _title,
+                  '$_title-${DateFormat('MMM d, y').format(
+                    activity.date,
+                  )}',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontSize: constraints.maxHeight * _titleFontSize,
                       ),
@@ -94,7 +106,7 @@ class AapDetailTileTexts extends StatelessWidget {
               return Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  _message,
+                  '${DateFormat(DateFormat.HOUR_MINUTE_SECOND).format(activity.startTime)} - ${DateFormat(DateFormat.HOUR_MINUTE_SECOND).format(activity.endTime)} (${activity.duration.inHours} hours)',
                   maxLines: _maxLines,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(

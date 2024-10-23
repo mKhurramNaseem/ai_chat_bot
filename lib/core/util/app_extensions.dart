@@ -15,6 +15,14 @@ extension StrModification on String{
     );
     return displayEmail;
   }
+
+  DateTime toDateTime(){
+    var parts = split('-');
+    int year = int.parse(parts[0]);
+    int month = int.parse(parts[1]);
+    int day = int.parse(parts[2]);
+    return DateTime(year,month,day);
+  }
 }
 
 extension DoubleModification on double{
@@ -29,4 +37,10 @@ extension IntegerModification on int{
   bool get isGreaterThanZero => this > 0.0;
   double get degToRad => math.pi / 180 * this;
   double get radToDeg => 180 / math.pi * this;
+}
+
+extension DateTimeModification on DateTime{
+  String toKey(){
+    return '$year-$month-$day';
+  }
 }

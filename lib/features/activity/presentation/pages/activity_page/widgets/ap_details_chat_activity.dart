@@ -1,11 +1,12 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/activity_page/widgets/ap_base_widget.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/all_activity_page/view/all_activity_page.dart';
+import 'package:ai_chat_bot/features/activity/domain/entities/activity.dart';
+import 'package:ai_chat_bot/features/activity/presentation/pages/all_activity_page/view/all_activity_page.dart';
 
 class ApDetailsChatActivity extends StatelessWidget {
   static const _text = 'Details Chat Activity', _seeAll = 'See All';
-  static const _fontSizePercent = 0.3, _secondaryFontSize = 0.25;
-  const ApDetailsChatActivity({super.key});
+  static const _fontSizePercent = 0.3, _secondaryFontSize = 0.25;  
+  final List<Activity> activites;
+  const ApDetailsChatActivity({super.key , required this.activites,});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class ApDetailsChatActivity extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed(AllActivityPage.pageName);
+                  Navigator.of(context).pushNamed(AllActivityPage.pageName , arguments: activites);
                 },
                 child: Text(
                   _seeAll,

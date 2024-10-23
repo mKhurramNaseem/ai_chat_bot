@@ -1,5 +1,5 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/activity_page/widgets/ap_base_widget.dart';
+import 'package:ai_chat_bot/features/activity/presentation/pages/activity_page/widgets/ap_base_widget.dart';
 
 class ApDetailText extends StatelessWidget {
   static const _text =

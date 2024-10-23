@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/activity_page/widgets/ap_base_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class ApGraph extends StatelessWidget {
@@ -83,10 +82,7 @@ class ApGraph extends StatelessWidget {
               isStrokeJoinRound: true,
               // preventCurveOverShooting: true,
               spots: [
-                const FlSpot(
-                  1,
-                  5,
-                ),
+                const FlSpot(1, 6),
                 const FlSpot(2, 4),
                 const FlSpot(3, 2),
                 const FlSpot(4, 5),

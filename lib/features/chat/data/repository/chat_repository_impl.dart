@@ -8,6 +8,8 @@ import 'package:ai_chat_bot/features/chat/domain/entities/chat_message.dart';
 import 'package:ai_chat_bot/features/chat/domain/repository/chat_repository.dart';
 import 'package:dartz/dartz.dart';
 
+const _fileName = 'chat_repository_impl.dart';
+
 class ChatRepositoryImpl extends ChatMessagesRepository {
   final ChatLocalDataSource localDataSource;
   final ChatMesssagesRemoteDataSource remoteDataSource;
@@ -32,11 +34,12 @@ class ChatRepositoryImpl extends ChatMessagesRepository {
     int chatId,
     ChatMessageModel message,
   ) async {
+    log('Called()',name: _fileName , error: getUpdatedMessagesList.toString());
     try {
       var answer = await remoteDataSource.sendMessage(
-        message,
-        await localDataSource.getMessages(chatId),
+        message,        
       );            
+      log('Answer : $answer',name: _fileName , error: getUpdatedMessagesList.toString());
       var isAdded = await localDataSource.addMessage(chatId, answer);      
       await localDataSource.updateChatLastMessage(chatId, answer.message);
       if (isAdded) {
@@ -134,6 +137,17 @@ class ChatRepositoryImpl extends ChatMessagesRepository {
     try{
       var isMessagesClear = await localDataSource.deleteMessages(chatId);
       return Right(isMessagesClear);
+    }catch(e){
+      return Left(ChatFailure());
+    }
+  }
+
+  @override
+  Future<Either<ChatFailure, void>> startChat(int chatId) async{
+    try{
+      var history = await localDataSource.getMessages(chatId);
+      remoteDataSource.startChat(history);
+      return const Right(null);
     }catch(e){
       return Left(ChatFailure());
     }

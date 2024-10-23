@@ -19,7 +19,7 @@ final class ChatResponseLoadingState extends ChatState {
 
 @immutable
 final class ChatUpdateState extends ChatState {
-  final bool isSender;
+  final bool isSender;  
   const ChatUpdateState({required super.messages , required this.isSender}); 
 }
 

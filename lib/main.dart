@@ -1,4 +1,5 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/core/services/record_activity.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/home_page/widgets/hp_route_observer.dart';
 import 'package:ai_chat_bot/injection_container.dart';
 
@@ -6,7 +7,10 @@ final hpNavigatorObserver = HpNavigatorObserver();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  initChats();
+  // Initialize all dependencies
+  await initDependencies();
+  // This Function starts recording activity
+  recordActivity();
   runApp(const MyApp());
 }
 
@@ -25,7 +29,7 @@ class MyApp extends StatelessWidget {
       // Routes
       onGenerateRoute: RouteGenerator.onGenerateRoute,
       onGenerateInitialRoutes: RouteGenerator.onGenerateInitialRoutes,
-      initialRoute: CreateAccountPage.pageName,
+      initialRoute: WelcomePage.pageName,
 
       navigatorObservers: [hpNavigatorObserver],
     );

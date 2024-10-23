@@ -23,22 +23,8 @@ class CpChatField extends StatelessWidget {
                     validator: InputValidations.emailValidatior,
                     maxLines: 10,
                     minLines: 1,
-                    decoration: InputDecoration(
-                      hintText: 'Type a message to ${AppConstants.botName}',
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          context
-                              .read<ImagePickerBloc>()
-                              .add(const ImagePickerEvent(imageSource: AppImageSource.camera));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Transform.rotate(
-                            angle: 135.degToRad,
-                            child: const Icon(Icons.link),
-                          ),
-                        ),
-                      ),
+                    decoration: const InputDecoration(
+                      hintText: 'Type a message to ${AppConstants.botName}',                      
                     ),
                   ),
                 ),
@@ -54,12 +40,15 @@ class CpChatField extends StatelessWidget {
                         HapticFeedback.selectionClick();
                         // Add message event to chat bloc
                         context.read<ChatBloc>().add(ChatSendMessageEvent(
-                            message: ChatMessage(
+                              message: ChatMessage(
                                 isSender: true,
                                 message: context
                                     .read<ChatTextEditingController>()
                                     .text
-                                    .trim(), image: null,),));
+                                    .trim(),
+                                image: null,
+                              ),
+                            ));
                       },
                       child: Container(
                         decoration: BoxDecoration(

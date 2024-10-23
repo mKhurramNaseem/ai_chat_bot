@@ -14,53 +14,43 @@ class CpReceiverTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 40.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Flexible(
-            flex: 70,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (showIcon)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: LayoutBuilder(builder: (context, constraints) {
-                      return Align(
-                        alignment: Alignment.centerLeft,
-                        child: SizedBox(
-                            width: constraints.maxWidth * 0.45,
-                            child: Image.asset(AppImages.starImage)),
-                      );
-                    }),
-                  ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.elliptical(17, 20),
-                      bottomLeft: Radius.elliptical(17, 20),
-                      topLeft: Radius.circular(_specificRadius),
-                      topRight: Radius.elliptical(17, 20),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: MarkdownBody(
-                      data: chatMessage.message,
-                      fitContent: true,
-                      selectable: true,
-                      styleSheet: MarkdownStyleSheet.fromTheme(
-                        Theme.of(context),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+          if (showIcon)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: LayoutBuilder(builder: (context, constraints) {
+                return Align(
+                  alignment: Alignment.centerLeft,
+                  child: SizedBox(
+                      width: constraints.maxWidth * 0.45,
+                      child: Image.asset(AppImages.starImage)),
+                );
+              }),
             ),
-          ),
-          const Spacer(
-            flex: 30,
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
+              borderRadius: const BorderRadius.only(
+                bottomRight: Radius.elliptical(17, 20),
+                bottomLeft: Radius.elliptical(17, 20),
+                topLeft: Radius.circular(_specificRadius),
+                topRight: Radius.elliptical(17, 20),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: MarkdownBody(
+                data: chatMessage.message,
+                fitContent: true,
+                selectable: true,
+                styleSheet: MarkdownStyleSheet.fromTheme(
+                  Theme.of(context),
+                ),
+              ),
+            ),
           ),
         ],
       ),

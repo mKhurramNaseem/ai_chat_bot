@@ -1,5 +1,5 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/activity_page/view/activity_page.dart';
+import 'package:ai_chat_bot/features/activity/presentation/pages/activity_page/view/activity_page.dart';
 
 class WpAppBar extends AppBar {
   static const _padding = 10.0;

@@ -1,12 +1,12 @@
 
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/activity/presentation/pages/activity_page/view/activity_page.dart';
+import 'package:ai_chat_bot/features/activity/presentation/pages/all_activity_page/view/all_activity_page.dart';
 import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_pin_page/view/create_new_pin_page.dart';
 import 'package:ai_chat_bot/features/auth/presentation/pages/let_in_page/view/let_in_page.dart';
 import 'package:ai_chat_bot/features/auth/presentation/pages/set_finger_print_page/view/set_finger_print_page.dart';
 import 'package:ai_chat_bot/features/chat/domain/entities/chat_params.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/active_chats_page/view/active_chats_page.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/activity_page/view/activity_page.dart';
-import 'package:ai_chat_bot/features/chat/presentation/pages/all_activity_page/view/all_activity_page.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/image_edit_page/view/image_edit_page.dart';
 import 'package:ai_chat_bot/features/profile/presentation/edit_profile_page/view/edit_profile_page.dart';
 import 'package:ai_chat_bot/features/profile/presentation/fill_profile_page/view/fill_profile_page.dart';
@@ -41,7 +41,7 @@ class RouteGenerator {
       LanguagePage.pageName => CupertinoPageRoute(builder: (context) => const LanguagePage(),),
       HelpCenterPage.pageName => CupertinoPageRoute(builder: (context) => const HelpCenterPage(),),
       EditProfilePage.pageName => CupertinoPageRoute(builder: (context) => const EditProfilePage(),),
-      AllActivityPage.pageName => CupertinoPageRoute(builder: (context) => const AllActivityPage(),),
+      AllActivityPage.pageName => CupertinoPageRoute(builder: (context) => const AllActivityPage(),settings: settings,),
       FillProfilePage.pageName => CupertinoPageRoute(builder: (context) => const FillProfilePage(),),
       CreateNewPinPage.pageName => CupertinoPageRoute(builder: (context) => const CreateNewPinPage(),),
       SetFingerPrintPage.pageName => CupertinoPageRoute(builder: (context) => const SetFingerPrintPage(),),      

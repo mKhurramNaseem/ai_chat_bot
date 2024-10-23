@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/chat/presentation/pages/image_edit_page/widgets/iep_base_widget.dart';
@@ -23,7 +22,7 @@ class IepChatField extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 85,
-                        child: TextFormField(
+                        child: TextFormField(                          
                           controller: context.read<ChatTextEditingController>(),
                           style: Theme.of(context).textTheme.bodyLarge,
                           validator: InputValidations.emailValidatior,
@@ -42,8 +41,9 @@ class IepChatField extends StatelessWidget {
                         flex: 13,
                         child: LayoutBuilder(builder: (context, constraints) {
                           return GestureDetector(
-                            onTap: () async {            
-                              log('[Clicked]');                  
+                            onTap: () async {      
+                              HapticFeedback.selectionClick();
+                              FocusManager.instance.primaryFocus?.unfocus();                                    
                               context.read<WidgetToImageConversionBloc>().add(
                                   WidgetToImageConversionEvent(
                                       widgetKey: context.read<GlobalKey>() , shouldNavigate: true,),);

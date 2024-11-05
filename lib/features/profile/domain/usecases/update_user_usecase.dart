@@ -8,8 +8,7 @@ class UpdateUserUsecase {
 
   UpdateUserUsecase(this.userRepository);
 
-  Future<Either<UserFailure,bool>> call(User user){
+  Future<Either<UserFailure, bool>> call(UserProfile user) {
     return userRepository.updateUser(user);
   }
-
 }

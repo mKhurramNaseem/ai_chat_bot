@@ -1,13 +1,12 @@
-
-class User {
+class UserProfile {
   String name;
   String nickName;
   String email;
   bool isMale;
   DateTime dateOfBirth;
   String profileImageUrl;
-  
-  User({
+
+  UserProfile({
     required this.name,
     required this.nickName,
     required this.email,

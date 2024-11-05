@@ -8,8 +8,7 @@ class GetUserUsecase {
 
   GetUserUsecase(this.userRepository);
 
-  Future<Either<UserFailure,User>> call(String email){
+  Future<Either<UserFailure, UserProfile>> call(String email) {
     return userRepository.getUser(email);
   }
-
 }

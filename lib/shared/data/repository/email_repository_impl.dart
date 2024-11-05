@@ -1,5 +1,5 @@
-import 'package:ai_chat_bot/features/profile/data/source/email_source.dart';
-import 'package:ai_chat_bot/features/profile/domain/repository/email_repository.dart';
+import 'package:ai_chat_bot/shared/data/source/email_source.dart';
+import 'package:ai_chat_bot/shared/domain/repository/email_repository.dart';
 
 class EmailRepositoryImpl extends EmailRepository{
   final EmailSource emailSource;

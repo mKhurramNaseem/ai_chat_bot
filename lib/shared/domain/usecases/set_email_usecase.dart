@@ -1,4 +1,4 @@
-import 'package:ai_chat_bot/features/profile/domain/repository/email_repository.dart';
+import 'package:ai_chat_bot/shared/domain/repository/email_repository.dart';
 
 class SetEmailUsecase {
   final EmailRepository emailRepository;

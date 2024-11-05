@@ -22,27 +22,37 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     on<UpdateDateOfBirthEvent>(_handleDateOfBirthEvent);
   }
 
-  FutureOr<void> _handleUpdateProfileEvent(UpdateProfileEvent event, Emitter<EditProfileState> emit) async{
+  FutureOr<void> _handleUpdateProfileEvent(
+      UpdateProfileEvent event, Emitter<EditProfileState> emit) async {
     emit(EditProfileLoadingState());
-    User user = User(name: event.fullName, nickName: event.nickName, email: event.email
-    , isMale: isMale, dateOfBirth: dateOfBirth, profileImageUrl: event.profileImagePath);
+    UserProfile user = UserProfile(
+        name: event.fullName,
+        nickName: event.nickName,
+        email: event.email,
+        isMale: isMale,
+        dateOfBirth: dateOfBirth,
+        profileImageUrl: event.profileImagePath);
     var result = await updateUserUsecase(user);
-    if(result.isRight()){
-      if(result.getOrElse(() => false,)){
+    if (result.isRight()) {
+      if (result.getOrElse(
+        () => false,
+      )) {
         emit(EditProfileLoadedState());
-      }else{
-        emit(EditProfileErrorState('Unable to update profile'));        
-      }      
-    }else{
+      } else {
+        emit(EditProfileErrorState('Unable to update profile'));
+      }
+    } else {
       emit(EditProfileErrorState('Unable to update profile'));
     }
   }
 
-  FutureOr<void> _handleGenderEvent(UpdateGenderEvent event, Emitter<EditProfileState> emit) {
+  FutureOr<void> _handleGenderEvent(
+      UpdateGenderEvent event, Emitter<EditProfileState> emit) {
     isMale = event.isMale;
   }
 
-  FutureOr<void> _handleDateOfBirthEvent(UpdateDateOfBirthEvent event, Emitter<EditProfileState> emit) {
+  FutureOr<void> _handleDateOfBirthEvent(
+      UpdateDateOfBirthEvent event, Emitter<EditProfileState> emit) {
     dateOfBirth = event.dateOfBirth;
   }
 }

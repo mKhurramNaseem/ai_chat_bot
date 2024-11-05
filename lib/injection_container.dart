@@ -1,4 +1,10 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/shared/data/repository/email_repository_impl.dart';
+import 'package:ai_chat_bot/shared/data/source/email_source.dart';
+import 'package:ai_chat_bot/shared/data/source/email_source_impl.dart';
+import 'package:ai_chat_bot/shared/domain/repository/email_repository.dart';
+import 'package:ai_chat_bot/shared/domain/usecases/get_email_usecase.dart';
+import 'package:ai_chat_bot/shared/domain/usecases/set_email_usecase.dart';
 
 var sl = GetIt.instance;
 

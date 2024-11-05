@@ -1,6 +1,6 @@
 import 'package:ai_chat_bot/features/profile/domain/entities/user.dart';
 
-class UserModel extends User {
+class UserModel extends UserProfile {
   static const tableName = 'UserTable';
   static const nameCol = 'name';
   static const nickNameCol = 'nickName';
@@ -23,19 +23,27 @@ class UserModel extends User {
             nickName: map[nickNameCol],
             email: map[emailCol],
             isMale: map[genderCol] == 0,
-            dateOfBirth: DateTime.fromMillisecondsSinceEpoch(map[dateOfBirthCol]),
+            dateOfBirth:
+                DateTime.fromMillisecondsSinceEpoch(map[dateOfBirthCol]),
             profileImageUrl: map[profileImageCol]);
 
-  Map<String , dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
-      nameCol : name,
-      nickNameCol : nickName,
-      emailCol : email,
-      genderCol : isMale ? 0 : 1,
-      dateOfBirthCol : dateOfBirth.millisecondsSinceEpoch,
-      profileImageCol : profileImageUrl,
+      nameCol: name,
+      nickNameCol: nickName,
+      emailCol: email,
+      genderCol: isMale ? 0 : 1,
+      dateOfBirthCol: dateOfBirth.millisecondsSinceEpoch,
+      profileImageCol: profileImageUrl,
     };
   }
 
-  UserModel.fromUser(User user):this(name: user.name , nickName: user.nickName ,email: user.email , dateOfBirth: user.dateOfBirth, isMale: user.isMale , profileImageUrl: user.profileImageUrl);
+  UserModel.fromUser(UserProfile user)
+      : this(
+            name: user.name,
+            nickName: user.nickName,
+            email: user.email,
+            dateOfBirth: user.dateOfBirth,
+            isMale: user.isMale,
+            profileImageUrl: user.profileImageUrl);
 }

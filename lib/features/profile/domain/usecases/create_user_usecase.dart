@@ -4,13 +4,11 @@ import 'package:ai_chat_bot/features/profile/domain/repository/user_repository.d
 import 'package:dartz/dartz.dart';
 
 class CreateUserUsecase {
-  
   final UserRepository userRepository;
 
   CreateUserUsecase(this.userRepository);
 
-  Future<Either<UserFailure,bool>> call(User user){
+  Future<Either<UserFailure, bool>> call(UserProfile user) {
     return userRepository.insertUser(user);
   }
-
 }

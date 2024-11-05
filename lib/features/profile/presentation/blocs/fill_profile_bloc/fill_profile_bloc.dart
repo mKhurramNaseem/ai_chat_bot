@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/profile/domain/entities/user.dart';
-import 'package:ai_chat_bot/features/profile/domain/usecases/get_email_usecase.dart';
+import 'package:ai_chat_bot/shared/domain/usecases/get_email_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -16,7 +16,7 @@ part 'fill_profile_state.dart';
 
 class FillProfileBloc extends Bloc<FillProfileEvent, FillProfileState> {
   final CreateUserUsecase createUserUsecase;
-  final PickImageUsecase pickImageUsecase;  
+  final PickImageUsecase pickImageUsecase;
   final GetEmailUsecase getEmailUsecase;
 
   bool isMale = true;
@@ -25,7 +25,7 @@ class FillProfileBloc extends Bloc<FillProfileEvent, FillProfileState> {
 
   FillProfileBloc(
     this.createUserUsecase,
-    this.pickImageUsecase,    
+    this.pickImageUsecase,
     this.getEmailUsecase,
   ) : super(FillProfileInitialState()) {
     on<UpdateFillProfileEvent>(_handleUpdateEvent);
@@ -40,7 +40,7 @@ class FillProfileBloc extends Bloc<FillProfileEvent, FillProfileState> {
       emit(FillProfileLoadingState());
       String? currentEmail = getEmailUsecase();
       if (currentEmail != null) {
-        User user = User(
+        UserProfile user = UserProfile(
             name: event.fullName,
             nickName: event.nickName,
             email: currentEmail,
@@ -53,7 +53,7 @@ class FillProfileBloc extends Bloc<FillProfileEvent, FillProfileState> {
         } else {
           emit(FillProfileErrorState('Unable to register profile'));
         }
-      }else{
+      } else {
         emit(FillProfileErrorState('Not a registered user'));
       }
     }

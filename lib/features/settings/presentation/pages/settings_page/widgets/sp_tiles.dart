@@ -1,5 +1,5 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/profile/presentation/edit_profile_page/view/edit_profile_page.dart';
+import 'package:ai_chat_bot/features/profile/presentation/pages/edit_profile_page/view/edit_profile_page.dart';
 import 'package:ai_chat_bot/features/settings/presentation/pages/help_center_page/view/help_center_page.dart';
 import 'package:ai_chat_bot/features/settings/presentation/pages/language_page/view/language_page.dart';
 import 'package:ai_chat_bot/features/settings/presentation/pages/settings_page/widgets/sp_logout_dialog.dart';

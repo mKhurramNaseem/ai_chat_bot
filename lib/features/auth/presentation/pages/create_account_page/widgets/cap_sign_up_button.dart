@@ -1,6 +1,6 @@
 
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_pin_page/view/create_new_pin_page.dart';
+import 'package:ai_chat_bot/features/profile/presentation/pages/fill_profile_page/view/fill_profile_page.dart';
 
 class CapSignUpButton extends SliverToBoxAdapter {
   CapSignUpButton({super.key})
@@ -12,7 +12,7 @@ class CapSignUpButton extends SliverToBoxAdapter {
                 onPressed: () {                  
                   // if(context.read<GlobalKey<FormState>>().currentState?.validate() ?? false){                  
                   // }                  
-                  Navigator.of(context).pushNamed(CreateNewPinPage.pageName);
+                  Navigator.of(context).pushNamed(FillProfilePage.pageName);
                 },
                 style: ButtonStyle(
                   fixedSize: WidgetStatePropertyAll(

@@ -49,9 +49,17 @@ class _ActivityPageState extends State<ActivityPageBody> {
             const Spacer(
               flex: 3,
             ),
-            const Expanded(
+            Expanded(
               flex: 37,
-              child: ApGraph(),
+              child: BlocBuilder<ActivityBloc, ActivityState>(
+                  builder: (context, state) {
+                if (state is ActivityDoneState) {
+                  return ApGraph(
+                    activites: state.activites,
+                  );
+                }
+                return const SizedBox();
+              }),
             ),
             const Spacer(
               flex: 1,

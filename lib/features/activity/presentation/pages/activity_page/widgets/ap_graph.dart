@@ -1,27 +1,35 @@
 import 'dart:developer';
-
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/activity/domain/entities/activity.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class ApGraph extends StatelessWidget {
-  const ApGraph({super.key});
+  final List<Activity> activites;
+  const ApGraph({
+    super.key,
+    required this.activites,
+  });
 
   @override
   Widget build(BuildContext context) {
+    var list =
+        activites.where((element) => isPreviousWeek(element.date)).toList();
     return ApBaseWidget(
       child: LineChart(
         LineChartData(
           minX: 1,
-          minY: 1,
+          minY: 0,
           maxX: 7,
-          maxY: 6,
+          maxY: 120,
           titlesData: FlTitlesData(
             show: true,
             leftTitles: AxisTitles(
+              axisNameWidget:
+                  Text('min', style: Theme.of(context).textTheme.bodyMedium),
               axisNameSize: 2,
               sideTitles: SideTitles(
                 showTitles: true,
-                interval: 1,
+                interval: 30,
                 minIncluded: true,
                 reservedSize: 30,
                 getTitlesWidget: (value, meta) {
@@ -31,9 +39,9 @@ class ApGraph extends StatelessWidget {
                       fitInside: SideTitleFitInsideData.fromTitleMeta(
                         meta,
                         enabled: true,
-                        distanceFromEdge: 1,
+                        distanceFromEdge: 2,
                       ),
-                      child: Text('${value.toInt()}h'));
+                      child: Text('${value.toInt()}'));
                 },
               ),
             ),
@@ -45,8 +53,13 @@ class ApGraph extends StatelessWidget {
                 reservedSize: 30,
                 getTitlesWidget: (value, meta) {
                   return SideTitleWidget(
-                      axisSide: AxisSide.left,
-                      child: Text(getWeekDayFromNumber(value.toInt())));
+                    axisSide: AxisSide.left,
+                    child: Text(
+                      getWeekDayFromNumber(
+                        value.toInt(),
+                      ),
+                    ),
+                  );
                 },
               ),
             ),
@@ -82,13 +95,17 @@ class ApGraph extends StatelessWidget {
               isStrokeJoinRound: true,
               // preventCurveOverShooting: true,
               spots: [
-                const FlSpot(1, 6),
-                const FlSpot(2, 4),
-                const FlSpot(3, 2),
-                const FlSpot(4, 5),
-                const FlSpot(5, 2),
-                const FlSpot(6, 1.5),
-                const FlSpot(7, 4),
+                for (int weekDay = 1; weekDay < 7; weekDay++)
+                  ...list
+                      .where(
+                        (element) => element.date.weekday == weekDay,
+                      )
+                      .map(
+                        (e) => FlSpot(
+                          weekDay.toDouble(),
+                          e.duration.inMinutes.toDouble(),
+                        ),
+                      ),
               ],
             ),
           ],
@@ -110,5 +127,10 @@ class ApGraph extends StatelessWidget {
       7 => 'Sun',
       _ => '',
     };
+  }
+
+  bool isPreviousWeek(DateTime dateTime) {
+    var lastPossibleDate = DateTime.now().subtract(const Duration(days: 7));
+    return dateTime.isAfter(lastPossibleDate);
   }
 }

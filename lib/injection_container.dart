@@ -1,41 +1,26 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/activity/data/repository/activity_repository_impl.dart';
-import 'package:ai_chat_bot/features/activity/data/source/local/activity_local_source.dart';
-import 'package:ai_chat_bot/features/activity/data/source/local/activity_local_source_impl.dart';
-import 'package:ai_chat_bot/features/activity/domain/repository/activity_repository.dart';
-import 'package:ai_chat_bot/features/activity/domain/usecase/get_activites_usecase.dart';
-import 'package:ai_chat_bot/features/activity/domain/usecase/record_activity_usecase.dart';
-import 'package:ai_chat_bot/features/chat/data/repository/pick_image_repository_impl.dart';
-import 'package:ai_chat_bot/features/chat/data/repository/save_image_repository_impl.dart';
-import 'package:ai_chat_bot/features/chat/data/source/local/db/local_source.dart';
-import 'package:ai_chat_bot/features/chat/data/source/local/db/local_source_impl.dart';
-import 'package:ai_chat_bot/features/chat/data/source/local/platform/image_source.dart';
-import 'package:ai_chat_bot/features/chat/data/source/local/platform/image_source_impl.dart';
-import 'package:ai_chat_bot/features/chat/domain/repository/pick_image_repository.dart';
-import 'package:ai_chat_bot/features/chat/domain/repository/save_image_repository.dart';
-import 'package:ai_chat_bot/features/chat/domain/usecases/clear_chat_usecase.dart';
-import 'package:ai_chat_bot/features/chat/domain/usecases/delete_chat_usecase.dart';
-import 'package:ai_chat_bot/features/chat/domain/usecases/end_current_session_usecase.dart';
-import 'package:ai_chat_bot/features/chat/domain/usecases/get_ended_chats_usecase.dart';
-import 'package:ai_chat_bot/features/chat/domain/usecases/pick_image_usecase.dart';
-import 'package:ai_chat_bot/features/chat/domain/usecases/save_image_to_gallery_usecase.dart';
-import 'package:ai_chat_bot/features/chat/domain/usecases/start_chat_usecase.dart';
-import 'package:sqflite/sqflite.dart';
 
 var sl = GetIt.instance;
 
-Future<void> initDependencies()async{
-  await initDb();
+Future<void> initDependencies() async {
+  await initAllDb();
   initChats();
   initActivity();
+  initProfile();
 }
 
-Future<void> initDb() async{
+Future<void> initAllDb() async {
   var db = await DbInitializer.initialize();
-  sl.registerLazySingleton<Database>(() => db,);
+  sl.registerLazySingleton<Database>(
+    () => db,
+  );
+  var sharedPreference = await SharedPreferences.getInstance();
+  sl.registerLazySingleton<SharedPreferences>(
+    () => sharedPreference,
+  );
 }
 
-void initChats() {  
+void initChats() {
   sl.registerLazySingleton(
     () => GetUpdatedChatUsecase(sl()),
   );
@@ -53,7 +38,7 @@ void initChats() {
   );
   sl.registerLazySingleton<ChatMessagesRepository>(
     () => ChatRepositoryImpl(sl(), sl()),
-  );  
+  );
   sl.registerLazySingleton<ChatLocalDataSource>(
     () => ChatMessageLocalDataSourceImpl(db: sl()),
   );
@@ -89,13 +74,47 @@ void initChats() {
   );
   sl.registerLazySingleton<SaveImageRepository>(
     () => SaveImageRepositoryImpl(imageSource: sl()),
-  );  
-  
+  );
 }
 
 void initActivity() {
-  sl.registerLazySingleton(() => GetActivitesUsecase(sl()),);
-  sl.registerLazySingleton(() => RecordActivityUsecase(repository: sl()),);
-  sl.registerLazySingleton<ActivityRepository>(() => ActivityRepositoryImpl(source: sl()),);
-  sl.registerLazySingleton<ActivityLocalSource>(() => ActivityLocalSourceImpl(sl()),);
+  sl.registerLazySingleton(
+    () => GetActivitesUsecase(sl()),
+  );
+  sl.registerLazySingleton(
+    () => RecordActivityUsecase(repository: sl()),
+  );
+  sl.registerLazySingleton<ActivityRepository>(
+    () => ActivityRepositoryImpl(source: sl()),
+  );
+  sl.registerLazySingleton<ActivityLocalSource>(
+    () => ActivityLocalSourceImpl(sl()),
+  );
+}
+
+void initProfile() {
+  sl.registerLazySingleton(
+    () => UpdateUserUsecase(sl()),
+  );
+  sl.registerLazySingleton(
+    () => CreateUserUsecase(sl()),
+  );
+  sl.registerLazySingleton<UserRepository>(
+    () => UserRepositoryImpl(sl()),
+  );
+  sl.registerLazySingleton<UserDb>(
+    () => UserDbImpl(db: sl()),
+  );
+  sl.registerLazySingleton(
+    () => GetEmailUsecase(sl()),
+  );
+  sl.registerLazySingleton(
+    () => SetEmailUsecase(sl()),
+  );
+  sl.registerLazySingleton<EmailRepository>(
+    () => EmailRepositoryImpl(sl()),
+  );
+  sl.registerLazySingleton<EmailSource>(
+    () => EmailSourceImpl(sl()),
+  );
 }

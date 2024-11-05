@@ -5,7 +5,7 @@ import 'package:ai_chat_bot/injection_container.dart';
 
 final hpNavigatorObserver = HpNavigatorObserver();
 
-void main() async {
+void main() async {  
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize all dependencies
   await initDependencies();
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       // Routes
       onGenerateRoute: RouteGenerator.onGenerateRoute,
       onGenerateInitialRoutes: RouteGenerator.onGenerateInitialRoutes,
-      initialRoute: WelcomePage.pageName,
+      initialRoute: CreateAccountPage.pageName,
 
       navigatorObservers: [hpNavigatorObserver],
     );

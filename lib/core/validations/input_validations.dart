@@ -18,4 +18,11 @@ class InputValidations {
     }
     return null;
   }
+
+  static String? emptyValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return _requiredMessage;
+    }
+    return null;
+  }
 }

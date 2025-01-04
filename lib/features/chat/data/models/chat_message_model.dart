@@ -10,7 +10,7 @@ class ChatMessageModel extends ChatMessage {
   static const messaageCol = 'message';
   static const imageCol = 'image';
   static const chatIdCol = 'chatId';
-  static const createTable = 'CREATE TABLE $tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, $chatIdCol INTEGER, $messaageCol TEXT, $isSenderCol INTEGER, $imageCol TEXT)';
+  static const createTable = 'CREATE TABLE IF NOT EXISTS $tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, $chatIdCol INTEGER, $messaageCol TEXT, $isSenderCol INTEGER, $imageCol TEXT)';
   ChatMessageModel({
     required super.isSender,
     required super.message,

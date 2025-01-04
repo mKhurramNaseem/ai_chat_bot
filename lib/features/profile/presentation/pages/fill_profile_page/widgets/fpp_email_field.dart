@@ -11,6 +11,7 @@ class FppDateOfBirthField extends StatelessWidget {
     final dateOfBirthController = context.read<DateOfBirthTextEditingController>();
     return FppBaseWidget(
       child: TextFormField(
+        controller: dateOfBirthController,
         decoration: InputDecoration(
           hintText: 'Date Of Birth',
           helperText: '',
@@ -32,6 +33,7 @@ class FppDateOfBirthField extends StatelessWidget {
             ),
           ),
         ),
+        validator: InputValidations.emptyValidator,
       ),
     );
   }

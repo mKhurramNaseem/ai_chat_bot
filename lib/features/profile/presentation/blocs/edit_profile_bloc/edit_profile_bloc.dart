@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:ai_chat_bot/features/profile/domain/entities/user.dart';
+import 'package:ai_chat_bot/shared/domain/usecases/get_email_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -11,11 +12,13 @@ part 'edit_profile_event.dart';
 part 'edit_profile_state.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
+  final GetEmailUsecase getEmailUsecase;
   final UpdateUserUsecase updateUserUsecase;
   bool isMale = true;
   DateTime dateOfBirth = DateTime.now();
   EditProfileBloc(
     this.updateUserUsecase,
+    this.getEmailUsecase,
   ) : super(EditProfileInitialState()) {
     on<UpdateProfileEvent>(_handleUpdateProfileEvent);
     on<UpdateGenderEvent>(_handleGenderEvent);
@@ -25,24 +28,25 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   FutureOr<void> _handleUpdateProfileEvent(
       UpdateProfileEvent event, Emitter<EditProfileState> emit) async {
     emit(EditProfileLoadingState());
-    UserProfile user = UserProfile(
-        name: event.fullName,
-        nickName: event.nickName,
-        email: event.email,
-        isMale: isMale,
-        dateOfBirth: dateOfBirth,
-        profileImageUrl: event.profileImagePath);
-    var result = await updateUserUsecase(user);
-    if (result.isRight()) {
-      if (result.getOrElse(
-        () => false,
-      )) {
-        emit(EditProfileLoadedState());
+    var email = getEmailUsecase();
+    if (email != null) {
+      UserProfile user = UserProfile(
+          name: event.fullName,
+          nickName: event.nickName,
+          email: email,
+          isMale: isMale,
+          dateOfBirth: dateOfBirth,
+          profileImageUrl: event.profileImagePath);
+      var result = await updateUserUsecase(user);
+      if (result.isRight()) {
+        if (result.getOrElse(() => false)) {
+          emit(EditProfileLoadedState());
+        } else {
+          emit(EditProfileErrorState('Unable to update profile'));
+        }
       } else {
         emit(EditProfileErrorState('Unable to update profile'));
       }
-    } else {
-      emit(EditProfileErrorState('Unable to update profile'));
     }
   }
 

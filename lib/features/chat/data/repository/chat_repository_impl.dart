@@ -49,7 +49,7 @@ class ChatRepositoryImpl extends ChatMessagesRepository {
         return Left(ChatFailure());
       }
     } catch (e) {
-      log('Error : ${e.toString()}');
+      log('Error : ${e.toString()}' , name: 'chat_repository_impl.dart');
       return Left(ChatFailure());
     }
   }

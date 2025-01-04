@@ -7,7 +7,7 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 const _fileName = 'remote_source_impl.dart';
 
 class ChatMesssagesRemoteSourceImpl extends ChatMesssagesRemoteDataSource {
-  static const String _apiKey = 'AIzaSyCwHiLJAHmInAqQHgMmPnOkyG2IGvAneAw';
+  static const String _apiKey = 'AIzaSyD8D3lZt9GHVnP2BfJ7I7acmj0yCR39_H0';
   static final _model = GenerativeModel(
     model: 'gemini-1.5-pro',
     apiKey: _apiKey,

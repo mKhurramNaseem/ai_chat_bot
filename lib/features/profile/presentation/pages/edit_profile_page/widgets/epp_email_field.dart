@@ -11,6 +11,7 @@ class EppEmailField extends StatelessWidget {
         child: TextFormField(
           controller: context.read<EmailTextEditingController>(),
           validator: InputValidations.emailValidatior,
+          readOnly: true,
           decoration: const InputDecoration(
             hintText: 'Email',
             helperText: '',

@@ -1,4 +1,5 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/auth/presentation/bloc/verify_otp_bloc/verify_otp_bloc.dart';
 
 class CnppContinueBtn extends StatelessWidget {
   static const _text = 'Continue';
@@ -7,6 +8,10 @@ class CnppContinueBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
+    var firstController = context.read<FirstController>();
+    var secondController = context.read<SecondController>();
+    var thirdController = context.read<ThirdController>();
+    var fourthController = context.read<FourthController>();
     return CnpBaseWidget(
       child: LayoutBuilder(builder: (context, constraints) {
         return SizedBox(
@@ -15,7 +20,7 @@ class CnppContinueBtn extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 FocusScope.of(context).unfocus();
-                Navigator.of(context).pushNamed(SetFingerPrintPage.pageName);
+                context.read<VerifyOtpBloc>().add(VerifyOtpEvent(otp: '${firstController.text}${secondController.text}${thirdController.text}${fourthController.text}' ));
               },
               style: ButtonStyle(
                 fixedSize: WidgetStatePropertyAll(

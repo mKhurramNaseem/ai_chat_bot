@@ -1,21 +1,39 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/auth/presentation/bloc/create_new_password_bloc/create_new_password_bloc.dart';
 import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_password_page/widgets/cnp_app_bar.dart';
 import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_password_page/widgets/cnp_confirm_password.dart';
 import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_password_page/widgets/cnp_continue_button.dart';
 import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_password_page/widgets/cnp_image.dart';
 import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_password_page/widgets/cnp_password.dart';
-import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_password_page/widgets/cnp_remember_box.dart';
 import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_password_page/widgets/cnp_text.dart';
+import 'package:ai_chat_bot/injection_container.dart';
 
-class CreateNewPasswordPage extends StatefulWidget {
+class CreateNewPasswordPage extends StatelessWidget {
   static const pageName = '/createNewPasswordPage';
   const CreateNewPasswordPage({super.key});
 
   @override
-  State<CreateNewPasswordPage> createState() => _CreateNewPasswordPageState();
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider<CreateNewPasswordBloc>(
+        create: (context) => CreateNewPasswordBloc(
+          createNewPasswordUsecase: sl(),
+          setEmailUsecase: sl(),
+        ),
+      ),
+    ], child: const CreateNewPasswordPageBody());
+  }
 }
 
-class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
+class CreateNewPasswordPageBody extends StatefulWidget {
+  const CreateNewPasswordPageBody({super.key});
+
+  @override
+  State<CreateNewPasswordPageBody> createState() =>
+      _CreateNewPasswordPageState();
+}
+
+class _CreateNewPasswordPageState extends State<CreateNewPasswordPageBody> {
   // Constants
   static const _duration = Duration(milliseconds: 50);
   // Controllers
@@ -70,72 +88,74 @@ class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
           create: (context) => formKey,
         ),
       ],
-      child: Stack(
-        children: [
-          Scaffold(
-            appBar: CnpAppBar(),
-            body: Center(
-              child: SingleChildScrollView(
-                controller: scrollController,
-                child: SizedBox(
-                  height: MediaQuery.sizeOf(context).height -
-                      kToolbarHeight -
-                      MediaQuery.paddingOf(context).top,
-                  child: const CreateNewPasswordPageBody(),
+      child: BlocListener<CreateNewPasswordBloc,CreateNewPasswordState>(
+        listener: _createNewPasswordListener,
+        child: Stack(
+          children: [
+            Scaffold(
+              appBar: CnpAppBar(),
+              body: Center(
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  child: SizedBox(
+                    height: MediaQuery.sizeOf(context).height -
+                        kToolbarHeight -
+                        MediaQuery.paddingOf(context).top,
+                    child: Form(
+                      key: formKey,
+                      child: const Column(
+                        children: [
+                          Expanded(
+                            flex: 40,
+                            child: CnpImage(),
+                          ),
+                          Expanded(
+                            flex: 10,
+                            child: CnpText(),
+                          ),
+                          Expanded(
+                            flex: 10,
+                            child: CnpPassword(),
+                          ),
+                          Spacer(
+                            flex: 1,
+                          ),
+                          Expanded(
+                            flex: 10,
+                            child: CnpConfirmPassword(),
+                          ),
+                          Expanded(
+                            flex: 26,
+                            child: CnpContinueButton(),
+                          ),
+                          Spacer(
+                            flex: 3,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-          // const LoadingDialogWidget(),
-        ],
+            BlocBuilder<CreateNewPasswordBloc, CreateNewPasswordState>(
+              builder: (context, state) {
+                if (state is CreateNewPasswordLoadingState) {
+                  return const LoadingDialogWidget();
+                }
+                return const SizedBox();
+              },
+            )
+          ],
+        ),
       ),
     );
   }
-}
 
-class CreateNewPasswordPageBody extends StatelessWidget {
-  const CreateNewPasswordPageBody({
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: context.read<GlobalKey<FormState>>(),
-      child: const Column(
-        children: [
-          Expanded(
-            flex: 40,
-            child: CnpImage(),
-          ),
-          Expanded(
-            flex: 10,
-            child: CnpText(),
-          ),
-          Expanded(
-            flex: 10,
-            child: CnpPassword(),
-          ),
-          Spacer(
-            flex: 1,
-          ),
-          Expanded(
-            flex: 10,
-            child: CnpConfirmPassword(),
-          ),
-          Expanded(
-            flex: 10,
-            child: CnpRememberBox(),
-          ),
-          Expanded(
-            flex: 16,
-            child: CnpContinueButton(),
-          ),
-          Spacer(
-            flex: 3,
-          ),
-        ],
-      ),
-    );
+  void _createNewPasswordListener(BuildContext context, CreateNewPasswordState state){
+    if(state is CreateNewPasswordLoadedState) {
+      Navigator.of(context).pushNamedAndRemoveUntil(WelcomePage.pageName,(route) => false, );
+    }
   }
 }

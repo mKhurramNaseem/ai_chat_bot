@@ -8,7 +8,7 @@ enum PageType {
   codeSentPage,
 }
 
-class FpTransitionBloc extends Bloc<FpTransitionEvent, FpTransitionState> {
+class FpTransitionBloc extends Bloc<FpTransitionEvent, FpTransitionState> {  
   FpTransitionBloc()
       : super(const FpTransitionInitialState(current: PageType.sendCodePage)) {
     on<FpTransitionEvent>(_handleTransitionEvent);

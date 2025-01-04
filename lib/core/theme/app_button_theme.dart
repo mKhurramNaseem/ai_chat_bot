@@ -28,19 +28,32 @@ class AppButtonTheme {
   );
   static final darkButtonTheme = ElevatedButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: const WidgetStatePropertyAll(AppColors.cyan),
-      foregroundColor: const WidgetStatePropertyAll(AppColors.white),
+      backgroundColor: WidgetStateProperty.resolveWith((states) {
+        if(states.contains(WidgetState.disabled)){
+          return AppColors.cyan.withAlpha(50);
+        }
+        return AppColors.cyan;
+      },),
+      foregroundColor:  WidgetStateProperty.resolveWith((states) {
+        if(states.contains(WidgetState.disabled)){
+          return AppColors.grey;
+        }
+        return AppColors.white;
+      },),
       elevation: WidgetStateProperty.resolveWith(
         (states) {
-          if (states.contains(WidgetState.pressed)) {
+          if (states.contains(WidgetState.pressed) || states.contains(WidgetState.disabled)) {
             return _zeroElevation;
           }
           return _elevation;
         },
       ),
-      shadowColor: WidgetStatePropertyAll(
-        AppColors.cyan.withOpacity(_opacity),
-      ),
+      shadowColor: WidgetStateProperty.resolveWith((states) {
+        if(states.contains(WidgetState.disabled)){
+          return AppColors.transparent;
+        }
+        return AppColors.cyan.withOpacity(_opacity);
+      },),
       textStyle: const WidgetStatePropertyAll(
         TextStyle(
           fontFamily: AppTextStyleAttributes.titleFontFamily,

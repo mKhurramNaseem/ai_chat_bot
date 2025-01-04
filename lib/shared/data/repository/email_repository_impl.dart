@@ -11,7 +11,7 @@ class EmailRepositoryImpl extends EmailRepository{
   }
 
   @override
-  void setCurrentEmail(String email) {
+  void setCurrentEmail(String? email) {
     emailSource.setCurrentEmail(email);
   }
 }

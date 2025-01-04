@@ -5,11 +5,10 @@ sealed class FillProfileEvent {}
 
 @immutable
 class UpdateFillProfileEvent extends FillProfileEvent {
-  final String fullName , nickName , email;  
+  final String fullName , nickName;  
   UpdateFillProfileEvent({
     required this.fullName,
-    required this.nickName,
-    required this.email,       
+    required this.nickName,     
   });
 }
 

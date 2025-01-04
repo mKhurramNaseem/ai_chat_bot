@@ -28,6 +28,7 @@ class _FillProfilePageBodyState extends State<FillProfilePageBody> {
   late EmailTextEditingController emailTextEditingController;
   final GlobalKey<FormState> validationKey = GlobalKey<FormState>();
 
+
   @override
   void initState() {
     super.initState();
@@ -66,52 +67,55 @@ class _FillProfilePageBodyState extends State<FillProfilePageBody> {
           create: (context) => validationKey,
         ),
       ],
-      child: Scaffold(
-        appBar: FppAppBar(),
-        body: Center(
-          child: SingleChildScrollView(
-            child: SizedBox(
-              height: MediaQuery.sizeOf(context).height -
-                  kToolbarHeight -
-                  MediaQuery.paddingOf(context).top,
-              child: Form(
-                key: validationKey,
-                child: const Column(
-                  children: [
-                    Spacer(
-                      flex: 1,
-                    ),
-                    Expanded(
-                      flex: 26,
-                      child: FppProfileImage(),
-                    ),
-                    Spacer(
-                      flex: 5,
-                    ),
-                    Expanded(
-                      flex: 12,
-                      child: FppFullNameField(),
-                    ),
-                    Expanded(
-                      flex: 12,
-                      child: FppNickNameField(),
-                    ),
-                    Expanded(
-                      flex: 12,
-                      child: FppDateOfBirthField(),
-                    ),
-                    Expanded(
-                      flex: 12,
-                      child: FppGenderField(),
-                    ),
-                    Expanded(
-                      flex: 19,
-                      child: FppContinueBtn(),
-                    ),
-                    Spacer(
-                      flex: 2,
-                    ),
-                  ],
+      child: BlocListener<FillProfileBloc,FillProfileState>(
+        listener: _fillProfileStateListener,
+        child: Scaffold(
+          appBar: FppAppBar(),
+          body: Center(
+            child: SingleChildScrollView(
+              child: SizedBox(
+                height: MediaQuery.sizeOf(context).height -
+                    kToolbarHeight -
+                    MediaQuery.paddingOf(context).top,
+                child: Form(
+                  key: validationKey,
+                  child: const Column(
+                    children: [
+                      Spacer(
+                        flex: 1,
+                      ),
+                      Expanded(
+                        flex: 26,
+                        child: FppProfileImage(),
+                      ),
+                      Spacer(
+                        flex: 5,
+                      ),
+                      Expanded(
+                        flex: 12,
+                        child: FppFullNameField(),
+                      ),
+                      Expanded(
+                        flex: 12,
+                        child: FppNickNameField(),
+                      ),
+                      Expanded(
+                        flex: 12,
+                        child: FppDateOfBirthField(),
+                      ),
+                      Expanded(
+                        flex: 12,
+                        child: FppGenderField(),
+                      ),
+                      Expanded(
+                        flex: 19,
+                        child: FppBtnRow(),
+                      ),
+                      Spacer(
+                        flex: 2,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -119,5 +123,12 @@ class _FillProfilePageBodyState extends State<FillProfilePageBody> {
         ),
       ),
     );
+  }
+
+
+  void _fillProfileStateListener(BuildContext context , FillProfileState state){
+    if(state is FillProfileLoadedState){
+      Navigator.of(context).pushNamed(WelcomePage.pageName);
+    }
   }
 }

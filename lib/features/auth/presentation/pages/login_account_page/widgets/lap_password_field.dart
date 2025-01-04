@@ -2,13 +2,14 @@ import 'package:ai_chat_bot/core/core.dart';
 
 class LapPasswordField extends SliverToBoxAdapter {
   static const _hint = 'Password', _padding = 8.0;
-  LapPasswordField({super.key})
+  LapPasswordField({super.key , required GlobalKey<FormFieldState> passwordKey})
       : super(
           child: Builder(builder: (context) {
             var obscureText = true;
             return StatefulBuilder(builder: (context, setState) {
               return LapBaseWidget(
                 child: TextFormField(
+                  key: passwordKey,
                   controller: context.read<PasswordTextEditingController>(),
                   style: Theme.of(context).textTheme.bodyLarge,
                   validator: InputValidations.passwordValidator,

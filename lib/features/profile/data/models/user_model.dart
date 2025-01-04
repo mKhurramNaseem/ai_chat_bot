@@ -9,6 +9,7 @@ class UserModel extends UserProfile {
   static const dateOfBirthCol = 'dateOfBirth';
   static const profileImageCol = 'profileImage';
 
+  static const createTable = 'CREATE TABLE IF NOT EXISTS $tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, $nameCol TEXT, $nickNameCol TEXT, $emailCol TEXT, $genderCol INTEGER, $dateOfBirthCol INTEGER, $profileImageCol TEXT)';
   UserModel(
       {required super.name,
       required super.nickName,
@@ -27,10 +28,11 @@ class UserModel extends UserProfile {
                 DateTime.fromMillisecondsSinceEpoch(map[dateOfBirthCol]),
             profileImageUrl: map[profileImageCol]);
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap({bool includeEmail = true}) {
     return {
       nameCol: name,
       nickNameCol: nickName,
+      if (includeEmail)
       emailCol: email,
       genderCol: isMale ? 0 : 1,
       dateOfBirthCol: dateOfBirth.millisecondsSinceEpoch,

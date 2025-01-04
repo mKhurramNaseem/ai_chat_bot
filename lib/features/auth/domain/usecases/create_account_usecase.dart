@@ -8,7 +8,7 @@ class CreateAccountUsecase {
   CreateAccountUsecase(
     this.userAuthRepository,  );
 
-  Future<Either<UserFailure,bool>> call(UserAuthData userAuth){
+  Future<Either<UserFailure,bool>> call(UserAuthData userAuth){    
     return userAuthRepository.createAccount(userAuth);
   }
 }

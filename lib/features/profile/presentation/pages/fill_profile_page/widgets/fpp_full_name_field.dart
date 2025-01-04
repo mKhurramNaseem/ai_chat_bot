@@ -8,10 +8,12 @@ class FppFullNameField extends StatelessWidget {
   Widget build(BuildContext context) {
      return FppBaseWidget(
       child: TextFormField(     
+        controller: context.read<UserNameTextEditingController>(),
         decoration: const InputDecoration(
           hintText: 'Full name',
-          helperText: '',
+          helperText: '',          
         ),
+        validator: InputValidations.emptyValidator,
       ),
     );
   }

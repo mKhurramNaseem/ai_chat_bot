@@ -13,8 +13,12 @@ class EmailSourceImpl extends EmailSource{
   }
 
   @override
-  void setCurrentEmail(String email) {
-    sharedPreferences.setString(emailKey, email);    
+  void setCurrentEmail(String? email) {
+    if(email == null){
+      sharedPreferences.remove(emailKey);   
+    }else{
+      sharedPreferences.setString(emailKey, email);     
+    }   
   }
 
   @override

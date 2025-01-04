@@ -3,9 +3,9 @@
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:dartz/dartz.dart';
 
-class SendOtpUsecase {
+class VerifyOtpUsecase {
   final UserAuthRepository userAuthRepository;
-SendOtpUsecase(
+VerifyOtpUsecase(
     this.userAuthRepository,  );
 
   Either<UserFailure,bool> call(String otp){

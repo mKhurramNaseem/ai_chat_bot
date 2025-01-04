@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:ai_chat_bot/core/core.dart';
@@ -13,6 +14,8 @@ import 'package:ai_chat_bot/features/profile/domain/usecases/create_user_usecase
 
 part 'fill_profile_event.dart';
 part 'fill_profile_state.dart';
+
+const _fileName = 'fill_profile_bloc.dart';
 
 class FillProfileBloc extends Bloc<FillProfileEvent, FillProfileState> {
   final CreateUserUsecase createUserUsecase;
@@ -36,7 +39,7 @@ class FillProfileBloc extends Bloc<FillProfileEvent, FillProfileState> {
 
   FutureOr<void> _handleUpdateEvent(
       UpdateFillProfileEvent event, Emitter<FillProfileState> emit) async {
-    if (selectedImageFile != null) {
+    // if (selectedImageFile != null) {
       emit(FillProfileLoadingState());
       String? currentEmail = getEmailUsecase();
       if (currentEmail != null) {
@@ -46,17 +49,21 @@ class FillProfileBloc extends Bloc<FillProfileEvent, FillProfileState> {
             email: currentEmail,
             isMale: isMale,
             dateOfBirth: dateOfBirth,
-            profileImageUrl: selectedImageFile!.path);
+            // profileImageUrl: selectedImageFile!.path
+            profileImageUrl: '',
+            );
         var result = await createUserUsecase(user);
         if (result.isRight()) {
           emit(FillProfileLoadedState());
         } else {
           emit(FillProfileErrorState('Unable to register profile'));
+          log('Unable to register profile' , name: _fileName);
         }
       } else {
         emit(FillProfileErrorState('Not a registered user'));
+        log('Not a registered user' , name: _fileName);
       }
-    }
+    // }
   }
 
   FutureOr<void> _handleDateOfBirth(

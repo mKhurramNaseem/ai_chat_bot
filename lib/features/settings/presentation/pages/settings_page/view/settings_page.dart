@@ -1,4 +1,6 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/settings/presentation/bloc/settings_bloc/settings_bloc.dart';
+import 'package:ai_chat_bot/injection_container.dart';
 
 class SettingsPage extends StatelessWidget {
   static const pageName = '/settingsPage';
@@ -6,6 +8,35 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider<SettingsBloc>(
+        create: (context) {
+          return SettingsBloc(
+            getUserUsecase: sl(),
+            getEmailUsecase: sl(),
+          );
+        },
+      ),
+    ], child: const SettingsPageBody());
+  }
+}
+
+class SettingsPageBody extends StatefulWidget {
+  const SettingsPageBody({super.key});
+
+  @override
+  State<SettingsPageBody> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPageBody> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    context.read<SettingsBloc>().add(SettingsGetDataEvent());
     return Scaffold(
       appBar: SpAppBar(),
       body: const Center(
@@ -36,10 +67,6 @@ class SettingsPage extends StatelessWidget {
             ),
             Expanded(
               flex: 7,
-              child: SpDarkModeTile(),
-            ),
-            Expanded(
-              flex: 7,
               child: SpHelpCenterTile(),
             ),
             Expanded(
@@ -47,7 +74,7 @@ class SettingsPage extends StatelessWidget {
               child: SpLogoutTile(),
             ),
             Spacer(
-              flex: 25,
+              flex: 32,
             ),
           ],
         ),

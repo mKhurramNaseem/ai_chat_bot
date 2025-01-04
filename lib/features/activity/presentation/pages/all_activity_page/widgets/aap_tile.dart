@@ -106,7 +106,7 @@ class AapDetailTileTexts extends StatelessWidget {
               return Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  '${DateFormat(DateFormat.HOUR_MINUTE_SECOND).format(activity.startTime)} - ${DateFormat(DateFormat.HOUR_MINUTE_SECOND).format(activity.endTime)} (${activity.duration.inHours} hours)',
+                  '${DateFormat(DateFormat.HOUR_MINUTE_SECOND).format(activity.startTime)} - ${DateFormat(DateFormat.HOUR_MINUTE_SECOND).format(activity.endTime)} (${activity.duration.inMinutes} minutes)',
                   maxLines: _maxLines,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(

@@ -1,10 +1,57 @@
 import 'package:ai_chat_bot/core/core.dart';
-import 'package:ai_chat_bot/features/auth/presentation/pages/create_new_pin_page/view/create_new_pin_page.dart';
+import 'package:ai_chat_bot/features/auth/presentation/pages/set_finger_print_page/widgets/sfa_base_widget.dart';
 import 'package:ai_chat_bot/features/profile/presentation/blocs/fill_profile_bloc/fill_profile_bloc.dart';
 
+class FppBtnRow extends StatelessWidget {
+  static const _skipText = 'Skip';
+  const FppBtnRow({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
+    return SfaBaseWidget(
+      child: LayoutBuilder(builder: (context, constraints) {
+        return SizedBox(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      WelcomePage.pageName,
+                      (route) => false,
+                    );
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(
+                      Theme.of(context).colorScheme.inverseSurface,
+                    ),
+                    foregroundColor: WidgetStatePropertyAll(
+                      Theme.of(context).colorScheme.onInverseSurface,
+                    ),
+                    elevation: const WidgetStatePropertyAll(0.0),
+                    fixedSize: WidgetStatePropertyAll(
+                      Size(constraints.maxWidth / 2.2,
+                          height * AppConstants.btnSizePercent),
+                    ),
+                  ),
+                  child: const Text(_skipText),
+                ),
+                FppContinueBtn(constraints: constraints),
+              ],
+            ),
+          ),
+        );
+      }),
+    );
+  }
+}
 
 class FppContinueBtn extends StatelessWidget {
-  const FppContinueBtn({super.key});
+  static const _continueText = 'Continue';
+  final BoxConstraints constraints;
+  const FppContinueBtn({super.key, required this.constraints});
 
   @override
   Widget build(BuildContext context) {
@@ -16,27 +63,21 @@ class FppContinueBtn extends StatelessWidget {
         context.read<DateOfBirthTextEditingController>();
     final emailController = context.read<EmailTextEditingController>();
     final height = MediaQuery.sizeOf(context).height;
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 15.0),
-        child: FppBaseWidget(
-          child: ElevatedButton(
-            onPressed: () {
-              if(validationKey.currentState?.validate() ?? false){
-                bloc.add(UpdateFillProfileEvent(email: '',fullName: userNameController.text.trim(),nickName: nickNameController.text.trim()));
-                Navigator.of(context).pushNamed(CreateNewPinPage.pageName);
-              }
-            },
-            style: ButtonStyle(
-              fixedSize: WidgetStatePropertyAll(
-                Size(0, height * AppConstants.btnSizePercent),
-              ),
-            ),
-            child: const Text('Continue'),
-          ),
+    return ElevatedButton(
+      onPressed: () {
+        if (validationKey.currentState?.validate() ?? false) {
+          bloc.add(UpdateFillProfileEvent(              
+              fullName: userNameController.text.trim(),
+              nickName: nickNameController.text.trim()));                    
+        }
+      },
+      style: ButtonStyle(
+        fixedSize: WidgetStatePropertyAll(
+          Size(
+              constraints.maxWidth / 2.2, height * AppConstants.btnSizePercent),
         ),
       ),
+      child: const Text(_continueText),
     );
   }
 }

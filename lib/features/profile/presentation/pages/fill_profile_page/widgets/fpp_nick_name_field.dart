@@ -6,11 +6,13 @@ class FppNickNameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FppBaseWidget(
-      child: TextFormField(        
+      child: TextFormField(      
+        controller: context.read<NickNameTextEditingController>(),  
         decoration: const InputDecoration(
           hintText: 'Nick name',
-          helperText: '',
+          helperText: '',          
         ),
+        validator: InputValidations.emptyValidator,
       ),
     );
   }

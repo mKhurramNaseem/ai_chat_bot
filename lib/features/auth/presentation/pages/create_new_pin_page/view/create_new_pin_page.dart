@@ -1,16 +1,25 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/auth/presentation/bloc/verify_otp_bloc/verify_otp_bloc.dart';
 import 'package:flutter/scheduler.dart';
 
-class CreateNewPinPage extends StatefulWidget {
+class OTPVerificationPage extends StatelessWidget {
   static const pageName = '/createNewPage';
-
-  const CreateNewPinPage({super.key});
+  const OTPVerificationPage({super.key});
 
   @override
-  State<CreateNewPinPage> createState() => _CreateNewPinPageState();
+  Widget build(BuildContext context) {
+    return const OTPVerificationPageBody();
+  }
 }
 
-class _CreateNewPinPageState extends State<CreateNewPinPage> {
+class OTPVerificationPageBody extends StatefulWidget {
+  const OTPVerificationPageBody({super.key});
+
+  @override
+  State<OTPVerificationPageBody> createState() => _OTPVerificationPageState();
+}
+
+class _OTPVerificationPageState extends State<OTPVerificationPageBody> {
   static const topSpace = 10;
   static const textFlex = 7, inputFieldsFlex = 20;
   static const btnFlex = 25, belowSpace = 3, keyboardFlex = 35;
@@ -113,37 +122,46 @@ class _CreateNewPinPageState extends State<CreateNewPinPage> {
           create: (context) => fourthControllerFocus,
         ),
       ],
-      child: Scaffold(
-        appBar: CnppAppBar(),
-        body: const Center(
-          child: Column(
-            children: [
-              Spacer(
-                flex: topSpace,
-              ),
-              Expanded(
-                flex: textFlex,
-                child: CnppEmailText(),
-              ),
-              Expanded(
-                flex: inputFieldsFlex,
-                child: CnppInputFields(),
-              ),
-              Expanded(
-                flex: btnFlex,
-                child: CnppContinueBtn(),
-              ),
-              Spacer(
-                flex: belowSpace,
-              ),
-              Expanded(
-                flex: keyboardFlex,
-                child: CnppKeyboard(),
-              ),
-            ],
+      child: BlocListener<VerifyOtpBloc, VerifyOtpState>(
+        listener: _verifyEmailBlocListener,
+        child: Scaffold(
+          appBar: CnppAppBar(),
+          body: const Center(
+            child: Column(
+              children: [
+                Spacer(
+                  flex: topSpace,
+                ),
+                Expanded(
+                  flex: textFlex,
+                  child: CnppEmailText(),
+                ),
+                Expanded(
+                  flex: inputFieldsFlex,
+                  child: CnppInputFields(),
+                ),
+                Expanded(
+                  flex: btnFlex,
+                  child: CnppContinueBtn(),
+                ),
+                Spacer(
+                  flex: belowSpace,
+                ),
+                Expanded(
+                  flex: keyboardFlex,
+                  child: CnppKeyboard(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void _verifyEmailBlocListener(BuildContext context, VerifyOtpState state) {
+    if (state is VerifyOtpSuccessfulState) {
+      Navigator.of(context).pop(true);
+    } else {}
   }
 }

@@ -5,7 +5,7 @@ class SetEmailUsecase {
 
   SetEmailUsecase(this.emailRepository);
 
-  void call(String email){
+  void call(String? email){
     emailRepository.setCurrentEmail(email);
   }
 }

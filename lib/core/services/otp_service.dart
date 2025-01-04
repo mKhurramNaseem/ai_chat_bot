@@ -9,7 +9,7 @@ abstract class OTPService {
 class OTPServiceImpl extends OTPService {
   @override
   Future<bool> sendOtp(String email) async {    
-    EmailOTP.config(
+    EmailOTP.config(      
       appName: AppConstants.botName,
       emailTheme: EmailTheme.v3,
       otpLength: 4,

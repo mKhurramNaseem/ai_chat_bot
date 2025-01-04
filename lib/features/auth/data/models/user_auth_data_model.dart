@@ -11,6 +11,8 @@ class UserAuthDataModel extends UserAuthData{
     };
   }
 
+  UserAuthDataModel.fromMap(Map<String , dynamic> map):this(map[emailCol],map[passwordCol]);
+
 
   UserAuthDataModel.fromUserAuth(UserAuthData userAuth):this(userAuth.email,userAuth.password);
 }

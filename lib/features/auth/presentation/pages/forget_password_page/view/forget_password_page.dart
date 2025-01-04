@@ -1,4 +1,7 @@
+import 'package:ai_chat_bot/core/comman_widgets/error_dialog_base_widget.dart';
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/features/auth/presentation/bloc/forget_password_bloc/forget_password_bloc.dart';
+import 'package:ai_chat_bot/injection_container.dart';
 
 class ForgetPasswordPage extends StatelessWidget {
   static const pageName = '/forgotPassword';
@@ -6,8 +9,18 @@ class ForgetPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<FpTransitionBloc>(
-      create: (context) => FpTransitionBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<FpTransitionBloc>(
+          create: (context) => FpTransitionBloc(),
+        ),
+        BlocProvider<ForgetPasswordBloc>(
+          create: (context) => ForgetPasswordBloc(
+            sendOtpUsecase: sl(),
+            verifyOtpUsecase: sl(),
+          ),
+        ),
+      ],
       child: const ForgetPasswordPageBody(),
     );
   }
@@ -117,20 +130,42 @@ class _ForgetPasswordPageBodyState extends State<ForgetPasswordPageBody> {
           create: (context) => fourthControllerFocus,
         ),
       ],
-      child: Scaffold(
-        appBar: FpAppBar(),
-        body: Center(
-          child: BlocBuilder<FpTransitionBloc, FpTransitionState>(
-            builder: (context, state) {
-              if (state.current == PageType.sendCodePage) {
-                return const FpSendCodeBody();
-              } else {
-                return const FpCodeSentBody();
-              }
-            },
+      child: BlocListener<ForgetPasswordBloc, ForgetPasswordState>(
+        listener: _handleForgetPasswordBloc,
+        child: Scaffold(
+          appBar: FpAppBar(),
+          body: Center(
+            child: BlocBuilder<FpTransitionBloc, FpTransitionState>(
+              builder: (context, state) {
+                if (state.current == PageType.sendCodePage) {
+                  return const FpSendCodeBody();
+                } else {
+                  return const FpCodeSentBody();
+                }
+              },
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void _handleForgetPasswordBloc(
+      BuildContext context, ForgetPasswordState state) {
+    final email = ModalRoute.of(context)?.settings.arguments as String?;
+    if (state is ForgetPasswordLoadedState) {
+      Navigator.of(context).pushReplacementNamed(CreateNewPasswordPage.pageName,
+          arguments: email);
+    } else if (state is ForgetPasswordErrorState) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const ErrorDialogBaseWidget(
+              image: AppImages.sadImage,
+              title: 'Error!',
+              subtitle: 'Invalid OTP');
+        },
+      );
+    }
   }
 }

@@ -3,7 +3,7 @@ import 'package:ai_chat_bot/core/util/app_extensions.dart';
 import 'package:ai_chat_bot/features/activity/domain/entities/activity.dart';
 
 class ActivityModel extends Activity {
-  static const createTable = 'CREATE TABLE $tableName ($dateCol TEXT PRIMARY KEY, $startTimeCol INTEGER, $endTimeCol INTEGER, $durationCol INTEGER)';
+  static const createTable = 'CREATE TABLE IF NOT EXISTS $tableName ($dateCol TEXT PRIMARY KEY, $startTimeCol INTEGER, $endTimeCol INTEGER, $durationCol INTEGER)';
   static const tableName = 'ActivitesTable';
   static const dateCol = 'date';
   static const startTimeCol = 'startTime';

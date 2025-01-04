@@ -14,7 +14,11 @@ class UserAuthRepositoryImpl extends UserAuthRepository {
     try {
       await authSource.createAccount(UserAuthDataModel.fromUserAuth(userAuth));
       return const Right(true);
-    } catch (e) {
+    } on UserAlreadyExistsException catch(_){
+      return Left(UserAlreadyExistsFailure());
+    }
+    catch (e) {
+
       return Left(UserFailure());
     }
   }
@@ -36,7 +40,11 @@ class UserAuthRepositoryImpl extends UserAuthRepository {
     try{
       var isLoggedIn = await authSource.isUserExists(UserAuthDataModel.fromUserAuth(userAuth));
       return Right(isLoggedIn);
-    }catch(e){
+    }on UserNotFoundException catch(_){
+      return Left(UserNotFoundFailure());      
+    }on InvalidPasswordException catch(_){
+      return Left(InvalidPasswordFailure());      
+    }catch (e){
       return Left(UserFailure());
     }
   }

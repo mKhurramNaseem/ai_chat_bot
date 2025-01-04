@@ -9,34 +9,35 @@ class FpSendCodeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    var email = ModalRoute.of(context)?.settings.arguments as String?;
+    return Column(
       children: [
-        Spacer(
+        const Spacer(
           flex: _topSpace,
         ),
-        Expanded(
+        const Expanded(
           flex: _imageFlex,
           child: FpImage(),
         ),
-        Spacer(
+        const Spacer(
           flex: _imageBelowSpace,
         ),
-        Expanded(
+        const Expanded(
           flex: _textFlex,
           child: FpSelectionText(),
         ),
-        Spacer(
+        const Spacer(
           flex: _textBelowSpace,
         ),
         Expanded(
           flex: _detailedBoxFlex,
-          child: FpDetailBox(email: 'askfromjamshaid@gmail.com'),
+          child: FpDetailBox(email: email ?? 'askfromjamshaid@gmail.com'),
         ),
-        Expanded(
+        const Expanded(
           flex: _btnFlex,
           child: FpContinueButton(),
         ),
-        Spacer(
+        const Spacer(
           flex: _belowSpace,
         ),
       ],

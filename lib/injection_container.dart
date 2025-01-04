@@ -1,18 +1,36 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:ai_chat_bot/core/services/otp_service.dart';
+import 'package:ai_chat_bot/features/auth/data/repository/user_auth_repository.dart';
+import 'package:ai_chat_bot/features/auth/data/source/user_auth_source.dart';
+import 'package:ai_chat_bot/features/auth/data/source/user_auth_source_impl.dart';
+import 'package:ai_chat_bot/features/auth/domain/usecases/create_account_usecase.dart';
+import 'package:ai_chat_bot/features/auth/domain/usecases/create_new_password_usecase.dart';
+import 'package:ai_chat_bot/features/auth/domain/usecases/login_usecase.dart';
+import 'package:ai_chat_bot/features/auth/domain/usecases/send_otp_usecase.dart';
+import 'package:ai_chat_bot/features/auth/domain/usecases/verify_otp_usecase.dart';
+import 'package:ai_chat_bot/features/profile/domain/usecases/get_user_usecase.dart';
+import 'package:ai_chat_bot/firebase_options.dart';
 import 'package:ai_chat_bot/shared/data/repository/email_repository_impl.dart';
 import 'package:ai_chat_bot/shared/data/source/email_source.dart';
 import 'package:ai_chat_bot/shared/data/source/email_source_impl.dart';
 import 'package:ai_chat_bot/shared/domain/repository/email_repository.dart';
 import 'package:ai_chat_bot/shared/domain/usecases/get_email_usecase.dart';
 import 'package:ai_chat_bot/shared/domain/usecases/set_email_usecase.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 var sl = GetIt.instance;
 
 Future<void> initDependencies() async {
+  await initFirebase();
   await initAllDb();
   initChats();
   initActivity();
   initProfile();
+  initAuth();
+}
+
+Future<void> initFirebase() async{
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);    
 }
 
 Future<void> initAllDb() async {
@@ -111,6 +129,9 @@ void initProfile() {
   sl.registerLazySingleton<UserDb>(
     () => UserDbImpl(db: sl()),
   );
+  sl.registerLazySingleton<GetUserUsecase>(
+    () => GetUserUsecase(sl()),
+  );
   sl.registerLazySingleton(
     () => GetEmailUsecase(sl()),
   );
@@ -122,5 +143,17 @@ void initProfile() {
   );
   sl.registerLazySingleton<EmailSource>(
     () => EmailSourceImpl(sl()),
-  );
+  );  
+}
+
+
+void initAuth(){
+  sl.registerLazySingleton(() => CreateAccountUsecase(sl()),);
+  sl.registerLazySingleton(() => LoginUsecase(sl()),);
+  sl.registerLazySingleton(() => SendOtpUsecase(sl()),);
+  sl.registerLazySingleton(() => VerifyOtpUsecase(sl()),);
+  sl.registerLazySingleton(() => CreateNewPasswordUsecase(sl()),);
+  sl.registerLazySingleton<UserAuthRepository>(() => UserAuthRepositoryImpl(sl(),),);
+  sl.registerLazySingleton<UserAuthSource>(() => UserAuthSourceImpl(sl(),),);
+  sl.registerLazySingleton<OTPService>(() => OTPServiceImpl(),);
 }

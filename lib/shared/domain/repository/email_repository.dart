@@ -1,4 +1,4 @@
 abstract class EmailRepository {
   String? getCurrentEmail();
-  void setCurrentEmail(String email);
+  void setCurrentEmail(String? email);
 }

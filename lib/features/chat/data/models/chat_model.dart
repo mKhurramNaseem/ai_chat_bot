@@ -9,7 +9,7 @@ class ChatModel extends Chat {
   static const isEndedCol = 'isEnded';
   static const lastMessageCol = 'lastMessage';
   static const chatIdCol = 'chatId';
-  static const createTable = 'CREATE TABLE $tableName ($chatIdCol INTEGER PRIMARY KEY, $startTimeCol INTEGER, $endTimeCol INTEGER, $isEndedCol INTEGER, $lastMessageCol TEXT)';
+  static const createTable = 'CREATE TABLE IF NOT EXISTS $tableName ($chatIdCol INTEGER PRIMARY KEY, $startTimeCol INTEGER, $endTimeCol INTEGER, $isEndedCol INTEGER, $lastMessageCol TEXT)';
   ChatModel({
     required super.chatId,
     required super.startTime,

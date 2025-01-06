@@ -28,7 +28,7 @@ class LapPasswordField extends SliverToBoxAdapter {
                   },
                   maxLength: AppConstants.maxLengthOfCounter,
                   decoration: InputDecoration(
-                    hintText: _hint,
+                    hintText: AppLocalizations.of(context)?.password ?? _hint,
                     helperText: '',
                     prefixIcon: AppIcons.passwordFieldIcon,
                     suffixIcon: GestureDetector(

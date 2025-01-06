@@ -30,7 +30,7 @@ class EppUpdateBtn extends StatelessWidget {
                 Size(0, height * AppConstants.btnSizePercent),
               ),
             ),
-            child: const Text('Update'),
+            child: Text(AppLocalizations.of(context)?.update ?? 'Update'),
           ),
         ),
       ),

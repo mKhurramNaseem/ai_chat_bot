@@ -8,7 +8,7 @@ class LpTitleSuggestedText extends SliverToBoxAdapter {
             builder: (context) {
               return LapBaseWidget(
                 child: Text(
-                  _text,
+                  AppLocalizations.of(context)?.suggested ?? _text,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               );
@@ -25,7 +25,7 @@ class LpTitleLanguageText extends SliverToBoxAdapter {
             builder: (context) {
               return LapBaseWidget(
                 child: Text(
-                  _text,
+                  AppLocalizations.of(context)?.language ?? _text,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               );

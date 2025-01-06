@@ -9,7 +9,7 @@ class WpSubText extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: Text(
-        _text,
+        AppLocalizations.of(context)?.letsHaveFun(AppConstants.botName) ?? _text,
         style: Theme.of(context).textTheme.bodyLarge,
       ),
     );

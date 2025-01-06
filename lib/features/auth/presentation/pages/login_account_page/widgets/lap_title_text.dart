@@ -1,5 +1,3 @@
-
-
 import '../../../../../../core/core.dart';
 
 class LapTitleText extends SliverToBoxAdapter {
@@ -11,7 +9,7 @@ class LapTitleText extends SliverToBoxAdapter {
               final height = MediaQuery.sizeOf(context).height;
               return LapBaseWidget(
                 child: Text(
-                  _capTitle,
+                  AppLocalizations.of(context)?.loginToYourAccount ?? _capTitle,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontSize: height * AppConstants.titleFontSizePercent,
                       ),

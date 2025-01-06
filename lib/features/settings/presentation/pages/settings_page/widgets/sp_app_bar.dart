@@ -7,7 +7,7 @@ class SpAppBar extends AppBar {
           title: Builder(
             builder: (context) {
               return Text(
-                _title,
+                AppLocalizations.of(context)?.settings ?? _title,
                 style: Theme.of(context).textTheme.bodyLarge,
               );
             },

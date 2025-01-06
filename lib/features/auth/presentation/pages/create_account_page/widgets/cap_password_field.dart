@@ -1,4 +1,5 @@
 import 'package:ai_chat_bot/core/core.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CapPasswordField extends SliverToBoxAdapter {
   static const _hint = 'Password', _padding = 8.0;
@@ -28,7 +29,7 @@ class CapPasswordField extends SliverToBoxAdapter {
                   },
                   maxLength: AppConstants.maxLengthOfCounter,
                   decoration: InputDecoration(
-                    hintText: _hint,
+                    hintText: AppLocalizations.of(context)?.password ?? _hint,
                     helperText: '',
                     prefixIcon: AppIcons.passwordFieldIcon,
                     suffixIcon: GestureDetector(

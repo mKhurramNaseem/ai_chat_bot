@@ -18,7 +18,7 @@ class HpActiveChats extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                _activeText,
+                AppLocalizations.of(context)?.activeChats ?? _activeText,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontSize: constraints.maxHeight * _fontSizePercent,
                     ),
@@ -36,7 +36,7 @@ class HpActiveChats extends StatelessWidget {
                       Navigator.of(context).pushNamed(ActiveChatsPage.pageName);
                     },
                     child: Text(
-                      text,
+                      AppLocalizations.of(context)?.seeAll ?? text,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: AppColors.cyan,
                             fontSize:

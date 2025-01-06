@@ -9,7 +9,7 @@ class WpMainText extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Text(
-          _text,
+          AppLocalizations.of(context)?.welcome('Khurram!') ??  _text,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 fontSize: constraints.maxHeight * _fontSizePercent,
               ),

@@ -7,7 +7,7 @@ class AapAppBar extends AppBar {
           title: Builder(
             builder: (context) {
               return Text(
-                _text,
+                AppLocalizations.of(context)?.detailsChatActivity ?? _text,
                 style: Theme.of(context).textTheme.bodyLarge,
               );
             },

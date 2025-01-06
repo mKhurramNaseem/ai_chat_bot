@@ -9,7 +9,7 @@ class WpBelowText extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Text(
-        _text,
+        AppLocalizations.of(context)?.startConversion(AppConstants.botName) ?? _text,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
       ),
     );

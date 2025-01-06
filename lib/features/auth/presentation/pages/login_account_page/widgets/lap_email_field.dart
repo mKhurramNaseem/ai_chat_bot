@@ -12,8 +12,8 @@ class LapEmailField extends SliverToBoxAdapter {
                   controller: context.read<EmailTextEditingController>(),
                   style: Theme.of(context).textTheme.bodyLarge,             
                   validator: InputValidations.emailValidatior,
-                  decoration: const InputDecoration(
-                    hintText: _hint,                    
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)?.email ?? _hint,                    
                     prefixIcon: AppIcons.emailFieldIcon,
                     helperText: '',
                   ),

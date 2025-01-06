@@ -23,8 +23,8 @@ class CpChatField extends StatelessWidget {
                     validator: InputValidations.emailValidatior,
                     maxLines: 10,
                     minLines: 1,
-                    decoration: const InputDecoration(
-                      hintText: 'Type a message to ${AppConstants.botName}',                      
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)?.typeAMessageToModel(AppConstants.botName) ?? 'Type a message to ${AppConstants.botName}',                      
                     ),
                   ),
                 ),

@@ -11,7 +11,7 @@ class CapAlreadyAccountSignIn extends SliverToBoxAdapter {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    _alreadyAccountText,
+                    AppLocalizations.of(context)?.alreadyHaveAccount ?? _alreadyAccountText,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   GestureDetector(
@@ -27,8 +27,8 @@ class CapAlreadyAccountSignIn extends SliverToBoxAdapter {
                     child: Padding(
                       padding: const EdgeInsets.all(AppConstants.iconPadding),
                       child: Text(
-                        _signInText,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        AppLocalizations.of(context)?.signIn ?? _signInText,
+                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: AppColors.cyan,
                             ),
                       ),

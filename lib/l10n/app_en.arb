@@ -1,0 +1,334 @@
+{
+    "helloWorld": "Hello World!",
+    "@helloWorld": {
+      "description": "The conventional newborn programmer greeting"
+    },  
+
+    "createYourAccount":"Create your\nAccount",
+    "@createYourAccount": {
+      "description": "Create your Account"
+    },  
+
+    "email":"Email",
+    "@email": {
+      "description": "Email"
+    },    
+
+    "password":"Password",
+    "@password": {
+      "description": "Password"
+    },    
+
+    "signUp":"Sign up",
+    "@signUp": {
+      "description": "Sign up"
+    }, 
+
+    "signIn":"Sign in",   
+    "@signIn": {
+      "description": "Sign in"
+    },
+
+    "alreadyHaveAccount":"Already have an account",
+    "@alreadyHaveAccount": {
+      "description": "Already have an account"
+    },
+
+    "loginToYourAccount":"Login to your\nAccount",    
+    "@loginToYourAccount": {
+      "description": "Login to your Account"
+    },
+
+    "forgotPassword":"Forgot the password",    
+    "@forgotPassword": {
+      "description": "Forgot the password"
+    },
+
+    "dontHaveAccount":"Don''t have an account",
+    "@dontHaveAccount": {
+      "description": "Dont have an account"
+    },
+
+    "forgotPasswordTitle":"Forgot Password",
+    "@forgotPasswordTitle": {
+      "description": "Forgot password"
+    },
+
+    "selectWhichContactDetailsShouldWeUseToResetYourPassword":"Select which contact details should we use to reset your password",
+    "@selectWhichContactDetailsShouldWeUseToResetYourPassword": {
+      "description": "Select which contact details should we use to reset your password"
+    },
+
+    "viaEmail":"via Email:",
+    "@viaEmail": {
+      "description": "via Email:"
+    },
+
+    "continueText":"Continue",
+    "@continueText": {
+      "description": "Continue"
+    },
+
+    "codeHasBeenSendToEmail":"Code has been send to {email}",
+    "@codeHasBeenSendToEmail": {
+    "description": "Code send to Email",
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "Bob"
+        }
+      }    
+    },
+    "resendCodeInS":"Resend code in {seconds}s",
+    "@resendCodeInS": {
+    "description": "Resend code in s",
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "example": "23"
+        }
+      }    
+    },
+    
+    "verify":"Verify",
+    "@verify": {
+      "description": "Verify"
+    },
+
+    "error":"Error!",
+    "@error": {
+      "description": "Error!"
+    },
+
+    "invalidOTP":"Invalid OTP",
+    "@invalidOTP": {
+      "description": "Invalid OTP"
+    },
+
+    "cancel":"Cancel",
+    "@cancel": {
+      "description": "Cancel"
+    },
+
+    "welcome":"Welcome, {name}👋",
+    "@welcome": {
+      "description": "Welcome",
+      "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Khuram"
+        }
+      }   
+    },
+
+    "letsHaveFun":"Lets Have Fun with {model}",
+    "@letsHaveFun": {
+      "description": "Lets Have Fun with",
+      "placeholders": {
+      "model": {
+        "type": "String",
+        "example": "Bobo"
+        }
+      }
+    },
+
+    "startConversion":"Start a conversation with {model} Right Now",
+    "@startConversion": {
+      "description": "Start a conversation with Right Now",
+      "placeholders": {
+      "model": {
+        "type": "String",
+        "example": "Bobo"
+        }
+      }   
+    },
+
+    "startChatWithBobo":"Start Chat with {model}",
+    "@startChatWithBobo": {
+      "description": "Start Chat with model",
+      "placeholders": {
+      "model": {
+        "type": "String",
+        "example": "Bobo"
+        }
+      }   
+    },
+
+    "activeChats":"Active Chats",
+    "@activeChats": {
+      "description": "Active Chats"
+    },
+
+
+    "endedChats":"Ended Chats",
+    "@endedChats": {
+      "description": "Ended Chats"
+    },
+
+    "seeAll":"See All",
+    "@seeAll": {
+      "description": "See All"
+    },
+
+    "startAnotherChatWithModel":"Start Another Chat with {model}",
+    "@startAnotherChatWithModel": {
+      "description": "Start Another Chat with model",
+      "placeholders": {
+      "model": {
+        "type": "String",
+        "example": "Bobo"
+        }
+      }   
+    },
+
+    "typeAMessageToModel":"Type a message to {model}",
+    "@typeAMessageToModel": {
+      "description": "Type a message to model",
+      "placeholders": {
+      "model": {
+        "type": "String",
+        "example": "Bobo"
+        }
+      }   
+    },
+
+    "clearChat":"Clear Chat",
+    "@clearChat": {
+      "description": "Clear Chat"
+    },
+
+    "endSession":"End Session",
+    "@endSession": {
+      "description": "End Session"
+    },
+
+    "areYouSureYouWantToEndChatSessionWithModel":"Are you sure you want to end chat session with {model}",
+    "@areYouSureYouWantToEndChatSessionWithModel": {
+      "description": "Are you sure you want to end chat session with model",
+      "placeholders": {
+      "model": {
+        "type": "String",
+        "example": "Bobo"
+        }
+      }   
+    },
+
+    "yesEndSession":"Yes, End Session",
+    "@yesEndSession": {
+      "description": "Yes, End Session"
+    },
+
+    "activity":"Activity",
+    "@activity": {
+      "description": "Activity"
+    },
+
+    "yourStatistics":"Your Statistics",
+    "@yourStatistics": {
+      "description": "Your Statistics"
+    },
+
+    "graphOfTimeYouSpentWithModel":"Graph of the time you spent with {model} this week",
+    "@graphOfTimeYouSpentWithModel": {
+      "description": "Graph of the time you spent with model this week",
+      "placeholders": {
+      "model": {
+        "type": "String",
+        "example": "Bobo"
+        }
+      } 
+    },
+
+    "detailsChatActivity":"Details Chat Activity",
+    "@detailsChatActivity": {
+      "description": "Details Chat Activity"
+    },
+
+    "settings":"Settings",
+    "@settings": {
+      "description": "Settings"
+    },
+
+    "editProfile":"Edit Profile",
+    "@editProfile": {
+      "description": "Edit Profile"
+    },
+
+    "language":"Language",
+    "@language": {
+      "description": "Language"
+    },
+
+    "helpCenter":"Help Center",
+    "@helpCenter": {
+      "description": "Help Center"
+    },
+
+    "logout":"Logout",
+    "@logout": {
+      "description": "Logout"
+    },
+
+    "areYouSureYouWantToLogOut":"Are you sure you want to log out?",
+    "@areYouSureYouWantToLogOut": {
+      "description": "Are you sure you want to log out?"
+    },
+
+    "yesLogout":"Yes, Logout",
+    "@yesLogout": {
+      "description": "Yes, Logout"
+    },
+
+    "update":"Update",
+    "@update": {
+      "description": "Update"
+    },
+
+    "faq":"FAQ",
+    "@faq": {
+      "description": "FAQ"
+    },
+
+    "contactUs":"Contact us",
+    "@contactUs": {
+      "description": "Contact us"
+    },
+
+    "passwordsDontMatch":"Passwords don''t match",
+    "@passwordsDontMatch": {
+      "description": "Passwords don't match"
+    },
+
+    "confirmPassword":"Confirm Password",
+    "@confirmPassword": {
+      "description": "Confirm Password"
+    },
+    
+    "createNewPin":"Create New PIN",
+    "@createNewPin": {
+      "description": "Create New PIN"
+    }, 
+
+    "createYourNewPassword":"Create Your New Password",
+    "@createYourNewPassword": {
+      "description": "Create Your New Password"
+    }, 
+
+    "congratulations":"Congratulations!",
+    "@congratulations": {
+      "description": "Congratulations!"
+    },
+    
+
+    "yourAccountIsReadyToUse":"Your account is ready to use. You will be redirected to the Home page in a few seconds.",
+    "@yourAccountIsReadyToUse": {
+      "description": "Your account is ready to use. You will be redirected to the Home page in a few seconds."
+    },
+    
+    "suggested":"Suggested",
+    "@suggested": {
+      "description": "Suggested"
+    }
+
+
+}

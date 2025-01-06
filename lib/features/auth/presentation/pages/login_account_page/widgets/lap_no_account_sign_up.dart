@@ -11,21 +11,23 @@ class LapNoAccountSignUp extends SliverToBoxAdapter {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    _alreadyAccountText,
+                    AppLocalizations.of(context)?.dontHaveAccount ??
+                        _alreadyAccountText,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   GestureDetector(
                     onTap: () {
-                      if(Navigator.of(context).canPop()){
-                        Navigator.of(context).pop();                        
-                      }else{
-                        Navigator.of(context).pushNamed(CreateAccountPage.pageName);
-                      }                      
+                      if (Navigator.of(context).canPop()) {
+                        Navigator.of(context).pop();
+                      } else {
+                        Navigator.of(context)
+                            .pushNamed(CreateAccountPage.pageName);
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(AppConstants.iconPadding),
                       child: Text(
-                        _signInText,
+                        AppLocalizations.of(context)?.signUp ?? _signInText,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: AppColors.cyan,
                             ),

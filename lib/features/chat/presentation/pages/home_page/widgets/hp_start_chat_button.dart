@@ -23,7 +23,7 @@ class HpStartChatButton extends StatelessWidget {
                         height * AppConstants.btnSizePercent),
                   ),
                 ),
-                child: const Text(_text),
+                child: Text(AppLocalizations.of(context)?.startAnotherChatWithModel(AppConstants.botName) ?? _text),
               ),
             ),
           );

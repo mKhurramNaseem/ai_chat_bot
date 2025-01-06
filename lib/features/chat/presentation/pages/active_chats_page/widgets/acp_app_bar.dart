@@ -4,7 +4,7 @@ class AcpAppBar extends AppBar {
   AcpAppBar({super.key})
       : super(
           title: Builder(builder: (context) {
-            return Text('Active Chats',
+            return Text(AppLocalizations.of(context)?.activeChats ?? 'Active Chats',
                 style: Theme.of(context).textTheme.bodyLarge);
           }),
         );

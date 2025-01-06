@@ -8,7 +8,7 @@ class CnpText extends StatelessWidget {
   Widget build(BuildContext context) {
     return CnpBaseWidget(
       child: Text(
-        _text,
+        AppLocalizations.of(context)?.createYourNewPassword ?? _text,
         textAlign: TextAlign.left,
         style: Theme.of(context).textTheme.bodyLarge,
       ),

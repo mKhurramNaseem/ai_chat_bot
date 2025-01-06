@@ -5,7 +5,7 @@ class EcpAppBar extends AppBar {
       : super(
           title: Builder(builder: (context) {
             return Text(
-              'Ended Chats',
+              AppLocalizations.of(context)?.endedChats ?? 'Ended Chats',
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge                  

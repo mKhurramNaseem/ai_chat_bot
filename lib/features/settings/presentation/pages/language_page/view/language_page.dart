@@ -13,7 +13,7 @@ class LanguagePage extends StatefulWidget {
 }
 
 class _LanguagePageState extends State<LanguagePage> {
-  String? groupValue = languages[0];
+  String? groupValue = suggested[0].$2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +26,8 @@ class _LanguagePageState extends State<LanguagePage> {
             LpSpaceWidget(),
             for (var i in suggested)
               LpLanguageTile(
-                languageName: i,
-                originalValue: i,
+                languageName: i.$1,
+                originalValue: i.$2,
                 groupValue: groupValue,
                 onTap: (value) {
                   setState(() {
@@ -42,8 +42,8 @@ class _LanguagePageState extends State<LanguagePage> {
             LpSpaceWidget(),
             for (var i in languages)
               LpLanguageTile(
-                languageName: i,
-                originalValue: i,
+                languageName: i.$1,
+                originalValue: i.$2,
                 groupValue: groupValue,
                 onTap: (value) {
                   setState(() {
@@ -58,19 +58,18 @@ class _LanguagePageState extends State<LanguagePage> {
   }
 }
 
-List<String> suggested = [
-  'English (US)',
-  'English (UK)',
+List<(String,String)> suggested = [
+  ('English (US)' , 'en'),  
 ];
 
-List<String> languages = [
-  'Mandarin',
-  'Hindi',
-  'Spanish',
-  'French',
-  'Arabic',
-  'Bengali',
-  'Urdu',
-  'German',
-  'Russian',
+List<(String , String)> languages = [
+  ('Mandarin' , 'zh'),
+  ('Hindi' , 'hi'),
+  ('Spanish' , 'es'),
+  ('French' , 'fr'),
+  ('Arabic' , 'ar'),
+  ('Bengali' , 'bn'),
+  ('Urdu' , 'ur'),
+  ('German' , 'de'),
+  ('Russian' , 'ru'),
 ];

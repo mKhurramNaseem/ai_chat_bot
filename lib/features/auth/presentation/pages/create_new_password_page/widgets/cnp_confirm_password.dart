@@ -28,7 +28,7 @@ class CnpConfirmPassword extends StatelessWidget {
           },
           maxLength: AppConstants.maxLengthOfCounter,
           decoration: InputDecoration(
-            hintText: _hint,
+            hintText: AppLocalizations.of(context)?.confirmPassword ?? _hint,
             helperText: '',
             prefixIcon: AppIcons.passwordFieldIcon,
             suffixIcon: GestureDetector(

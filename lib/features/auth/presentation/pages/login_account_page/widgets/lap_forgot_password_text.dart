@@ -14,7 +14,7 @@ class LapForgotPasswordText extends SliverToBoxAdapter {
                     }                    
                   },
                   child: Text(
-                    _text,
+                    AppLocalizations.of(context)?.forgotPassword ?? _text,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: AppColors.cyan,

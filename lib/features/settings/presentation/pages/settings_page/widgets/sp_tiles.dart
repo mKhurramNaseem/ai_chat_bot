@@ -15,7 +15,7 @@ class SpEditProfileTile extends StatelessWidget {
     return ListTile(
       leading: AppIcons.editProfileIcon,
       title: Text(
-        'Edit Profile',
+        AppLocalizations.of(context)?.editProfile ?? 'Edit Profile',
         style: Theme.of(context).textTheme.bodyLarge,
       ),
       trailing: AppIcons.forwardIcon,
@@ -42,7 +42,7 @@ class SpLanguageTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Language',
+            AppLocalizations.of(context)?.language ?? 'Language',
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           Text(
@@ -91,7 +91,7 @@ class SpHelpCenterTile extends StatelessWidget {
     return ListTile(
       leading: AppIcons.helpCenterIcon,
       title: Text(
-        'Help Center',
+        AppLocalizations.of(context)?.helpCenter ?? 'Help Center',
         style: Theme.of(context).textTheme.bodyLarge,
       ),
       trailing: AppIcons.forwardIcon,
@@ -112,7 +112,7 @@ class SpLogoutTile extends StatelessWidget {
     return ListTile(
       leading: AppIcons.logoutIcon,
       title: Text(
-        'Logout',
+        AppLocalizations.of(context)?.logout ?? 'Logout',
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: AppColors.red,
             ),

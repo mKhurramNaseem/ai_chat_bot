@@ -17,7 +17,7 @@ class HpEndedChatsText extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                _activeText,
+                AppLocalizations.of(context)?.endedChats ?? _activeText,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontSize: constraints.maxHeight * _fontSizePercent,
                     ),
@@ -35,7 +35,7 @@ class HpEndedChatsText extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      text,
+                      AppLocalizations.of(context)?.seeAll ?? text,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: AppColors.cyan,
                             fontSize:

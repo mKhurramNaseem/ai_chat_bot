@@ -46,14 +46,14 @@ class LoadingDialogWidget extends StatelessWidget {
                     Expanded(
                       flex: 10,
                       child: Text(
-                        'Congratulations!',
+                        AppLocalizations.of(context)?.congratulations ?? 'Congratulations!',
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
                     Expanded(
                       flex: 17,
                       child: Text(
-                        'Your account is ready to use. You will be redirected to the Home page in a few seconds.',
+                        AppLocalizations.of(context)?.yourAccountIsReadyToUse ?? 'Your account is ready to use. You will be redirected to the Home page in a few seconds.',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.labelLarge,
                       ),

@@ -36,10 +36,10 @@ class CnpContinueButton extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return const ErrorDialogBaseWidget(
+                        return ErrorDialogBaseWidget(
                             image: AppImages.sadImage,
-                            title: 'Error!',
-                            subtitle: 'Passwords don\'t match');
+                            title: AppLocalizations.of(context)?.error ?? 'Error!',
+                            subtitle: AppLocalizations.of(context)?.passwordsDontMatch ?? 'Passwords don\'t match');
                       },
                     );
                   }
@@ -51,7 +51,7 @@ class CnpContinueButton extends StatelessWidget {
                       height * AppConstants.btnSizePercent),
                 ),
               ),
-              child: const Text(_text),
+              child: Text(AppLocalizations.of(context)?.continueText ?? _text),
             ),
           ),
         );

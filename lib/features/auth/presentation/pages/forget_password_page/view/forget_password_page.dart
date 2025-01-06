@@ -160,10 +160,10 @@ class _ForgetPasswordPageBodyState extends State<ForgetPasswordPageBody> {
       showDialog(
         context: context,
         builder: (context) {
-          return const ErrorDialogBaseWidget(
+          return ErrorDialogBaseWidget(
               image: AppImages.sadImage,
-              title: 'Error!',
-              subtitle: 'Invalid OTP');
+              title:AppLocalizations.of(context)?.error ??  'Error!',
+              subtitle: AppLocalizations.of(context)?.invalidOTP ?? 'Invalid OTP');
         },
       );
     }

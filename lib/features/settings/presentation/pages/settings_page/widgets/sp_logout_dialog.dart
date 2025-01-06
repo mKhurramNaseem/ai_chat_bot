@@ -11,10 +11,10 @@ class SpLogoutDialog extends StatelessWidget {
     SetEmailUsecase setEmailUsecase = sl<SetEmailUsecase>();
     return DialogBaseWidget(
       image: AppImages.sadImage,
-      title: 'Logout',
-      subtitle: 'Are you sure you want to log out?',
-      positiveBtnText: 'Yes, Logout',
-      negativeBtnText: 'Cancel',
+      title: AppLocalizations.of(context)?.logout ?? 'Logout',
+      subtitle: AppLocalizations.of(context)?.areYouSureYouWantToLogOut ?? 'Are you sure you want to log out?',
+      positiveBtnText: AppLocalizations.of(context)?.yesLogout ?? 'Yes, Logout',
+      negativeBtnText:AppLocalizations.of(context)?.cancel ?? 'Cancel',
       onPositiveBtnPressed: () {
         setEmailUsecase(null);
         Navigator.of(context).pushNamedAndRemoveUntil(LoginAccountPage.pageName , (route) => false,);

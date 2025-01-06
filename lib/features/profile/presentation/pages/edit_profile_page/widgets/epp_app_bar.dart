@@ -5,7 +5,7 @@ class EppAppBar extends AppBar{
   EppAppBar({super.key}):super(
     title: Builder(
       builder: (context) {
-        return Text(_title , style: Theme.of(context).textTheme.bodyLarge,);
+        return Text(AppLocalizations.of(context)?.editProfile ?? _title , style: Theme.of(context).textTheme.bodyLarge,);
       },
     ),
     

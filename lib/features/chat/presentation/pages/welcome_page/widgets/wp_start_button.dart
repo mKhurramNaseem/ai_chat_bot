@@ -23,7 +23,7 @@ class WpStartButton extends StatelessWidget {
                         height * AppConstants.btnSizePercent),
                   ),
                 ),
-                child: const Text(_text),
+                child: Text(AppLocalizations.of(context)?.startChatWithBobo(AppConstants.botName) ?? _text),
               ),
             ),
           );

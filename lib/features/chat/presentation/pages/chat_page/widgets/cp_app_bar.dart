@@ -41,7 +41,7 @@ class CpAppBar extends AppBar {
                       items: [
                         CpMenuItem(
                           icon: AppIcons.clearChatIcon,
-                          text: 'Clear Chat',
+                          text: AppLocalizations.of(context)?.clearChat ?? 'Clear Chat',
                           onTap: () {
                             context.read<ChatBloc>().add(ClearChatEvent());
                           },
@@ -52,7 +52,7 @@ class CpAppBar extends AppBar {
                         // ),
                         CpMenuItem(
                           icon: AppIcons.endSession,
-                          text: 'End Session',
+                          text: AppLocalizations.of(context)?.endSession ?? 'End Session',
                           onTap: () {
                             showDialog(
                               context: context,

@@ -168,4 +168,4 @@ export 'package:just_audio/just_audio.dart';
 export 'package:provider/provider.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:sqflite/sqflite.dart';
-
+export 'package:flutter_gen/gen_l10n/app_localizations.dart';

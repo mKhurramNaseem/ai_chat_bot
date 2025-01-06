@@ -7,27 +7,31 @@ class HcpAppBar extends AppBar {
       : super(
           title: Builder(builder: (context) {
             return Text(
-              _title,
+              AppLocalizations.of(context)?.helpCenter ?? _title,
               style: Theme.of(context).textTheme.bodyLarge,
             );
           }),
-          bottom: const TabBar(
-            padding: EdgeInsets.symmetric(
+          bottom: TabBar(
+            padding: const EdgeInsets.symmetric(
               horizontal: _padding,
             ),
-            overlayColor: WidgetStatePropertyAll(
+            overlayColor: const WidgetStatePropertyAll(
               AppColors.transparent,
             ),
             indicatorWeight: 2.0,
-            indicatorSize: TabBarIndicatorSize.tab,            
+            indicatorSize: TabBarIndicatorSize.tab,
             dividerHeight: 1.0,
             tabs: [
-              Tab(
-                text: _faqTab,
-              ),
-              Tab(
-                text: _contactTab,
-              ),
+              Builder(builder: (context) {
+                return Tab(
+                  text: AppLocalizations.of(context)?.faq ?? _faqTab,
+                );
+              }),
+              Builder(builder: (context) {
+                return Tab(
+                  text: AppLocalizations.of(context)?.contactUs ?? _contactTab,
+                );
+              }),
             ],
           ),
         );

@@ -18,7 +18,7 @@ class ApDetailsChatActivity extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                _text,
+                AppLocalizations.of(context)?.detailsChatActivity ?? _text,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontSize: constraints.maxHeight * _fontSizePercent,
                     ),
@@ -28,7 +28,7 @@ class ApDetailsChatActivity extends StatelessWidget {
                   Navigator.of(context).pushNamed(AllActivityPage.pageName , arguments: activites);
                 },
                 child: Text(
-                  _seeAll,
+                  AppLocalizations.of(context)?.seeAll ?? _seeAll,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: AppColors.cyan,
                         fontSize: constraints.maxHeight * _secondaryFontSize,

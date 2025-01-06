@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ai_chat_bot/core/core.dart';
 import 'package:ai_chat_bot/features/auth/presentation/bloc/forget_password_bloc/forget_password_bloc.dart';
 
@@ -16,6 +18,7 @@ class FpContinueButton extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               onPressed: () {
+                log(email.toString() , name : 'fp_continue_button.dart');
                 if(email != null){
                   context.read<ForgetPasswordBloc>().add(SendOtpEvent(email: email));
                 context.read<FpTransitionBloc>().add(

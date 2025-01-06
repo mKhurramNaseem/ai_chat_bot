@@ -12,7 +12,7 @@ class ApUserStatistics extends StatelessWidget {
           return Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              _text,
+              AppLocalizations.of(context)?.yourStatistics ?? _text,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontSize: constraints.maxHeight * 0.3,
                   ),

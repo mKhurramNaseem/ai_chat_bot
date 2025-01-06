@@ -14,7 +14,7 @@ class ApDetailText extends StatelessWidget {
           return Align(
             alignment: Alignment.topLeft,
             child: Text(
-              _text,
+              AppLocalizations.of(context)?.graphOfTimeYouSpentWithModel(AppConstants.botName) ?? _text,
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     fontSize: constraints.maxHeight * 0.7,
                   ),

@@ -1,4 +1,5 @@
 import '../../../../../../core/core.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CapTitleText extends SliverToBoxAdapter {
   static const _capTitle = 'Create your\nAccount';
@@ -9,7 +10,7 @@ class CapTitleText extends SliverToBoxAdapter {
               final height = MediaQuery.sizeOf(context).height;
               return CapBaseWidget(
                 child: Text(
-                  _capTitle,
+                  AppLocalizations.of(context)?.createYourAccount ?? _capTitle,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontSize: height * AppConstants.titleFontSizePercent,
                       ),

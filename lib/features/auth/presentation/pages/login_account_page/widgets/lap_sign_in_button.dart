@@ -21,7 +21,7 @@ class LapSignInButton extends SliverToBoxAdapter {
                     Size(0, height * AppConstants.btnSizePercent),
                   ),
                 ),
-                child: const Text('Sign in'),
+                child: Text(AppLocalizations.of(context)?.signIn ??  'Sign in'),
               ),
             );
           }),

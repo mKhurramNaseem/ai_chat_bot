@@ -59,7 +59,7 @@ class _DemoState extends State<CapSignUpButton> {
                       ),                      
                     ),
                     statesController: widgetStatesController,
-                    child: const Text('Sign up'),                    
+                    child: Text(AppLocalizations.of(context)?.signUp ?? 'Sign up'),                    
                   ),
               ),
             );

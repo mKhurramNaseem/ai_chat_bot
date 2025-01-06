@@ -64,7 +64,7 @@ class ChatPageBody extends StatefulWidget {
 class _ChatPageState extends State<ChatPageBody> {
   late ChatScrollController scrollController;
   late ChatTextEditingController chatTextController;
-  late AudioPlayer player;  
+  late AudioPlayer player;
   bool moveToEnd = true;
 
   @override
@@ -94,7 +94,7 @@ class _ChatPageState extends State<ChatPageBody> {
   }
 
   @override
-  void dispose() {    
+  void dispose() {
     chatTextController.dispose();
     scrollController.removeListener(_scrollListener);
     scrollController.dispose();
@@ -127,12 +127,11 @@ class _ChatPageState extends State<ChatPageBody> {
         child: Scaffold(
           appBar: CpAppBar(),
           body: NotificationListener<ScrollMetricsNotification>(
-            onNotification: (notification) {                                
+            onNotification: (notification) {
               if (notification.metrics.hasContentDimensions && moveToEnd) {
-                scrollController
-                    .jumpTo(notification.metrics.extentAfter);
-                    moveToEnd = false;
-              }              
+                scrollController.jumpTo(notification.metrics.extentAfter);
+                moveToEnd = false;
+              }
               return true;
             },
             child: Center(
@@ -195,7 +194,7 @@ class _ChatPageState extends State<ChatPageBody> {
       if (state.isSender) {
         player.seek(Duration.zero);
         player.play();
-        context.read<ChatTextEditingController>().clear();        
+        context.read<ChatTextEditingController>().clear();
       }
       moveToEnd = true;
     } else if (state is ChatMessageEndState) {

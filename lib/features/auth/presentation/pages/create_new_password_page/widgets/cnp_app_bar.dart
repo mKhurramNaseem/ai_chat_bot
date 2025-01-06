@@ -7,7 +7,7 @@ class CnpAppBar extends AppBar {
           title: Builder(
             builder: (context) {
               return Text(
-                _title,
+                AppLocalizations.of(context)?.createNewPin ?? _title,
                 style: Theme.of(context).textTheme.bodyLarge,
               );
             },

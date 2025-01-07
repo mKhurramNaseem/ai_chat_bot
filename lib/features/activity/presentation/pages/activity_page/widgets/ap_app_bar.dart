@@ -13,10 +13,10 @@ class ApAppBar extends AppBar {
             },
           ),
           actions: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: AppIcons.moreIcon,
-            ),
+            // const Padding(
+            //   padding: EdgeInsets.all(8.0),
+            //   child: AppIcons.moreIcon,
+            // ),
           ],
         );
 }

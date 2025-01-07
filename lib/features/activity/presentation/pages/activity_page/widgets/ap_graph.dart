@@ -20,7 +20,7 @@ class ApGraph extends StatelessWidget {
           minX: 1,
           minY: 0,
           maxX: 7,
-          maxY: 120,
+          maxY: 200,
           titlesData: FlTitlesData(
             show: true,
             leftTitles: AxisTitles(
@@ -29,9 +29,9 @@ class ApGraph extends StatelessWidget {
               axisNameSize: 2,
               sideTitles: SideTitles(
                 showTitles: true,
-                interval: 30,
+                interval: 40,
                 minIncluded: true,
-                reservedSize: 30,
+                reservedSize: 35,
                 getTitlesWidget: (value, meta) {
                   log(value.toString());
                   return SideTitleWidget(

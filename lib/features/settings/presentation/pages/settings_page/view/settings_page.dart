@@ -67,6 +67,10 @@ class _SettingsPageState extends State<SettingsPageBody> {
             ),
             Expanded(
               flex: 7,
+              child: SpDarkModeTile(),
+            ),
+            Expanded(
+              flex: 7,
               child: SpHelpCenterTile(),
             ),
             Expanded(
@@ -74,7 +78,7 @@ class _SettingsPageState extends State<SettingsPageBody> {
               child: SpLogoutTile(),
             ),
             Spacer(
-              flex: 32,
+              flex: 25,
             ),
           ],
         ),

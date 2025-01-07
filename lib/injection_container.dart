@@ -9,6 +9,11 @@ import 'package:ai_chat_bot/features/auth/domain/usecases/login_usecase.dart';
 import 'package:ai_chat_bot/features/auth/domain/usecases/send_otp_usecase.dart';
 import 'package:ai_chat_bot/features/auth/domain/usecases/verify_otp_usecase.dart';
 import 'package:ai_chat_bot/features/profile/domain/usecases/get_user_usecase.dart';
+import 'package:ai_chat_bot/features/settings/data/language_source.dart';
+import 'package:ai_chat_bot/features/settings/domain/usecases/get_language_usecase.dart';
+import 'package:ai_chat_bot/features/settings/domain/usecases/get_mode_usecase.dart';
+import 'package:ai_chat_bot/features/settings/domain/usecases/set_language_usecase.dart';
+import 'package:ai_chat_bot/features/settings/domain/usecases/set_mode_usecase.dart';
 import 'package:ai_chat_bot/firebase_options.dart';
 import 'package:ai_chat_bot/shared/data/repository/email_repository_impl.dart';
 import 'package:ai_chat_bot/shared/data/source/email_source.dart';
@@ -27,10 +32,11 @@ Future<void> initDependencies() async {
   initActivity();
   initProfile();
   initAuth();
+  initSettings();
 }
 
-Future<void> initFirebase() async{
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);    
+Future<void> initFirebase() async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
 
 Future<void> initAllDb() async {
@@ -143,17 +149,54 @@ void initProfile() {
   );
   sl.registerLazySingleton<EmailSource>(
     () => EmailSourceImpl(sl()),
-  );  
+  );
 }
 
+void initAuth() {
+  sl.registerLazySingleton(
+    () => CreateAccountUsecase(sl()),
+  );
+  sl.registerLazySingleton(
+    () => LoginUsecase(sl()),
+  );
+  sl.registerLazySingleton(
+    () => SendOtpUsecase(sl()),
+  );
+  sl.registerLazySingleton(
+    () => VerifyOtpUsecase(sl()),
+  );
+  sl.registerLazySingleton(
+    () => CreateNewPasswordUsecase(sl()),
+  );
+  sl.registerLazySingleton<UserAuthRepository>(
+    () => UserAuthRepositoryImpl(
+      sl(),
+    ),
+  );
+  sl.registerLazySingleton<UserAuthSource>(
+    () => UserAuthSourceImpl(
+      sl(),
+    ),
+  );
+  sl.registerLazySingleton<OTPService>(
+    () => OTPServiceImpl(),
+  );
+}
 
-void initAuth(){
-  sl.registerLazySingleton(() => CreateAccountUsecase(sl()),);
-  sl.registerLazySingleton(() => LoginUsecase(sl()),);
-  sl.registerLazySingleton(() => SendOtpUsecase(sl()),);
-  sl.registerLazySingleton(() => VerifyOtpUsecase(sl()),);
-  sl.registerLazySingleton(() => CreateNewPasswordUsecase(sl()),);
-  sl.registerLazySingleton<UserAuthRepository>(() => UserAuthRepositoryImpl(sl(),),);
-  sl.registerLazySingleton<UserAuthSource>(() => UserAuthSourceImpl(sl(),),);
-  sl.registerLazySingleton<OTPService>(() => OTPServiceImpl(),);
+void initSettings() {
+  sl.registerLazySingleton(
+    () => SetLanguageUsecase(sl()),
+  );
+  sl.registerLazySingleton(
+    () => GetLanguageUsecase(sl()),
+  );
+  sl.registerLazySingleton(
+    () => GetModeUsecase(sl()),
+  );
+  sl.registerLazySingleton(
+    () => SetModeUsecase(sl()),
+  );
+  sl.registerLazySingleton(
+    () => SettingsSource(sl()),
+  );
 }

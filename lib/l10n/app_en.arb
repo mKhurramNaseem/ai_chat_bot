@@ -328,7 +328,13 @@
     "suggested":"Suggested",
     "@suggested": {
       "description": "Suggested"
+    },
+
+    "darkMode":"Dark Mode",
+    "@darkMode": {
+      "description": "Dark Mode"
     }
 
 
+  
 }

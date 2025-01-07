@@ -52,6 +52,7 @@
     "createYourNewPassword":"Crea tu nueva contraseña",
     "congratulations":"¡Felicidades!",
     "yourAccountIsReadyToUse":"Su cuenta está lista para usar. Serás redirigido a la página de inicio en unos segundos."        ,
-    "suggested":"Sugerida"
+    "suggested":"Sugerida",
+    "darkMode":"modo oscuro"   
 
 }

@@ -108,7 +108,9 @@ class MyApp extends StatelessWidget {
               ],
               supportedLocales: const [
                 Locale('en'), // English
-                Locale('es'), // Spanish
+                Locale('es'),
+                Locale('ur'),
+                Locale('hi'), // Spanish
               ],
               locale: Locale(currentLocale),
               // Home Page Observer
